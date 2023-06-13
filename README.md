@@ -14,7 +14,7 @@
 ## Sample app creation
 1. Ensure node is installed (https://nodejs.org/en)
 2. Clone the repository and `cd` to it
-3. Install the necessary dependencies with `npm install express pg`
+3. Install the necessary dependencies with `npm install` (alternatively, explicitly install with `npm install express pg`)
 
 ## Sample database creation
 1. Create a new user `newUser` and give it the `CREATEDB` permission:
