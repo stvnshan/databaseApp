@@ -1,0 +1,5 @@
+"id","date","threat_type","flee_status","armed_with","city","county","state","latitude","longitude","location_precision","name","age","gender","race","race_source","was_mental_illness_related","body_camera","agency_ids"
+"3","2015-01-02","point","not","gun","Shelton","Mason","WA","47.246826","-123.121592","not_available","Tim Elliot","53","male","A","not_available","True","False","73"
+"4","2015-01-02","point","not","gun","Aloha","Washington","OR","45.4874214","-122.8916961","not_available","Lewis Lee Lembke","47","male","W","not_available","False","False","70"
+"5","2015-01-03","move","not","unarmed","Wichita","Sedgwick","KS","37.694766","-97.280554","not_available","John Paul Quintero","23","male","H","not_available","False","False","238"
+"8","2015-01-04","point","not","replica","San Francisco","San Francisco","CA","37.76291","-122.422001","not_available","Matthew Hoffman","32","male","W","not_available","True","False","196"
