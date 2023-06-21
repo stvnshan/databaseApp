@@ -25,7 +25,7 @@ const createTables = async () => {
     );
 
     CREATE TABLE Victim (
-        VictimID INT PRIMARY KEY,
+        VictimID SERIAL PRIMARY KEY,
         Name VARCHAR(100),
         Age INT,
         Gender VARCHAR(100),
@@ -352,8 +352,8 @@ const insertIntoVictimTable = async (name, age, gender, race, raceSource) => {
     const client = await pool.connect();
 
     const insertQuery = `
-      INSERT INTO Victim (VictimID, Name, Age, Gender, Race, RaceSource)
-      VALUES (DEFAULT, $1, $2, $3, $4, $5)
+      INSERT INTO Victim (Name, Age, Gender, Race, RaceSource)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING VictimID
     `;
 
