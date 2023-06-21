@@ -6,7 +6,7 @@ const port = 3000;
 
 app.get('/data',async (req, res) => {
     try{
-        const{rows} = await pool.query('SELECT * FROM student');
+        //const{rows} = await pool.query();
         res.json(rows);
     }catch (error){
         console.error('Error executing query', error);
