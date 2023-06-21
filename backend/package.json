@@ -1,0 +1,22 @@
+{
+  "name": "cs348",
+  "version": "1.0.0",
+  "description": "CS 348 Databases group project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node backend/src/app.js",
+    "dev": "nodemon backend/src/app.js",
+    "create": "node src/dbDesign.js",
+    "drop": "node src/dbDropAll.js"
+  },
+  "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski, Arhum Waqar",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

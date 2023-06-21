@@ -1,2 +1,0 @@
-﻿"id","name","type","state","oricodes","total_shootings"
-"3145","Abbeville County Sheriff's Office","sheriff","SC","SC00100","1"
