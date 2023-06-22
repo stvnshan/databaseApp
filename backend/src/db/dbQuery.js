@@ -15,7 +15,7 @@ const selectAllVictimIDs = async () => {
   const data = result.rows;
 
   client.release();
-  console.log('VictimID selected from Victim table successfully');
+  console.log('VictimIDs selected from Victim table successfully');
   return data;
   } catch (error) {
   console.error('Error selecting VictimID', error);
@@ -35,12 +35,12 @@ const selectAllAgencyIDs = async () => {
   const data = result.rows;
 
   client.release();
-  console.log('AgencyID selected from Agency table successfully');
+  console.log('AgencyIDs selected from Agency table successfully');
   return data;
   } catch (error) {
   console.error('Error selecting AgencyID', error);
   }
-}
+};
 
 
 const selectAllIncidentIDs = async () => {
@@ -55,12 +55,12 @@ const selectAllIncidentIDs = async () => {
   const data = result.rows;
 
   client.release();
-  console.log('IncidentID selected from Agency table successfully');
+  console.log('IncidentIDs selected from Incident table successfully');
   return data;
   } catch (error) {
   console.error('Error selecting IncidentID', error);
   }
-}
+};
 
 
 const selectVictimByID = async (victimID) => {
@@ -82,7 +82,7 @@ const selectVictimByID = async (victimID) => {
   } catch (error) {
   console.error('Error selecting Victim information', error);
   }
-}
+};
 
 
 const selectAgencyByID = async (agencyID) => {
@@ -107,7 +107,7 @@ const selectAgencyByID = async (agencyID) => {
   } catch (error) {
   console.error('Error selecting Victim information', error);
   }
-}
+};
 
 
 const selectIncidentByID = async (incidentID) => {
@@ -139,7 +139,7 @@ const selectIncidentByID = async (incidentID) => {
   } catch (error) {
   console.error('Error selecting Incident information', error);
   }
-}
+};
 
 
 const insertIntoAgencyTable = async (agencyID, agencyName, type, state, totalShootings) => {
