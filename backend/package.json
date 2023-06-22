@@ -1,7 +1,7 @@
 {
-  "name": "cs348",
+  "name": "cs348back",
   "version": "1.0.0",
-  "description": "CS 348 Databases group project",
+  "description": "CS 348 Databases group project backend",
   "main": "app.js",
   "scripts": {
     "start": "node backend/src/app.js",

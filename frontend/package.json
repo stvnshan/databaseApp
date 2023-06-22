@@ -1,6 +1,7 @@
 {
-  "name": "front",
+  "name": "cs348front",
   "version": "0.1.0",
+  "description": "CS 348 Databases group project backend",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
