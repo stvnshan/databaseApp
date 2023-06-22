@@ -1,7 +1,11 @@
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 
-// PostgreSQL database pool connection instance, initialized with credentials stored in .env
+////////////////////////////////////////////////////////////////////////////////
+// dbPool.js
+// PostgreSQL database pool connection instance, initialized with credentials stored in .env.
+////////////////////////////////////////////////////////////////////////////////
+
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.HOST,

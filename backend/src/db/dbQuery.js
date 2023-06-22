@@ -5,6 +5,142 @@ const pool = require('./dbPool');
 // Data layer that runs individual queries on the database.
 ////////////////////////////////////////////////////////////////////////////////
 
+const selectAllVictimIDs = async () => {
+  try {
+  const client = await pool.connect();
+
+  const query = 'SELECT VictimID, Name FROM Victim ORDER BY VictimID ASC';
+  const result = await client.query(query);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('VictimID selected from Victim table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting VictimID', error);
+  }
+}
+
+
+const selectAllAgencyIDs = async () => {
+  try {
+  const client = await pool.connect();
+
+  const query = `
+    SELECT AgencyID, AgencyName FROM Agency ORDER BY AgencyID ASC
+  `;
+  const result = await client.query(query);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('AgencyID selected from Agency table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting AgencyID', error);
+  }
+}
+
+
+const selectAllIncidentIDs = async () => {
+  try {
+  const client = await pool.connect();
+
+  const query = `
+    SELECT IncidentID FROM Incident ORDER BY IncidentID ASC
+  `;
+  const result = await client.query(query);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('IncidentID selected from Agency table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting IncidentID', error);
+  }
+}
+
+
+const selectVictimByID = async (victimID) => {
+  try {
+  const client = await pool.connect();
+
+  const query = `
+    SELECT *
+    FROM Victim
+    WHERE VictimID = $1
+  `;
+  const result = await client.query(query, [victimID]);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('Victim information selected from Victim table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting Victim information', error);
+  }
+}
+
+
+const selectAgencyByID = async (agencyID) => {
+  try {
+  const client = await pool.connect();
+
+  const query = `
+    SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
+    FROM Agency A
+    LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
+    LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID
+    WHERE A.AgencyID = $1
+    GROUP BY A.AgencyID
+  `;
+  const result = await client.query(query, [agencyID]);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('Agency information selected from Agency table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting Victim information', error);
+  }
+}
+
+
+const selectIncidentByID = async (incidentID) => {
+  try {
+  const client = await pool.connect();
+
+  const query = `
+    SELECT I.IncidentID, I.Date, I.ThreatenType, I.FleeStatus,
+      I.ArmedWith, I.WasMentalIllnessRelated, I.BodyCamera, I.Latitude, I.Longitude,
+      V.VictimID, V.Name, V.Age, V.Gender, V.Race, V.RaceSource,
+      JSONB_AGG(AI.AgencyID) as AgencyIDs,
+      C.CityName, C.County, C.State
+    FROM Incident I
+    LEFT OUTER JOIN HasVictim HV ON I.IncidentID = HV.IncidentID
+    LEFT OUTER JOIN Victim V ON HV.VictimID = V.VictimID
+    LEFT OUTER JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID
+    LEFT OUTER JOIN HappensIn HI ON I.IncidentID = HI.IncidentID
+    LEFT OUTER JOIN City C ON HI.CityName = C.CityName
+    WHERE I.IncidentID = $1
+    GROUP BY I.IncidentID, V.VictimID, C.CityName
+  `;
+  const result = await client.query(query, [incidentID]);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('Incident information selected from Incident table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting Incident information', error);
+  }
+}
+
 
 const insertIntoAgencyTable = async (agencyID, agencyName, type, state, totalShootings) => {
   try {
@@ -211,6 +347,12 @@ const insertIntoHappensInTable = async (incidentID, cityName) => {
 
 
 module.exports = {
+  selectAllVictimIDs,
+  selectAllAgencyIDs,
+  selectAllIncidentIDs,
+  selectVictimByID,
+  selectAgencyByID,
+  selectIncidentByID,
   insertIntoAgencyTable,
   insertIntoHasORICodesTable,
   insertIntoORICodesTable,
