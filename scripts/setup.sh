@@ -12,12 +12,16 @@ cd './backend'
 # Install backend dependencies
 npm install
 # Drop the tables if they exist
-npm run drop
-# Create the database relations
-npm run create
+npm run dropdb
+# Create the database relations and populate with sample data
+npm run initdb
+# Start the backend
+# npm start
 
 
-# Install
+# Frontend
 cd '../frontend'
 # Install frontend dependencies
 npm install
+# Start the frontend
+npm start

@@ -1,14 +1,9 @@
-const { Pool } = require('pg');
-const dotenv = require('dotenv').config();
+const pool = require('./dbPool');
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-});
-
+////////////////////////////////////////////////////////////////////////////////
+// dbDropAll.js
+// Drop all tables script.
+////////////////////////////////////////////////////////////////////////////////
 
 const dropAllTables = async () => {
   const createTableQuery = `
