@@ -4,10 +4,11 @@
   "description": "CS 348 Databases group project backend",
   "main": "app.js",
   "scripts": {
-    "start": "node backend/src/app.js",
-    "dev": "nodemon backend/src/app.js",
-    "create": "node src/dbDesign.js",
-    "drop": "node src/dbDropAll.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "initdb": "node src/db/dbInit.js",
+    "dropdb": "node src/db/dbDropAll.js",
+    "testdb": "node src/db/dbTest.js"
   },
   "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski, Arhum Waqar",
   "license": "ISC",
