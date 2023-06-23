@@ -1,17 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const {
   selectAllVictimIDs,
   selectAllAgencyIDs,
   selectAllIncidentIDs,
   selectVictimByID,
-  selectAgencyByID,
-  selectIncidentByID
+  selectIncidentByID,
+  selectAgencyByName
 } = require('./db/dbQuery');
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5001;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get('/api/allincidents', async (req, res) => {
   try {
@@ -76,14 +78,11 @@ app.get('/api/victim', async (req, res) => {
 app.get('/api/agency', async (req, res) => {
   try {
   const { search } = req.query;
-  if (!search || !isNaN(req.query.id)) {
-    throw new Error('Invalid Agency query');
-  }
-  const agencyID = parseInt(req.query.id);
-  const result = await selectAgencyByID(agencyID);
+  const agencyName = req.query.search;
+  const result = await selectAgencyByName(agencyName);
   res.json(result);
   } catch (error){
-  console.error('Error executing selectAgencyByID query', error);
+  console.error('Error executing selectAgencyByName query', error);
   res.status(500).json({error: 'Internal server error'});
   }
 });
