@@ -142,6 +142,32 @@ const selectIncidentByID = async (incidentID) => {
 };
 
 
+const selectAgencyByName = async (agencyName) => {
+  try {
+  const client = await pool.connect();
+  const agencyNameRegex = `%${agencyName.toLowerCase()}%`;
+
+  const query = `
+    SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
+    FROM Agency A
+    LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
+    LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID
+    WHERE LOWER(A.AgencyName) LIKE $1
+    GROUP BY A.AgencyID
+  `;
+  const result = await client.query(query, [agencyNameRegex]);
+
+  const data = result.rows;
+
+  client.release();
+  console.log('Agency information selected from Agency table successfully');
+  return data;
+  } catch (error) {
+  console.error('Error selecting Agency information', error);
+  }
+};
+
+
 const insertIntoAgencyTable = async (agencyID, agencyName, type, state, totalShootings) => {
   try {
   const client = await pool.connect();
@@ -353,6 +379,7 @@ module.exports = {
   selectVictimByID,
   selectAgencyByID,
   selectIncidentByID,
+  selectAgencyByName,
   insertIntoAgencyTable,
   insertIntoHasORICodesTable,
   insertIntoORICodesTable,

@@ -5,7 +5,8 @@ const {
   selectVictimByID,
   selectAgencyByID,
   selectIncidentByID,
-  selectAllIncidentIDs
+  selectAllIncidentIDs,
+  selectAgencyByName
 } = require('./dbQuery');
 
 const main = async () => {
@@ -31,6 +32,8 @@ const main = async () => {
   data = await selectIncidentByID(5);
   console.log(data);
   data = await selectIncidentByID(8);
+  console.log(data);
+  data = await selectAgencyByName("PoLIce");
   console.log(data);
 
   } catch (error) {

@@ -15,13 +15,9 @@ npm install
 npm run dropdb
 # Create the database relations and populate with sample data
 npm run initdb
-# Start the backend
-# npm start
 
 
 # Frontend
 cd '../frontend'
 # Install frontend dependencies
 npm install
-# Start the frontend
-npm start
