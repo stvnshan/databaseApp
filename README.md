@@ -1,7 +1,12 @@
 # CS 348 Group Project
 ## Feature support
 The README provides an explanation on how to set up the database application. Onde complete, a React app will begin in the browser that supports a simple search query on the Agency relation.
-Additionally, we provide a `dbTest.js` script that performs a series of queries (the database server needs to be up; the backend and frontend do not), and a `sample.out` file in the root directory that contains the expected output of these queries.
+Additionally, we provide a `dbTest.js` script that performs a series of queries (the database server needs to be up; the backend and frontend do not), and a `sample.out` file in the root directory that contains the expected output of these queries. To perform this test:
+1. Ensure the database is running and backend dependencies are installed (see below).
+2. `cd` to the `backend` directory.
+3. Run `npm run testdbm`.
+4. Compare the expected output to `sample.out` in the root directory.
+
 ## Mac setup
 1. Install brew (https://brew.sh/).
 2. Install Node.js: `brew install node`.
