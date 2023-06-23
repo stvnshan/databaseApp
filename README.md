@@ -1,45 +1,51 @@
 # CS 348 Group Project
-
-## Windows initial setup
-1. Download and install PostgreSQL server (https://www.postgresql.org/download/windows/)
-2. Add the PostgreSQL bin directory path to the PATH environment variable
-3. Login to the postgresql server: `psql -U postgres`
-
-## Mac initial setup
-1. Install brew (https://brew.sh/)
-2. Install PostgreSQL: `brew install postgresql`
-3. Start PostgreSQL: `brew services start postgresql`
-4. Login to the PostgreSQL server: `psql postgres`
-
-## Sample app creation
-1. Ensure node is installed (https://nodejs.org/en)
-2. Clone the repository and `cd` to it
-3. Install the necessary dependencies with `npm install` (alternatively, explicitly install with `npm install express pg`)
-
-## Sample database creation
-1. Create a new user `newUser` and give it the `CREATEDB` permission:
+## Feature support
+The README provides an explanation on how to set up the database application. Onde complete, a React app will begin in the browser that supports a simple search query on the Agency relation.
+Additionally, we provide a `dbTest.js` script that performs a series of queries (the database server needs to be up; the backend and frontend do not), and a `sample.out` file in the root directory that contains the expected output of these queries.
+## Mac setup
+1. Install brew (https://brew.sh/).
+2. Install Node.js: `brew install node`.
+3. Install PostgreSQL: `brew install postgresql`.
+4. Start PostgreSQL: `brew services start postgresql`.
+5. Clone the repository and `cd` to it.
+6. Run `scripts/setup.sh`.
+7. In one terminal, `cd` to the `backend` folder and run `npm start`.
+8. In another terminal,`cd` to the `frontend` folder and run `npm start`.
+## Windows setup
+1. Download and install PostgreSQL server (https://www.postgresql.org/download/windows/).
+2. Install node (https://nodejs.org/en).
+3. Add the PostgreSQL bin directory path to the PATH environment variable.
+4. Login to the postgresql server: `psql -U postgres`.
+5. Clone the repository and `cd` to it.
+6. The `scripts/setup.sh` setup script only works on Mac, so perform the following steps manually:
+7. Create a the user `cs348user` and give it the `CREATEDB` permission:
 ```
-CREATE ROLE newUser WITH LOGIN PASSWORD 'password';
-ALTER ROLE newUser CREATEDB;
+CREATE ROLE cs348user WITH LOGIN PASSWORD 'password';
+ALTER ROLE cs348user CREATEDB;
 ```
-2. Create the database and make it accessible to the *newUser* user:
+8. Create the database *cs348* and make it accessible to the *cs348user* user:
 ```
-CREATE DATABASE test;
-GRANT ALL PRIVILEGES ON DATABASE test TO newUser;
+CREATE DATABASE cs348;
+GRANT ALL PRIVILEGES ON DATABASE cs348 TO cs348user;
 \q
 ```
-3. Login to the `test` database with `psql test -U newUser`
-4. To test the database, create the following sample relation named **users** and enter a data point:
+9. Login to the `cs348` database with `psql cs348 -U cs348user`
+10. Now that the database is set up, in a new terminal, return to the repository root directory. `cd` to the `backend` folder and run the following:
 ```
-CREATE TABLE users (name TEXT);
-INSERT INTO users (name) VALUES ('John');
+npm install     # install dependencies
+npm run dropdb  # clear tables
+npm run initdb  # initialize the database and populate with sample data
+npm start       # start the backend app
 ```
-5. Exit the database and run the node app with `node app.js`
-6. In a browser, go to the URL `localhost:3000/users` to view a json file containing the sample data
+11. In a new terminal, return to the repository root directory, and `cd` to the `frontend` folder and run the following:
+```
+npm install     # install dependencies
+npm start       # start the frontend app
+```
 
 ### Useful postgresql commands
-* \list: lists all databases
-* \connect: connect to a database
+* \l: lists all databases
+* \c <database>: connect to a database
 * \dt: list tables
 * \du: list users
 * \q: quit
