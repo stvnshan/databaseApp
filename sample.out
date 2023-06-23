@@ -1,0 +1,411 @@
+
+> cs348back@1.0.0 testdb
+> node src/db/dbTest.js
+
+
+Select all Victim IDs:
+VictimIDs selected from Victim table successfully
+[ { victimid: 1, name: 'Tim Elliot' } ]
+
+Select information about Victim with ID 1:
+Victim information selected from Victim table successfully
+[
+  {
+    victimid: 1,
+    name: 'Tim Elliot',
+    age: 53,
+    gender: 'male',
+    race: 'A',
+    racesource: 'not_available'
+  }
+]
+
+Select all Agency IDs:
+AgencyIDs selected from Agency table successfully
+[
+  { agencyid: 70, agencyname: 'Albert Lea Police Department' },
+  { agencyid: 73, agencyname: "Abbeville County Sheriff's Office" },
+  { agencyid: 196, agencyname: 'Alabama Law Enforcement Agency' },
+  { agencyid: 238, agencyname: 'Alamosa Police Department' },
+  { agencyid: 508, agencyname: 'Albuquerque Police Department' },
+  { agencyid: 775, agencyname: 'Alaska State Troopers' },
+  { agencyid: 793, agencyname: 'Alexandria Police Department' },
+  { agencyid: 806, agencyname: "Alameda County Sheriff's Office" },
+  { agencyid: 815, agencyname: 'Akron Police Department' },
+  { agencyid: 860, agencyname: 'Alabama State Police' },
+  { agencyid: 897, agencyname: "Adams County Sheriff's Department" },
+  { agencyid: 914, agencyname: "Aiken County Sheriff's Office" },
+  { agencyid: 958, agencyname: "Albany County Sheriff's Office" },
+  { agencyid: 1055, agencyname: 'Allegheny County Port Authority' },
+  { agencyid: 1180, agencyname: "Alachua County Sheriff's Office" },
+  { agencyid: 1203, agencyname: "Aitkin County Sheriff's Office" },
+  { agencyid: 1241, agencyname: "Ada County Sheriff's Office" },
+  { agencyid: 1434, agencyname: 'Alamogordo Police Department' },
+  { agencyid: 1443, agencyname: 'Albany Police Department' },
+  { agencyid: 1615, agencyname: "Adair County Sheriff's Office" },
+  { agencyid: 1754, agencyname: 'Alhambra Police Department' },
+  { agencyid: 1831, agencyname: "Allen County Sheriff's Department" },
+  { agencyid: 1978, agencyname: "Adams County Sheriff's Department" },
+  { agencyid: 2028, agencyname: "Allen County Sheriff's Office" },
+  { agencyid: 2088, agencyname: 'Abington Township Police Department' },
+  { agencyid: 2114, agencyname: 'Abilene Police Department' },
+  { agencyid: 2149, agencyname: "Alleghany County Sheriff's Office" },
+  { agencyid: 2168, agencyname: "Alamance County Sheriff's Office" },
+  { agencyid: 2237, agencyname: 'Albany Police Department' },
+  { agencyid: 2576, agencyname: 'Aberdeen Police Department' },
+  { agencyid: 2579, agencyname: 'Ada Police Department' },
+  { agencyid: 2924, agencyname: 'Alexandria Police Department' },
+  { agencyid: 3107, agencyname: 'Adel Police Department' },
+  { agencyid: 3165, agencyname: "Alcorn County Sheriff's Office" },
+  { agencyid: 3187, agencyname: "Acadia Parish Sheriff's Office" },
+  { agencyid: 3194, agencyname: "Adams County Sheriff's Office" },
+  { agencyid: 3375, agencyname: 'Acworth Police Department' },
+  { agencyid: 3452, agencyname: 'Albertville Police Department' },
+  { agencyid: 3491, agencyname: "Allegan County Sheriff's Office" },
+  { agencyid: 3498, agencyname: 'Albion Department of Public Safety' },
+  { agencyid: 3551, agencyname: 'Albemarle County Police Department' },
+  { agencyid: 3561, agencyname: "Adams County Sheriff's Office" },
+  { agencyid: 3607, agencyname: 'Alice Police Department' },
+  { agencyid: 3706, agencyname: "Adams County Sheriff's Office" },
+  { agencyid: 3848, agencyname: 'Alabama State Troopers' },
+  { agencyid: 3901, agencyname: 'Albany Police Department' }
+]
+
+Select information about Agencies with IDs 70, 1055, and 3187:
+Agency information selected from Agency table successfully
+[
+  {
+    agencyid: 70,
+    agencyname: 'Albert Lea Police Department',
+    type: 'local_police',
+    state: 'MN',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  }
+]
+Agency information selected from Agency table successfully
+[
+  {
+    agencyid: 1055,
+    agencyname: 'Allegheny County Port Authority',
+    type: 'state_other',
+    state: 'PA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  }
+]
+Agency information selected from Agency table successfully
+[
+  {
+    agencyid: 3187,
+    agencyname: "Acadia Parish Sheriff's Office",
+    type: 'sheriff',
+    state: 'LA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  }
+]
+
+Select all Incident IDs:
+IncidentIDs selected from Incident table successfully
+[
+  { incidentid: 3 },
+  { incidentid: 4 },
+  { incidentid: 5 },
+  { incidentid: 8 }
+]
+
+Select information about Indicents with IDs 3, 4, 5, 8:
+Incident information selected from Incident table successfully
+[
+  {
+    incidentid: 3,
+    date: 2015-01-01T05:00:00.000Z,
+    threatentype: 'point',
+    fleestatus: 'not',
+    armedwith: 'gun',
+    wasmentalillnessrelated: false,
+    bodycamera: false,
+    latitude: 47.246826,
+    longitude: -123.121592,
+    victimid: null,
+    name: null,
+    age: null,
+    gender: null,
+    race: null,
+    racesource: null,
+    agencyids: [ null ],
+    cityname: 'Shelton',
+    county: 'Mason',
+    state: 'WA'
+  }
+]
+Incident information selected from Incident table successfully
+[
+  {
+    incidentid: 4,
+    date: 2015-01-01T05:00:00.000Z,
+    threatentype: 'point',
+    fleestatus: 'not',
+    armedwith: 'gun',
+    wasmentalillnessrelated: false,
+    bodycamera: false,
+    latitude: 45.4874214,
+    longitude: -122.8916961,
+    victimid: null,
+    name: null,
+    age: null,
+    gender: null,
+    race: null,
+    racesource: null,
+    agencyids: [ null ],
+    cityname: 'Aloha',
+    county: 'Washington',
+    state: 'OR'
+  }
+]
+Incident information selected from Incident table successfully
+[
+  {
+    incidentid: 5,
+    date: 2015-01-02T05:00:00.000Z,
+    threatentype: 'move',
+    fleestatus: 'not',
+    armedwith: 'unarmed',
+    wasmentalillnessrelated: false,
+    bodycamera: false,
+    latitude: 37.694766,
+    longitude: -97.280554,
+    victimid: null,
+    name: null,
+    age: null,
+    gender: null,
+    race: null,
+    racesource: null,
+    agencyids: [ null ],
+    cityname: 'Wichita',
+    county: 'Sedgwick',
+    state: 'KS'
+  }
+]
+Incident information selected from Incident table successfully
+[
+  {
+    incidentid: 8,
+    date: 2015-01-03T05:00:00.000Z,
+    threatentype: 'point',
+    fleestatus: 'not',
+    armedwith: 'replica',
+    wasmentalillnessrelated: false,
+    bodycamera: false,
+    latitude: 37.76291,
+    longitude: -122.422001,
+    victimid: null,
+    name: null,
+    age: null,
+    gender: null,
+    race: null,
+    racesource: null,
+    agencyids: [ null ],
+    cityname: 'San Francisco',
+    county: 'San Francisco',
+    state: 'CA'
+  }
+]
+
+Select information about Agencies using the case-insensitive search term "PoLIce":
+Agency information selected from Agency table successfully
+[
+  {
+    agencyid: 1434,
+    agencyname: 'Alamogordo Police Department',
+    type: 'local_police',
+    state: 'NM',
+    totalshootings: 2,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3107,
+    agencyname: 'Adel Police Department',
+    type: 'local_police',
+    state: 'GA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3452,
+    agencyname: 'Albertville Police Department',
+    type: 'local_police',
+    state: 'AL',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 1443,
+    agencyname: 'Albany Police Department',
+    type: 'local_police',
+    state: 'GA',
+    totalshootings: 2,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 508,
+    agencyname: 'Albuquerque Police Department',
+    type: 'local_police',
+    state: 'NM',
+    totalshootings: 40,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 238,
+    agencyname: 'Alamosa Police Department',
+    type: 'local_police',
+    state: 'CO',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 70,
+    agencyname: 'Albert Lea Police Department',
+    type: 'local_police',
+    state: 'MN',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3901,
+    agencyname: 'Albany Police Department',
+    type: 'local_police',
+    state: 'OR',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 860,
+    agencyname: 'Alabama State Police',
+    type: 'state_police',
+    state: 'AL',
+    totalshootings: 4,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3375,
+    agencyname: 'Acworth Police Department',
+    type: 'local_police',
+    state: 'GA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2237,
+    agencyname: 'Albany Police Department',
+    type: 'local_police',
+    state: 'NY',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2579,
+    agencyname: 'Ada Police Department',
+    type: 'local_police',
+    state: 'OK',
+    totalshootings: 3,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 793,
+    agencyname: 'Alexandria Police Department',
+    type: 'local_police',
+    state: 'LA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3551,
+    agencyname: 'Albemarle County Police Department',
+    type: 'local_police',
+    state: 'VA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2576,
+    agencyname: 'Aberdeen Police Department',
+    type: 'local_police',
+    state: 'WA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 3607,
+    agencyname: 'Alice Police Department',
+    type: 'local_police',
+    state: 'TX',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 815,
+    agencyname: 'Akron Police Department',
+    type: 'local_police',
+    state: 'OH',
+    totalshootings: 8,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2114,
+    agencyname: 'Abilene Police Department',
+    type: 'local_police',
+    state: 'TX',
+    totalshootings: 3,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2088,
+    agencyname: 'Abington Township Police Department',
+    type: 'local_police',
+    state: 'PA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 2924,
+    agencyname: 'Alexandria Police Department',
+    type: 'local_police',
+    state: 'VA',
+    totalshootings: 2,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  },
+  {
+    agencyid: 1754,
+    agencyname: 'Alhambra Police Department',
+    type: 'local_police',
+    state: 'CA',
+    totalshootings: 1,
+    incidentids: [ null ],
+    oricodes: [ null ]
+  }
+]
