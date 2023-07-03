@@ -8,7 +8,7 @@ function App() {
 
   const searchAgencies = async () => {
     try {
-      const response = await axios.get(`${apiHost}/agency?search=${encodeURIComponent(searchQuery)}`);
+      const response = await axios.get(`${apiHost}/agency?searchName=${encodeURIComponent(searchQuery)}`);
       setSearchResults(response.data);
       console.log(response);
     } catch (err) {
