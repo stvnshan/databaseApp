@@ -1,4 +1,4 @@
-const pool = require('./dbPool');
+const pool = require('./pool');
 const {
   selectAllVictimIDs,
   selectAllAgencyIDs,
@@ -7,7 +7,7 @@ const {
   selectIncidentByID,
   selectAllIncidentIDs,
   selectAgencyByName
-} = require('./dbQuery');
+} = require('./query');
 
 const main = async () => {
   try {

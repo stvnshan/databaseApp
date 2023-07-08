@@ -1,4 +1,4 @@
-const pool = require('./dbPool');
+const pool = require('./pool');
 
 ////////////////////////////////////////////////////////////////////////////////
 // dbQuery.js
@@ -93,7 +93,7 @@ const selectAgencyByID = async (agencyID) => {
     SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
     FROM Agency A
     LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-    LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID
+    LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
     WHERE A.AgencyID = $1
     GROUP BY A.AgencyID
   `;
@@ -121,11 +121,9 @@ const selectIncidentByID = async (incidentID) => {
       JSONB_AGG(AI.AgencyID) as AgencyIDs,
       C.CityName, C.County, C.State
     FROM Incident I
-    LEFT OUTER JOIN HasVictim HV ON I.IncidentID = HV.IncidentID
-    LEFT OUTER JOIN Victim V ON HV.VictimID = V.VictimID
+    LEFT OUTER JOIN Victim V ON I.VictimID = HV.VictimID
     LEFT OUTER JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID
-    LEFT OUTER JOIN HappensIn HI ON I.IncidentID = HI.IncidentID
-    LEFT OUTER JOIN City C ON HI.CityName = C.CityName
+    LEFT OUTER JOIN City C ON I.CityID = C.CityID
     WHERE I.IncidentID = $1
     GROUP BY I.IncidentID, V.VictimID, C.CityName
   `;
@@ -151,7 +149,7 @@ const selectAgencyByName = async (agencyName) => {
     SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
     FROM Agency A
     LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-    LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID
+    LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
     WHERE LOWER(A.AgencyName) LIKE $1
     GROUP BY A.AgencyID
   `;
@@ -187,40 +185,21 @@ const insertIntoAgencyTable = async (agencyID, agencyName, type, state, totalSho
 };
 
 
-const insertIntoHasORICodesTable = async (agencyID, ORICode) => {
+const insertIntoORICodeTable = async (agencyID, ORICode) => {
   try {
   const client = await pool.connect();
 
   const insertQuery = `
-    INSERT INTO HasORICodes (AgencyID, ORI)
+    INSERT INTO ORICode (AgencyID, ORI)
     VALUES ($1, $2)
   `;
 
   await client.query(insertQuery, [agencyID, ORICode]);
 
   client.release();
-  console.log('Data inserted into HasORICodes table successfully');
+  console.log('Data inserted into ORICode table successfully');
   } catch (error) {
-  console.error('Error inserting data into HasORICodes table', error);
-  }
-};
-
-
-const insertIntoORICodesTable = async (ORICode) => {
-  try {
-  const client = await pool.connect();
-
-  const insertQuery = `
-    INSERT INTO ORICodes (ORI)
-    VALUES ($2)
-  `;
-
-  await client.query(insertQuery, [ORICode]);
-
-  client.release();
-  console.log('Data inserted into ORICodes table successfully');
-  } catch (error) {
-  console.error('Error inserting data into ORICodes table', error);
+  console.error('Error inserting data into ORICode table', error);
   }
 };
 
@@ -229,15 +208,29 @@ const insertIntoCityTable = async (cityName, county, state) => {
     try {
     const client = await pool.connect();
 
+    // TODO
     const insertQuery = `
       INSERT INTO City (CityName, County, State)
-      VALUES ($1, $2, $3)
+      SELECT * FROM (
+          VALUES ($1, $2, $3)
+      ) AS newCity(CityName, County, State)
+      WHERE NOT EXISTS (
+          SELECT 1 FROM City
+          WHERE CityName = newCity.CityName
+            AND County = newCity.County
+            AND State = newCity.State
+      )
+      RETURNING CityID
     `;
 
-    await client.query(insertQuery, [cityName, county, state]);
+    const result = await client.query(insertQuery, [cityName, county, state]);
+
+    // Return -1 if city already exists
+    const cityID = result.rows.length > 0 ? result.rows[0].cityid : -1;
 
     client.release();
-    console.log('Data inserted into City table successfully');
+    console.log(`Data inserted into City table successfully. CityID: ${cityID}`);
+    return cityID;
     } catch (error) {
     console.error('Error inserting data into City table', error);
     }
@@ -246,6 +239,8 @@ const insertIntoCityTable = async (cityName, county, state) => {
 
 const insertIntoIncidentTable = async (
     incidentID,
+    victimID,
+    cityID,
     date,
     threatenType,
     fleeStatus,
@@ -261,6 +256,8 @@ const insertIntoIncidentTable = async (
     const insertQuery = `
       INSERT INTO Incident (
         IncidentID,
+        victimID,
+        cityID,
         Date,
         ThreatenType,
         FleeStatus,
@@ -270,11 +267,13 @@ const insertIntoIncidentTable = async (
         Latitude,
         Longitude
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     `;
 
     await client.query(insertQuery, [
       incidentID,
+      victimID,
+      cityID,
       date,
       threatenType,
       fleeStatus,
@@ -304,7 +303,7 @@ const insertIntoVictimTable = async (name, age, gender, race, raceSource) => {
     `;
 
     const result = await client.query(insertQuery, [name, age, gender, race, raceSource]);
-    const victimID = result.rows[0].VictimID;
+    const victimID = result.rows[0].victimid;
 
     client.release();
     console.log(`Data inserted into Victim table successfully. VictimID: ${victimID}`);
@@ -334,44 +333,6 @@ const insertIntoAgenciesInvolvedTable = async (incidentID, agencyID) => {
 };
 
 
-const insertIntoHasVictimTable = async (victimID, incidentID) => {
-  try {
-  const client = await pool.connect();
-
-  const insertQuery = `
-    INSERT INTO HasVictim (VictimID, IncidentID)
-    VALUES ($1, $2)
-  `;
-
-  await client.query(insertQuery, [victimID, incidentID]);
-
-  client.release();
-  console.log('Data inserted into HasVictim table successfully');
-  } catch (error) {
-  console.error('Error inserting data into HasVictim table', error);
-  }
-};
-
-
-const insertIntoHappensInTable = async (incidentID, cityName) => {
-  try {
-  const client = await pool.connect();
-
-  const insertQuery = `
-    INSERT INTO HappensIn (IncidentID, CityName)
-    VALUES ($1, $2)
-  `;
-
-  await client.query(insertQuery, [incidentID, cityName]);
-
-  client.release();
-  console.log('Data inserted into HappensIn table successfully');
-  } catch (error) {
-  console.error('Error inserting data into HappensIn table', error);
-  }
-};
-
-
 module.exports = {
   selectAllVictimIDs,
   selectAllAgencyIDs,
@@ -380,13 +341,10 @@ module.exports = {
   selectAgencyByID,
   selectIncidentByID,
   selectAgencyByName,
-  insertIntoAgencyTable,
-  insertIntoHasORICodesTable,
-  insertIntoORICodesTable,
-  insertIntoCityTable,
   insertIntoIncidentTable,
   insertIntoVictimTable,
+  insertIntoCityTable,
+  insertIntoAgencyTable,
+  insertIntoORICodeTable,
   insertIntoAgenciesInvolvedTable,
-  insertIntoHasVictimTable,
-  insertIntoHappensInTable
 };
