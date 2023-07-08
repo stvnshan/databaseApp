@@ -1,4 +1,4 @@
-const pool = require('./dbPool');
+const pool = require('./pool');
 
 ////////////////////////////////////////////////////////////////////////////////
 // dbDropAll.js
@@ -11,11 +11,9 @@ const dropAllTables = async () => {
     DROP TABLE IF EXISTS Victim CASCADE;
     DROP TABLE IF EXISTS City CASCADE;
     DROP TABLE IF EXISTS Agency CASCADE;
-    DROP TABLE IF EXISTS ORICodes CASCADE;
-    DROP TABLE IF EXISTS AgenciesInvolved CASCADE;
-    DROP TABLE IF EXISTS HasORICodes CASCADE;
+    DROP TABLE IF EXISTS ORICode CASCADE;
     DROP TABLE IF EXISTS HappensIn CASCADE;
-    DROP TABLE IF EXISTS HasVictim CASCADE;
+    DROP TABLE IF EXISTS AgenciesInvolved CASCADE;
     `;
 
   try {
