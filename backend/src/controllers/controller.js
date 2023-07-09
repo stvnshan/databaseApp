@@ -1,4 +1,8 @@
-const db = require('../db/dbQuery.js');
+const incident = require('../models/incident.js');
+const victim = require('../models/victim.js');
+const agency = require('../models/agency.js');
+const city = require('../models/city.js');
+
 
 // Get from Incident
 // route: GET /api/incident
@@ -10,7 +14,7 @@ const getIncident = async (req, res) => {
     const result = {};
     if (id) {
       const incidentID = parseInt(id);
-      result.content = await db.selectIncidentByID(incidentID);
+      result.content = await incident.findByID(incidentID);
     } 
     res.status(200).json(result.content);
   } catch (error){
@@ -29,7 +33,7 @@ const getVictim = async (req, res) => {
     const result = {};
     if (id) {
       const victimID = parseInt(id);
-      result.content = await db.selectVictimByID(victimID);
+      result.content = await victim.findByID(victimID);
     }
     res.status(200).json(result.content);
   } catch (error){
@@ -46,9 +50,9 @@ const getAgency = async (req, res) => {
     if (id && !isNaN(id)) throw new Error('Invalid Agency query, invalid ID');;
 
     const result = {};
-    if (id) result.content = await db.selectAgencyByID(id);
-    else if (searchName) result.content = await db.selectAgencyByName(searchName);
-    else result.content = await db.selectAgencyByName("");
+    if (id) result.content = await agency.findByID(id);
+    else if (searchName) result.content = await agency.searchByName(searchName);
+    else result.content = await agency.searchByName("");
 
     res.status(200).json(result.content);
   } catch (error){
