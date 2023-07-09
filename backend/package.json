@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "initdb": "node src/db/dbInit.js",
-    "dropdb": "node src/db/dbDropAll.js",
-    "testdb": "node src/db/dbTest.js"
+    "initdb": "node src/db/initialize.js",
+    "dropdb": "node src/db/dropAllTables.js",
+    "testdb": "node src/db/testDatabase.js",
+    "resetdb": "npm run dropdb; npm run initdb"
   },
   "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski, Arhum Waqar",
   "license": "ISC",

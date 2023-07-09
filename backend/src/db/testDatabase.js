@@ -1,66 +1,167 @@
 const pool = require('./pool');
-const {
-  selectAllVictimIDs,
-  selectAllAgencyIDs,
-  selectVictimByID,
-  selectAgencyByID,
-  selectIncidentByID,
-  selectAllIncidentIDs,
-  selectAgencyByName
-} = require('./query');
+const incident = require('../models/incident.js');
+const victim = require('../models/victim.js');
+const agency = require('../models/agency.js');
+const city = require('../models/city.js');
 
-const main = async () => {
+let tc = 0;
+
+const pdb = (arg) => {
+  console.log(`Test case #${tc++}:`);
+  console.log(JSON.stringify(arg));
+  console.log();
+}
+
+const testDatabase = async () => {
   try {
-  console.log();
-  console.log("Select all Victim IDs:");
-  data = await selectAllVictimIDs();
-  console.log(data);
+    let res;
 
-  console.log();
-  console.log("Select information about Victim with ID 1:");
-  data = await selectVictimByID(1);
-  console.log(data);
+    // Incident
+    console.log("Testing Incident schema...");
+    res = await incident.findByID(3);
+    pdb(res);
+    res = await incident.findByID(1);
+    pdb(res);
+    res = await incident.findByRangeID();
+    pdb(res);
+    res = await incident.findByRangeID(3, 5);
+    pdb(res);
+    res = await incident.findByAgencyID(73);
+    pdb(res);
+    res = await incident.findByAgencyID(1);
+    pdb(res);
+    res = await incident.findByRangeAge(10, 30);
+    pdb(res);
+    res = await incident.searchByVictimName("Elliot");
+    pdb(res);
+    res = await incident.searchByVictimName("Jones");
+    pdb(res);
+    res = await incident.searchByVictimName("");
+    pdb(res);
+    res = await incident.searchByCityName("Wichita");
+    pdb(res);
+    res = await incident.searchByCityName("");
+    pdb(res);
+    res = await incident.searchByCounty("Mason");
+    pdb(res);
+    res = await incident.searchByCounty("Honolulu");
+    pdb(res);
+    res = await incident.searchByCounty("");
+    pdb(res);
+    res = await incident.searchByState("CA");
+    pdb(res);
+    res = await incident.searchByState("NB");
+    pdb(res);
+    res = await incident.searchByState("");
+    pdb(res);
+    res = await incident.searchByAgencyName("Abbeville County Sheriff's Office");
+    pdb(res);
+    res = await incident.searchByAgencyName("Sheriff");
+    pdb(res);
+    res = await incident.searchByAgencyName("");
+    pdb(res);
 
-  console.log();
-  console.log("Select all Agency IDs:");
-  data = await selectAllAgencyIDs();
-  console.log(data);
+    // Victim
+    console.log("Testing Victim schema...");
+    res = await victim.findByID(3);
+    pdb(res);
+    res = await victim.findByID(1000);
+    pdb(res);
+    res = await victim.findByRangeID(0, 10);
+    pdb(res);
+    res = await victim.findByRangeID(1, 3);
+    pdb(res);
+    res = await victim.findByRangeID();
+    pdb(res);
+    res = await victim.findByRangeAge(0, 10);
+    pdb(res);
+    res = await victim.findByRangeAge(20, 30);
+    pdb(res);
+    res = await victim.findByRangeAge(30, 50);
+    pdb(res);
+    res = await victim.findByGender("male");
+    pdb(res);
+    res = await victim.findByGender("female");
+    pdb(res);
+    res = await victim.findByGender("");
+    pdb(res);
+    res = await victim.searchByName("Elliot");
+    pdb(res);
+    res = await victim.searchByName("Jeff");
+    pdb(res);
+    res = await victim.searchByName("");
+    pdb(res);
 
-  console.log();
-  console.log("Select information about Agencies with IDs 70, 1055, and 3187:");
-  data = await selectAgencyByID(70);
-  console.log(data);
-  data = await selectAgencyByID(1055);
-  console.log(data);
-  data = await selectAgencyByID(3187);
-  console.log(data);
+    // Agency
+    console.log("Testing Agency schema...");
+    res = await agency.findByID(73);
+    pdb(res);
+    res = await agency.findByID(340958);
+    pdb(res);
+    res = await agency.findByRangeTotalIncidents(0, 1);
+    pdb(res);
+    res = await agency.findByRangeTotalIncidents(0, 5);
+    pdb(res);
+    res = await agency.findByRangeTotalIncidents(0, 100);
+    pdb(res);
+    res = await agency.findByRangeTotalIncidents(100, 200);
+    pdb(res);
+    res = await agency.findByRangeID(0, 100);
+    pdb(res);
+    res = await agency.findByRangeID(1000, 2000);
+    pdb(res);
+    res = await agency.findByRangeID(3450934, 3984571);
+    pdb(res);
+    res = await agency.findByRangeID();
+    pdb(res);
+    res = await agency.searchByName("Abbeville County Sheriff's Office");
+    pdb(res);
+    res = await agency.searchByName("Sheriff");
+    pdb(res);
+    res = await agency.searchByName("NaN");
+    pdb(res);
+    res = await agency.searchByName("");
+    pdb(res);
+    res = await agency.searchByState("WA");
+    pdb(res);
+    res = await agency.searchByState("NB");
+    pdb(res);
 
-  console.log();
-  console.log("Select all Incident IDs:");
-  data = await selectAllIncidentIDs();
-  console.log(data);
+    // City
+    console.log("Testing City schema...");
+    res = await city.findByID(1);
+    pdb(res);
+    res = await city.findByID(100);
+    pdb(res);
+    res = await city.findByRangeID(1, 3);
+    pdb(res);
+    res = await city.findByRangeID(200, 201);
+    pdb(res);
+    res = await city.findByRangeID();
+    pdb(res);
+    res = await city.searchByName("Shelton");
+    pdb(res);
+    res = await city.searchByName("Seattle");
+    pdb(res);
+    res = await city.searchByName("");
+    pdb(res);
+    res = await city.searchByCounty("Mason");
+    pdb(res);
+    res = await city.searchByCounty("Aenami");
+    pdb(res);
+    res = await city.searchByCounty("");
+    pdb(res);
+    res = await city.searchByState("CA");
+    pdb(res);
+    res = await city.searchByState("NB");
+    pdb(res);
+    res = await city.searchByState("");
+    pdb(res);
 
-  console.log();
-  console.log("Select information about Indicents with IDs 3, 4, 5, 8:");
-  data = await selectIncidentByID(3);
-  console.log(data);
-  data = await selectIncidentByID(4);
-  console.log(data);
-  data = await selectIncidentByID(5);
-  console.log(data);
-  data = await selectIncidentByID(8);
-  console.log(data);
-
-  console.log();
-  console.log("Select information about Agencies using the case-insensitive search term \"PoLIce\":");
-  data = await selectAgencyByName("PoLIce");
-  console.log(data);
-
+    console.log("Database unit testing complete");
   } catch (error) {
-  console.error('Error selecting data', error);
-  } finally {
-  pool.end();
+    console.error("Database unit testing error", error);
   }
-};
+}
 
-main();
+module.exports = testDatabase;
