@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Agency from "./Agency";
@@ -49,7 +49,7 @@ const Search = () => {
       <h1>Washington Post -- Police Shooting Fatalities -- Agencies</h1>
 
       <div className="card">
-        <h6 class="card-title">Search by Agency Name:</h6>
+        <h6 className="card-title">Search by Agency Name:</h6>
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text">Agency Name:</span>
@@ -82,7 +82,7 @@ const Search = () => {
             onChange={(e) => setShootLowSearchQuery(e.target.value)}
           />
 
-          <div className="input-group-prepend" style={{"margin-left": "2rem"}}>
+          <div className="input-group-prepend" style={{"marginLeft": "2rem"}}>
             <span className="input-group-text">Max:</span>
           </div>
           <input
@@ -93,7 +93,7 @@ const Search = () => {
             onChange={(e) => setShootHighSearchQuery(e.target.value)}
           />
 
-          <button style={{ "margin-left": "2rem" }} onClick={searchAgenciesByNumShoot}>
+          <button style={{ "marginLeft": "2rem" }} onClick={searchAgenciesByNumShoot}>
             Search
           </button>
         </div>
