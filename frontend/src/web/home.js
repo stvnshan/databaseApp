@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function home() {
+const Home = () => {
   return (
     <div>
         <div>
@@ -9,10 +9,15 @@ function home() {
         </div>
         
         <div>
-            <Link to="/question/search">Search for Shootings</Link>
+            <Link to="/question">Search for Shootings</Link>
         </div> 
+        <div>
+            <Link to="/question2">Search for Incidents</Link>
+        </div> 
+        
+       
     </div>
   );
 }
 
-export default home;
+export default Home;
