@@ -20,7 +20,7 @@ const city = require('../models/city.js');
 //  Retrieve incidents where the names of the agencies involved contained the text "Sheriff": GET /api/incident?agencyname=Sheriff
 const getIncident = async (req, res) => {
   try {
-    const { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname } = req.query;
+    let { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname } = req.query;
     const result = {};
 
     if (id) {
