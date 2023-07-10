@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Agency from "./Agency";
+
 const apiHost = process.env.REACT_APP_API_HOST;
+
+// Example Agency name: Abilene Police Department
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  // Called when user clicks Search
   const searchAgencies = async () => {
     try {
       const response = await axios.get(
@@ -39,13 +44,12 @@ const Search = () => {
       <h2>Agencies</h2>
       <div>
         {searchResults.length > 0 ? (
-          <ul>
+          <div>
+            <p>Total results: {searchResults.length}</p>
             {searchResults.map((agency) => (
-              <li key={agency.agencyid}>
-                {agency.agencyid}, {agency.agencyname}
-              </li>
+              <Agency key={agency.agencyid} agencyData={agency}></Agency>
             ))}
-          </ul>
+          </div>
         ) : (
           <h3></h3>
         )}{" "}
