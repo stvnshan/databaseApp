@@ -136,7 +136,7 @@ const getVictim = async (req, res) => {
 //  Retrieve agencies in California: GET /api/agency?state=CA
 const getAgency = async (req, res) => {
   try {
-    const { id, idlow, idhigh, name, shootlow, shoothigh, state } = req.query;
+    let { id, idlow, idhigh, name, shootlow, shoothigh, state } = req.query;
     const result = {};
 
     if (id) {
