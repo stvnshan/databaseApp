@@ -47,6 +47,9 @@ const Incident = ({incidentid}) => {
         <p>Age: {incidentData.age}</p>
         <p>Gender: {incidentData.gender}</p>
         <p>Race: {incidentData.race}</p>
+        <p>State: {incidentData.state}</p>
+        <p>County: {incidentData.county}</p>
+        <p>Agencies involved: {incidentData.agencynames}</p>
     </div>
   );
 
