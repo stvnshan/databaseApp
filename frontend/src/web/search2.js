@@ -146,7 +146,7 @@ const Search2 = () => {
           <ul className="list-group list-group-flush">
             {searchResults.map((incident) => (
               <li key={incident.incidentid} className="list-group-item">
-                <Incident key={incident.incidentid} incidentData={incident}></Incident>
+                <Incident key={incident.incidentid} incidentid={incident.incidentid}></Incident>
               </li>
             ))}
           </ul>
