@@ -2,27 +2,46 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import '../index.css';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZWRvYnJvd28iLCJhIjoiY2xqeWhhdHNrMDQyaTNkb2YyZTdheHJtYSJ9.n1sAsb2dGV9ABpQhHP8qxQ';
 
 
 const MapContainer = () => {
+  const [incidents, setIncidents] = useState([]);
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-97);
   const [lat, setLat] = useState(39);
   const [zoom, setZoom] = useState(3);
 
+  // Retrieve all incidents
   useEffect(() => {
+    const retrieveIncidents = async() => {
+      try {
+        const response = await axios.get(`${apiHost}/incident`);
+        setIncidents(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    retrieveIncidents();
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: 'mapbox://styles/mapbox/dark-v10',
       center: [lng, lat],
       zoom: zoom
     });
+
+    incidents.map((incident) =>
+      new mapboxgl.Marker().setLngLat([incident.longitude, incident.latitude]).addTo(map.context)
+    );
   }, []);
 
+
+  // Update top bar
   useEffect(() => {
     if (!map.current) return;
     map.current.on('move', () => {
@@ -34,7 +53,7 @@ const MapContainer = () => {
 
   return (
     <div>
-      <div className="map-container-sidebar">
+      <div className="map-container-topbar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
@@ -44,23 +63,6 @@ const MapContainer = () => {
 
 
 const MapView = () => {
-  const [incidents, setIncidents] = useState([]);
-
-  useEffect(() => {
-    const retrieveIncidents = async() => {
-      try {
-        const response = await axios.get(`${apiHost}/incident`);
-        setIncidents(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    retrieveIncidents();
-  },[]);
-
-  console.log(JSON.stringify(incidents));
-
   return (
     <>
     <div>
