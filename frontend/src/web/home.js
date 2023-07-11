@@ -14,7 +14,9 @@ const Home = () => {
         <div>
             <Link to="/question2">Search for Incidents</Link>
         </div> 
-        
+        <div>
+            <Link to="/question3">Map of Incidents</Link>
+        </div>         
        
     </div>
   );

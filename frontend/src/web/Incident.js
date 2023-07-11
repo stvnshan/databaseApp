@@ -13,7 +13,7 @@ const Incident = ({incidentid}) => {
         if (incidentid) {
           const incidentURL = `${apiHost}/incident?id=${encodeURIComponent(incidentid)}`;
           const response = await axios.get(incidentURL);
-          if (response.status != 200) {
+          if (response.status !== 200) {
             throw new Error(`Failed to fetch incident ID ` + incidentid);
           }
           result = response.data[0];
