@@ -9,7 +9,7 @@ const Home = () => {
         </div>
         
         <div>
-            <Link to="/question">Search for Shootings</Link>
+            <Link to="/question">Search for Agencies</Link>
         </div> 
         <div>
             <Link to="/question2">Search for Incidents</Link>

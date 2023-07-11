@@ -1,411 +1,204 @@
 
 > cs348back@1.0.0 testdb
-> node src/db/dbTest.js
+> node src/db/testWrapper.js
 
+Testing Incident schema...
+Test case #0:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
-Select all Victim IDs:
-VictimIDs selected from Victim table successfully
-[ { victimid: 1, name: 'Tim Elliot' } ]
+Test case #1:
+[]
 
-Select information about Victim with ID 1:
-Victim information selected from Victim table successfully
-[
-  {
-    victimid: 1,
-    name: 'Tim Elliot',
-    age: 53,
-    gender: 'male',
-    race: 'A',
-    racesource: 'not_available'
-  }
-]
+Test case #2:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
 
-Select all Agency IDs:
-AgencyIDs selected from Agency table successfully
-[
-  { agencyid: 70, agencyname: 'Albert Lea Police Department' },
-  { agencyid: 73, agencyname: "Abbeville County Sheriff's Office" },
-  { agencyid: 196, agencyname: 'Alabama Law Enforcement Agency' },
-  { agencyid: 238, agencyname: 'Alamosa Police Department' },
-  { agencyid: 508, agencyname: 'Albuquerque Police Department' },
-  { agencyid: 775, agencyname: 'Alaska State Troopers' },
-  { agencyid: 793, agencyname: 'Alexandria Police Department' },
-  { agencyid: 806, agencyname: "Alameda County Sheriff's Office" },
-  { agencyid: 815, agencyname: 'Akron Police Department' },
-  { agencyid: 860, agencyname: 'Alabama State Police' },
-  { agencyid: 897, agencyname: "Adams County Sheriff's Department" },
-  { agencyid: 914, agencyname: "Aiken County Sheriff's Office" },
-  { agencyid: 958, agencyname: "Albany County Sheriff's Office" },
-  { agencyid: 1055, agencyname: 'Allegheny County Port Authority' },
-  { agencyid: 1180, agencyname: "Alachua County Sheriff's Office" },
-  { agencyid: 1203, agencyname: "Aitkin County Sheriff's Office" },
-  { agencyid: 1241, agencyname: "Ada County Sheriff's Office" },
-  { agencyid: 1434, agencyname: 'Alamogordo Police Department' },
-  { agencyid: 1443, agencyname: 'Albany Police Department' },
-  { agencyid: 1615, agencyname: "Adair County Sheriff's Office" },
-  { agencyid: 1754, agencyname: 'Alhambra Police Department' },
-  { agencyid: 1831, agencyname: "Allen County Sheriff's Department" },
-  { agencyid: 1978, agencyname: "Adams County Sheriff's Department" },
-  { agencyid: 2028, agencyname: "Allen County Sheriff's Office" },
-  { agencyid: 2088, agencyname: 'Abington Township Police Department' },
-  { agencyid: 2114, agencyname: 'Abilene Police Department' },
-  { agencyid: 2149, agencyname: "Alleghany County Sheriff's Office" },
-  { agencyid: 2168, agencyname: "Alamance County Sheriff's Office" },
-  { agencyid: 2237, agencyname: 'Albany Police Department' },
-  { agencyid: 2576, agencyname: 'Aberdeen Police Department' },
-  { agencyid: 2579, agencyname: 'Ada Police Department' },
-  { agencyid: 2924, agencyname: 'Alexandria Police Department' },
-  { agencyid: 3107, agencyname: 'Adel Police Department' },
-  { agencyid: 3165, agencyname: "Alcorn County Sheriff's Office" },
-  { agencyid: 3187, agencyname: "Acadia Parish Sheriff's Office" },
-  { agencyid: 3194, agencyname: "Adams County Sheriff's Office" },
-  { agencyid: 3375, agencyname: 'Acworth Police Department' },
-  { agencyid: 3452, agencyname: 'Albertville Police Department' },
-  { agencyid: 3491, agencyname: "Allegan County Sheriff's Office" },
-  { agencyid: 3498, agencyname: 'Albion Department of Public Safety' },
-  { agencyid: 3551, agencyname: 'Albemarle County Police Department' },
-  { agencyid: 3561, agencyname: "Adams County Sheriff's Office" },
-  { agencyid: 3607, agencyname: 'Alice Police Department' },
-  { agencyid: 3706, agencyname: "Adams County Sheriff's Office" },
-  { agencyid: 3848, agencyname: 'Alabama State Troopers' },
-  { agencyid: 3901, agencyname: 'Albany Police Department' }
-]
+Test case #3:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
-Select information about Agencies with IDs 70, 1055, and 3187:
-Agency information selected from Agency table successfully
-[
-  {
-    agencyid: 70,
-    agencyname: 'Albert Lea Police Department',
-    type: 'local_police',
-    state: 'MN',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  }
-]
-Agency information selected from Agency table successfully
-[
-  {
-    agencyid: 1055,
-    agencyname: 'Allegheny County Port Authority',
-    type: 'state_other',
-    state: 'PA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  }
-]
-Agency information selected from Agency table successfully
-[
-  {
-    agencyid: 3187,
-    agencyname: "Acadia Parish Sheriff's Office",
-    type: 'sheriff',
-    state: 'LA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  }
-]
+Test case #4:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
-Select all Incident IDs:
-IncidentIDs selected from Incident table successfully
-[
-  { incidentid: 3 },
-  { incidentid: 4 },
-  { incidentid: 5 },
-  { incidentid: 8 }
-]
+Test case #5:
+[]
 
-Select information about Indicents with IDs 3, 4, 5, 8:
-Incident information selected from Incident table successfully
-[
-  {
-    incidentid: 3,
-    date: 2015-01-01T05:00:00.000Z,
-    threatentype: 'point',
-    fleestatus: 'not',
-    armedwith: 'gun',
-    wasmentalillnessrelated: false,
-    bodycamera: false,
-    latitude: 47.246826,
-    longitude: -123.121592,
-    victimid: null,
-    name: null,
-    age: null,
-    gender: null,
-    race: null,
-    racesource: null,
-    agencyids: [ null ],
-    cityname: 'Shelton',
-    county: 'Mason',
-    state: 'WA'
-  }
-]
-Incident information selected from Incident table successfully
-[
-  {
-    incidentid: 4,
-    date: 2015-01-01T05:00:00.000Z,
-    threatentype: 'point',
-    fleestatus: 'not',
-    armedwith: 'gun',
-    wasmentalillnessrelated: false,
-    bodycamera: false,
-    latitude: 45.4874214,
-    longitude: -122.8916961,
-    victimid: null,
-    name: null,
-    age: null,
-    gender: null,
-    race: null,
-    racesource: null,
-    agencyids: [ null ],
-    cityname: 'Aloha',
-    county: 'Washington',
-    state: 'OR'
-  }
-]
-Incident information selected from Incident table successfully
-[
-  {
-    incidentid: 5,
-    date: 2015-01-02T05:00:00.000Z,
-    threatentype: 'move',
-    fleestatus: 'not',
-    armedwith: 'unarmed',
-    wasmentalillnessrelated: false,
-    bodycamera: false,
-    latitude: 37.694766,
-    longitude: -97.280554,
-    victimid: null,
-    name: null,
-    age: null,
-    gender: null,
-    race: null,
-    racesource: null,
-    agencyids: [ null ],
-    cityname: 'Wichita',
-    county: 'Sedgwick',
-    state: 'KS'
-  }
-]
-Incident information selected from Incident table successfully
-[
-  {
-    incidentid: 8,
-    date: 2015-01-03T05:00:00.000Z,
-    threatentype: 'point',
-    fleestatus: 'not',
-    armedwith: 'replica',
-    wasmentalillnessrelated: false,
-    bodycamera: false,
-    latitude: 37.76291,
-    longitude: -122.422001,
-    victimid: null,
-    name: null,
-    age: null,
-    gender: null,
-    race: null,
-    racesource: null,
-    agencyids: [ null ],
-    cityname: 'San Francisco',
-    county: 'San Francisco',
-    state: 'CA'
-  }
-]
+Test case #6:
+[{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
-Select information about Agencies using the case-insensitive search term "PoLIce":
-Agency information selected from Agency table successfully
-[
-  {
-    agencyid: 1434,
-    agencyname: 'Alamogordo Police Department',
-    type: 'local_police',
-    state: 'NM',
-    totalshootings: 2,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3107,
-    agencyname: 'Adel Police Department',
-    type: 'local_police',
-    state: 'GA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3452,
-    agencyname: 'Albertville Police Department',
-    type: 'local_police',
-    state: 'AL',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 1443,
-    agencyname: 'Albany Police Department',
-    type: 'local_police',
-    state: 'GA',
-    totalshootings: 2,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 508,
-    agencyname: 'Albuquerque Police Department',
-    type: 'local_police',
-    state: 'NM',
-    totalshootings: 40,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 238,
-    agencyname: 'Alamosa Police Department',
-    type: 'local_police',
-    state: 'CO',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 70,
-    agencyname: 'Albert Lea Police Department',
-    type: 'local_police',
-    state: 'MN',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3901,
-    agencyname: 'Albany Police Department',
-    type: 'local_police',
-    state: 'OR',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 860,
-    agencyname: 'Alabama State Police',
-    type: 'state_police',
-    state: 'AL',
-    totalshootings: 4,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3375,
-    agencyname: 'Acworth Police Department',
-    type: 'local_police',
-    state: 'GA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2237,
-    agencyname: 'Albany Police Department',
-    type: 'local_police',
-    state: 'NY',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2579,
-    agencyname: 'Ada Police Department',
-    type: 'local_police',
-    state: 'OK',
-    totalshootings: 3,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 793,
-    agencyname: 'Alexandria Police Department',
-    type: 'local_police',
-    state: 'LA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3551,
-    agencyname: 'Albemarle County Police Department',
-    type: 'local_police',
-    state: 'VA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2576,
-    agencyname: 'Aberdeen Police Department',
-    type: 'local_police',
-    state: 'WA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 3607,
-    agencyname: 'Alice Police Department',
-    type: 'local_police',
-    state: 'TX',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 815,
-    agencyname: 'Akron Police Department',
-    type: 'local_police',
-    state: 'OH',
-    totalshootings: 8,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2114,
-    agencyname: 'Abilene Police Department',
-    type: 'local_police',
-    state: 'TX',
-    totalshootings: 3,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2088,
-    agencyname: 'Abington Township Police Department',
-    type: 'local_police',
-    state: 'PA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 2924,
-    agencyname: 'Alexandria Police Department',
-    type: 'local_police',
-    state: 'VA',
-    totalshootings: 2,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  },
-  {
-    agencyid: 1754,
-    agencyname: 'Alhambra Police Department',
-    type: 'local_police',
-    state: 'CA',
-    totalshootings: 1,
-    incidentids: [ null ],
-    oricodes: [ null ]
-  }
-]
+Test case #7:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #8:
+[]
+
+Test case #9:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #10:
+[{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+
+Test case #11:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #12:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #13:
+[]
+
+Test case #14:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #15:
+[{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #16:
+[]
+
+Test case #17:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #18:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #19:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #20:
+[{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"incidentid":4,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":45.4874214,"longitude":-122.8916961,"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available","agencyids":[70],"agencynames":["Albert Lea Police Department"],"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"incidentid":5,"date":"2015-01-02T05:00:00.000Z","threatentype":"move","fleestatus":"not","armedwith":"unarmed","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.694766,"longitude":-97.280554,"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available","agencyids":[238],"agencynames":["Alamosa Police Department"],"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"incidentid":8,"date":"2015-01-03T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"replica","wasmentalillnessrelated":false,"bodycamera":false,"latitude":37.76291,"longitude":-122.422001,"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available","agencyids":[196],"agencynames":["Alabama Law Enforcement Agency"],"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Testing Victim schema...
+Test case #21:
+[{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"}]
+
+Test case #22:
+[]
+
+Test case #23:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"},{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"},{"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available"}]
+
+Test case #24:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"},{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"}]
+
+Test case #25:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"},{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"},{"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available"}]
+
+Test case #26:
+[]
+
+Test case #27:
+[{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"}]
+
+Test case #28:
+[{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available"}]
+
+Test case #29:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"},{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"},{"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available"}]
+
+Test case #30:
+[]
+
+Test case #31:
+[]
+
+Test case #32:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"}]
+
+Test case #33:
+[]
+
+Test case #34:
+[{"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available"},{"victimid":2,"name":"Lewis Lee Lembke","age":47,"gender":"male","race":"W","racesource":"not_available"},{"victimid":3,"name":"John Paul Quintero","age":23,"gender":"male","race":"H","racesource":"not_available"},{"victimid":4,"name":"Matthew Hoffman","age":32,"gender":"male","race":"W","racesource":"not_available"}]
+
+Testing Agency schema...
+Test case #35:
+[{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #36:
+[]
+
+Test case #37:
+[{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":3107,"agencyname":"Adel Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03701"]},{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":3452,"agencyname":"Albertville Police Department","type":"local_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["AL05001"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":238,"agencyname":"Alamosa Police Department","type":"local_police","state":"CO","totalshootings":1,"incidentids":[5],"oricodes":["CO00201"]},{"agencyid":3901,"agencyname":"Albany Police Department","type":"local_police","state":"OR","totalshootings":1,"incidentids":[null],"oricodes":["OR02201"]},{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":3848,"agencyname":"Alabama State Troopers","type":"state_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["ALAST00"]},{"agencyid":3375,"agencyname":"Acworth Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03305"]},{"agencyid":2237,"agencyname":"Albany Police Department","type":"local_police","state":"NY","totalshootings":1,"incidentids":[null],"oricodes":["NY00101"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":793,"agencyname":"Alexandria Police Department","type":"local_police","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA04001"]},{"agencyid":3551,"agencyname":"Albemarle County Police Department","type":"local_police","state":"VA","totalshootings":1,"incidentids":[null],"oricodes":["VA00203"]},{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":3498,"agencyname":"Albion Department of Public Safety","type":"local_police","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI13207"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":3607,"agencyname":"Alice Police Department","type":"local_police","state":"TX","totalshootings":1,"incidentids":[null],"oricodes":["TX12501"]},{"agencyid":2088,"agencyname":"Abington Township Police Department","type":"local_police","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA04601"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #38:
+[{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1443,"agencyname":"Albany Police Department","type":"local_police","state":"GA","totalshootings":2,"incidentids":[null],"oricodes":["GA04701"]},{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":3848,"agencyname":"Alabama State Troopers","type":"state_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["ALAST00"]},{"agencyid":860,"agencyname":"Alabama State Police","type":"state_police","state":"AL","totalshootings":4,"incidentids":[null],"oricodes":[null]},{"agencyid":3375,"agencyname":"Acworth Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03305"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":2579,"agencyname":"Ada Police Department","type":"local_police","state":"OK","totalshootings":3,"incidentids":[null],"oricodes":["OK06201"]},{"agencyid":3551,"agencyname":"Albemarle County Police Department","type":"local_police","state":"VA","totalshootings":1,"incidentids":[null],"oricodes":["VA00203"]},{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":3498,"agencyname":"Albion Department of Public Safety","type":"local_police","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI13207"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":196,"agencyname":"Alabama Law Enforcement Agency","type":"state_police","state":"AL","totalshootings":2,"incidentids":[8],"oricodes":[null]},{"agencyid":958,"agencyname":"Albany County Sheriff's Office","type":"sheriff","state":"WY","totalshootings":2,"incidentids":[null],"oricodes":["WY00100"]},{"agencyid":2168,"agencyname":"Alamance County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":3,"incidentids":[null],"oricodes":["NC00100"]},{"agencyid":2114,"agencyname":"Abilene Police Department","type":"local_police","state":"TX","totalshootings":3,"incidentids":[null],"oricodes":["TX22101"]},{"agencyid":2088,"agencyname":"Abington Township Police Department","type":"local_police","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA04601"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1434,"agencyname":"Alamogordo Police Department","type":"local_police","state":"NM","totalshootings":2,"incidentids":[null],"oricodes":["NM01901"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":3107,"agencyname":"Adel Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03701"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":3452,"agencyname":"Albertville Police Department","type":"local_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["AL05001"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":238,"agencyname":"Alamosa Police Department","type":"local_police","state":"CO","totalshootings":1,"incidentids":[5],"oricodes":["CO00201"]},{"agencyid":3901,"agencyname":"Albany Police Department","type":"local_police","state":"OR","totalshootings":1,"incidentids":[null],"oricodes":["OR02201"]},{"agencyid":2237,"agencyname":"Albany Police Department","type":"local_police","state":"NY","totalshootings":1,"incidentids":[null],"oricodes":["NY00101"]},{"agencyid":793,"agencyname":"Alexandria Police Department","type":"local_police","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA04001"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":3607,"agencyname":"Alice Police Department","type":"local_police","state":"TX","totalshootings":1,"incidentids":[null],"oricodes":["TX12501"]},{"agencyid":806,"agencyname":"Alameda County Sheriff's Office","type":"sheriff","state":"CA","totalshootings":4,"incidentids":[null],"oricodes":["CA00100"]},{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":2924,"agencyname":"Alexandria Police Department","type":"local_police","state":"VA","totalshootings":2,"incidentids":[null],"oricodes":["VA09900"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #39:
+[{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1443,"agencyname":"Albany Police Department","type":"local_police","state":"GA","totalshootings":2,"incidentids":[null],"oricodes":["GA04701"]},{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":3848,"agencyname":"Alabama State Troopers","type":"state_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["ALAST00"]},{"agencyid":860,"agencyname":"Alabama State Police","type":"state_police","state":"AL","totalshootings":4,"incidentids":[null],"oricodes":[null]},{"agencyid":3375,"agencyname":"Acworth Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03305"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":2579,"agencyname":"Ada Police Department","type":"local_police","state":"OK","totalshootings":3,"incidentids":[null],"oricodes":["OK06201"]},{"agencyid":3551,"agencyname":"Albemarle County Police Department","type":"local_police","state":"VA","totalshootings":1,"incidentids":[null],"oricodes":["VA00203"]},{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":3498,"agencyname":"Albion Department of Public Safety","type":"local_police","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI13207"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":196,"agencyname":"Alabama Law Enforcement Agency","type":"state_police","state":"AL","totalshootings":2,"incidentids":[8],"oricodes":[null]},{"agencyid":958,"agencyname":"Albany County Sheriff's Office","type":"sheriff","state":"WY","totalshootings":2,"incidentids":[null],"oricodes":["WY00100"]},{"agencyid":2168,"agencyname":"Alamance County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":3,"incidentids":[null],"oricodes":["NC00100"]},{"agencyid":815,"agencyname":"Akron Police Department","type":"local_police","state":"OH","totalshootings":8,"incidentids":[null],"oricodes":["OH07701"]},{"agencyid":2114,"agencyname":"Abilene Police Department","type":"local_police","state":"TX","totalshootings":3,"incidentids":[null],"oricodes":["TX22101"]},{"agencyid":914,"agencyname":"Aiken County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":6,"incidentids":[null],"oricodes":["SC00200"]},{"agencyid":2088,"agencyname":"Abington Township Police Department","type":"local_police","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA04601"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1434,"agencyname":"Alamogordo Police Department","type":"local_police","state":"NM","totalshootings":2,"incidentids":[null],"oricodes":["NM01901"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":3107,"agencyname":"Adel Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03701"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":3452,"agencyname":"Albertville Police Department","type":"local_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["AL05001"]},{"agencyid":1978,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"CO","totalshootings":12,"incidentids":[null],"oricodes":["CO00100"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":508,"agencyname":"Albuquerque Police Department","type":"local_police","state":"NM","totalshootings":40,"incidentids":[null],"oricodes":["NM00101"]},{"agencyid":238,"agencyname":"Alamosa Police Department","type":"local_police","state":"CO","totalshootings":1,"incidentids":[5],"oricodes":["CO00201"]},{"agencyid":3901,"agencyname":"Albany Police Department","type":"local_police","state":"OR","totalshootings":1,"incidentids":[null],"oricodes":["OR02201"]},{"agencyid":2237,"agencyname":"Albany Police Department","type":"local_police","state":"NY","totalshootings":1,"incidentids":[null],"oricodes":["NY00101"]},{"agencyid":793,"agencyname":"Alexandria Police Department","type":"local_police","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA04001"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":3607,"agencyname":"Alice Police Department","type":"local_police","state":"TX","totalshootings":1,"incidentids":[null],"oricodes":["TX12501"]},{"agencyid":806,"agencyname":"Alameda County Sheriff's Office","type":"sheriff","state":"CA","totalshootings":4,"incidentids":[null],"oricodes":["CA00100"]},{"agencyid":775,"agencyname":"Alaska State Troopers","type":"state_police","state":"AK","totalshootings":29,"incidentids":[null,null],"oricodes":["AKAST01","AKASP00"]},{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":2924,"agencyname":"Alexandria Police Department","type":"local_police","state":"VA","totalshootings":2,"incidentids":[null],"oricodes":["VA09900"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #40:
+[]
+
+Test case #41:
+[{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #42:
+[{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1434,"agencyname":"Alamogordo Police Department","type":"local_police","state":"NM","totalshootings":2,"incidentids":[null],"oricodes":["NM01901"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":1443,"agencyname":"Albany Police Department","type":"local_police","state":"GA","totalshootings":2,"incidentids":[null],"oricodes":["GA04701"]},{"agencyid":1978,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"CO","totalshootings":12,"incidentids":[null],"oricodes":["CO00100"]}]
+
+Test case #43:
+[]
+
+Test case #44:
+[{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1443,"agencyname":"Albany Police Department","type":"local_police","state":"GA","totalshootings":2,"incidentids":[null],"oricodes":["GA04701"]},{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":3848,"agencyname":"Alabama State Troopers","type":"state_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["ALAST00"]},{"agencyid":860,"agencyname":"Alabama State Police","type":"state_police","state":"AL","totalshootings":4,"incidentids":[null],"oricodes":[null]},{"agencyid":3375,"agencyname":"Acworth Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03305"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":2579,"agencyname":"Ada Police Department","type":"local_police","state":"OK","totalshootings":3,"incidentids":[null],"oricodes":["OK06201"]},{"agencyid":3551,"agencyname":"Albemarle County Police Department","type":"local_police","state":"VA","totalshootings":1,"incidentids":[null],"oricodes":["VA00203"]},{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":3498,"agencyname":"Albion Department of Public Safety","type":"local_police","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI13207"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":196,"agencyname":"Alabama Law Enforcement Agency","type":"state_police","state":"AL","totalshootings":2,"incidentids":[8],"oricodes":[null]},{"agencyid":958,"agencyname":"Albany County Sheriff's Office","type":"sheriff","state":"WY","totalshootings":2,"incidentids":[null],"oricodes":["WY00100"]},{"agencyid":2168,"agencyname":"Alamance County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":3,"incidentids":[null],"oricodes":["NC00100"]},{"agencyid":815,"agencyname":"Akron Police Department","type":"local_police","state":"OH","totalshootings":8,"incidentids":[null],"oricodes":["OH07701"]},{"agencyid":2114,"agencyname":"Abilene Police Department","type":"local_police","state":"TX","totalshootings":3,"incidentids":[null],"oricodes":["TX22101"]},{"agencyid":914,"agencyname":"Aiken County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":6,"incidentids":[null],"oricodes":["SC00200"]},{"agencyid":2088,"agencyname":"Abington Township Police Department","type":"local_police","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA04601"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1434,"agencyname":"Alamogordo Police Department","type":"local_police","state":"NM","totalshootings":2,"incidentids":[null],"oricodes":["NM01901"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":3107,"agencyname":"Adel Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03701"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":3452,"agencyname":"Albertville Police Department","type":"local_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["AL05001"]},{"agencyid":1978,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"CO","totalshootings":12,"incidentids":[null],"oricodes":["CO00100"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":508,"agencyname":"Albuquerque Police Department","type":"local_police","state":"NM","totalshootings":40,"incidentids":[null],"oricodes":["NM00101"]},{"agencyid":238,"agencyname":"Alamosa Police Department","type":"local_police","state":"CO","totalshootings":1,"incidentids":[5],"oricodes":["CO00201"]},{"agencyid":3901,"agencyname":"Albany Police Department","type":"local_police","state":"OR","totalshootings":1,"incidentids":[null],"oricodes":["OR02201"]},{"agencyid":2237,"agencyname":"Albany Police Department","type":"local_police","state":"NY","totalshootings":1,"incidentids":[null],"oricodes":["NY00101"]},{"agencyid":793,"agencyname":"Alexandria Police Department","type":"local_police","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA04001"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":3607,"agencyname":"Alice Police Department","type":"local_police","state":"TX","totalshootings":1,"incidentids":[null],"oricodes":["TX12501"]},{"agencyid":806,"agencyname":"Alameda County Sheriff's Office","type":"sheriff","state":"CA","totalshootings":4,"incidentids":[null],"oricodes":["CA00100"]},{"agencyid":775,"agencyname":"Alaska State Troopers","type":"state_police","state":"AK","totalshootings":29,"incidentids":[null,null],"oricodes":["AKAST01","AKASP00"]},{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":2924,"agencyname":"Alexandria Police Department","type":"local_police","state":"VA","totalshootings":2,"incidentids":[null],"oricodes":["VA09900"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #45:
+[{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]}]
+
+Test case #46:
+[{"agencyid":914,"agencyname":"Aiken County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":6,"incidentids":[null],"oricodes":["SC00200"]},{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":1978,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"CO","totalshootings":12,"incidentids":[null],"oricodes":["CO00100"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":958,"agencyname":"Albany County Sheriff's Office","type":"sheriff","state":"WY","totalshootings":2,"incidentids":[null],"oricodes":["WY00100"]},{"agencyid":806,"agencyname":"Alameda County Sheriff's Office","type":"sheriff","state":"CA","totalshootings":4,"incidentids":[null],"oricodes":["CA00100"]},{"agencyid":2168,"agencyname":"Alamance County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":3,"incidentids":[null],"oricodes":["NC00100"]}]
+
+Test case #47:
+[]
+
+Test case #48:
+[{"agencyid":3165,"agencyname":"Alcorn County Sheriff's Office","type":"sheriff","state":"MS","totalshootings":1,"incidentids":[null],"oricodes":["MS00200"]},{"agencyid":1443,"agencyname":"Albany Police Department","type":"local_police","state":"GA","totalshootings":2,"incidentids":[null],"oricodes":["GA04701"]},{"agencyid":70,"agencyname":"Albert Lea Police Department","type":"local_police","state":"MN","totalshootings":1,"incidentids":[4],"oricodes":["MN02401"]},{"agencyid":3848,"agencyname":"Alabama State Troopers","type":"state_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["ALAST00"]},{"agencyid":3375,"agencyname":"Acworth Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03305"]},{"agencyid":3561,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"WI","totalshootings":1,"incidentids":[null],"oricodes":["WI00100"]},{"agencyid":2579,"agencyname":"Ada Police Department","type":"local_police","state":"OK","totalshootings":3,"incidentids":[null],"oricodes":["OK06201"]},{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]},{"agencyid":2028,"agencyname":"Allen County Sheriff's Office","type":"sheriff","state":"KY","totalshootings":1,"incidentids":[null],"oricodes":["KY00200"]},{"agencyid":3187,"agencyname":"Acadia Parish Sheriff's Office","type":"sheriff","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA00100"]},{"agencyid":958,"agencyname":"Albany County Sheriff's Office","type":"sheriff","state":"WY","totalshootings":2,"incidentids":[null],"oricodes":["WY00100"]},{"agencyid":2168,"agencyname":"Alamance County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":3,"incidentids":[null],"oricodes":["NC00100"]},{"agencyid":2114,"agencyname":"Abilene Police Department","type":"local_police","state":"TX","totalshootings":3,"incidentids":[null],"oricodes":["TX22101"]},{"agencyid":1754,"agencyname":"Alhambra Police Department","type":"local_police","state":"CA","totalshootings":1,"incidentids":[null],"oricodes":["CA01901"]},{"agencyid":1241,"agencyname":"Ada County Sheriff's Office","type":"sheriff","state":"ID","totalshootings":3,"incidentids":[null],"oricodes":["ID00100"]},{"agencyid":1615,"agencyname":"Adair County Sheriff's Office","type":"sheriff","state":"OK","totalshootings":1,"incidentids":[null],"oricodes":["OK00100"]},{"agencyid":1831,"agencyname":"Allen County Sheriff's Department","type":"sheriff","state":"OH","totalshootings":3,"incidentids":[null],"oricodes":["OH00200"]},{"agencyid":3452,"agencyname":"Albertville Police Department","type":"local_police","state":"AL","totalshootings":1,"incidentids":[null],"oricodes":["AL05001"]},{"agencyid":238,"agencyname":"Alamosa Police Department","type":"local_police","state":"CO","totalshootings":1,"incidentids":[5],"oricodes":["CO00201"]},{"agencyid":2237,"agencyname":"Albany Police Department","type":"local_police","state":"NY","totalshootings":1,"incidentids":[null],"oricodes":["NY00101"]},{"agencyid":793,"agencyname":"Alexandria Police Department","type":"local_police","state":"LA","totalshootings":1,"incidentids":[null],"oricodes":["LA04001"]},{"agencyid":3706,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"IL","totalshootings":1,"incidentids":[null],"oricodes":["IL00100"]},{"agencyid":3607,"agencyname":"Alice Police Department","type":"local_police","state":"TX","totalshootings":1,"incidentids":[null],"oricodes":["TX12501"]},{"agencyid":775,"agencyname":"Alaska State Troopers","type":"state_police","state":"AK","totalshootings":29,"incidentids":[null,null],"oricodes":["AKAST01","AKASP00"]},{"agencyid":1180,"agencyname":"Alachua County Sheriff's Office","type":"sheriff","state":"FL","totalshootings":4,"incidentids":[null],"oricodes":["FL00100"]},{"agencyid":2924,"agencyname":"Alexandria Police Department","type":"local_police","state":"VA","totalshootings":2,"incidentids":[null],"oricodes":["VA09900"]},{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":1,"incidentids":[3],"oricodes":["SC00100"]},{"agencyid":860,"agencyname":"Alabama State Police","type":"state_police","state":"AL","totalshootings":4,"incidentids":[null],"oricodes":[null]},{"agencyid":3551,"agencyname":"Albemarle County Police Department","type":"local_police","state":"VA","totalshootings":1,"incidentids":[null],"oricodes":["VA00203"]},{"agencyid":897,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"ID","totalshootings":1,"incidentids":[null],"oricodes":["ID00200"]},{"agencyid":3498,"agencyname":"Albion Department of Public Safety","type":"local_police","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI13207"]},{"agencyid":196,"agencyname":"Alabama Law Enforcement Agency","type":"state_police","state":"AL","totalshootings":2,"incidentids":[8],"oricodes":[null]},{"agencyid":815,"agencyname":"Akron Police Department","type":"local_police","state":"OH","totalshootings":8,"incidentids":[null],"oricodes":["OH07701"]},{"agencyid":914,"agencyname":"Aiken County Sheriff's Office","type":"sheriff","state":"SC","totalshootings":6,"incidentids":[null],"oricodes":["SC00200"]},{"agencyid":2088,"agencyname":"Abington Township Police Department","type":"local_police","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA04601"]},{"agencyid":1434,"agencyname":"Alamogordo Police Department","type":"local_police","state":"NM","totalshootings":2,"incidentids":[null],"oricodes":["NM01901"]},{"agencyid":3107,"agencyname":"Adel Police Department","type":"local_police","state":"GA","totalshootings":1,"incidentids":[null],"oricodes":["GA03701"]},{"agencyid":1203,"agencyname":"Aitkin County Sheriff's Office","type":"sheriff","state":"MN","totalshootings":1,"incidentids":[null],"oricodes":["MN00100"]},{"agencyid":1055,"agencyname":"Allegheny County Port Authority","type":"state_other","state":"PA","totalshootings":1,"incidentids":[null],"oricodes":["PA0022D"]},{"agencyid":1978,"agencyname":"Adams County Sheriff's Department","type":"sheriff","state":"CO","totalshootings":12,"incidentids":[null],"oricodes":["CO00100"]},{"agencyid":3491,"agencyname":"Allegan County Sheriff's Office","type":"sheriff","state":"MI","totalshootings":1,"incidentids":[null],"oricodes":["MI03103"]},{"agencyid":508,"agencyname":"Albuquerque Police Department","type":"local_police","state":"NM","totalshootings":40,"incidentids":[null],"oricodes":["NM00101"]},{"agencyid":3901,"agencyname":"Albany Police Department","type":"local_police","state":"OR","totalshootings":1,"incidentids":[null],"oricodes":["OR02201"]},{"agencyid":2149,"agencyname":"Alleghany County Sheriff's Office","type":"sheriff","state":"NC","totalshootings":1,"incidentids":[null],"oricodes":["NC00300"]},{"agencyid":3194,"agencyname":"Adams County Sheriff's Office","type":"sheriff","state":"NE","totalshootings":1,"incidentids":[null],"oricodes":["NB00100"]},{"agencyid":806,"agencyname":"Alameda County Sheriff's Office","type":"sheriff","state":"CA","totalshootings":4,"incidentids":[null],"oricodes":["CA00100"]}]
+
+Test case #49:
+[{"agencyid":2576,"agencyname":"Aberdeen Police Department","type":"local_police","state":"WA","totalshootings":1,"incidentids":[null],"oricodes":["WA01401"]}]
+
+Test case #50:
+[]
+
+Testing City schema...
+Test case #51:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #52:
+[]
+
+Test case #53:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+
+Test case #54:
+[]
+
+Test case #55:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #56:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #57:
+[]
+
+Test case #58:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #59:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #60:
+[]
+
+Test case #61:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #62:
+[{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Test case #63:
+[]
+
+Test case #64:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"}]
+
+Database unit testing complete

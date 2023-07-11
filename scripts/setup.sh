@@ -11,10 +11,8 @@ source 'scripts/mac/create_user_and_db.sh'
 cd './backend'
 # Install backend dependencies
 npm install
-# Drop the tables if they exist
-npm run dropdb
-# Create the database relations and populate with sample data
-npm run initdb
+# Reset the database
+npm run resetdb
 
 
 # Frontend
