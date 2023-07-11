@@ -34,11 +34,15 @@ const MapContainer = () => {
       center: [lng, lat],
       zoom: zoom
     });
-
-    incidents.map((incident) =>
-      new mapboxgl.Marker().setLngLat([incident.longitude, incident.latitude]).addTo(map.context)
-    );
   }, []);
+
+  useEffect(() => {
+    if (!incidents.length || !map.current) return;
+    
+    incidents.map((incident) =>
+      new mapboxgl.Marker().setLngLat([incident.longitude, incident.latitude]).addTo(map.current)
+    );
+  }, [incidents]);
 
 
   // Update top bar
