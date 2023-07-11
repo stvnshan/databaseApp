@@ -9,14 +9,27 @@ const Incident = ({incidentid}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const incidentURL = `${apiHost}/incident?id=${encodeURIComponent(incidentid)}`;
-        const response = await axios.get(incidentURL);
-        if (response.status != 200) {
-          throw new Error(`Failed to fetch incident ID ` + incidentid);
+        let result;
+        if (incidentid) {
+          const incidentURL = `${apiHost}/incident?id=${encodeURIComponent(incidentid)}`;
+          const response = await axios.get(incidentURL);
+          if (response.status != 200) {
+            throw new Error(`Failed to fetch incident ID ` + incidentid);
+          }
+          result = response.data[0];
+          console.log(incidentURL);
+        } else {
+          result = {
+            incidentid : null,
+            data : null,
+            name : '',
+            age : null,
+            gender : null,
+            race : null,
+          }
         }
         // Should return an array with only one element
-        setIncidentData(response.data[0]);
-        console.log(incidentURL);
+        setIncidentData(result);
       } catch (error) {
         console.error(error.message);
       }
