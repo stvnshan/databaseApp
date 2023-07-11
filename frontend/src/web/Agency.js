@@ -1,5 +1,5 @@
 import React from "react";
-import Incident from "./Incident";
+import AgencyIncident from "./AgencyIncident";
 
 /*
 interface agencyData {
@@ -28,7 +28,7 @@ const Agency = ({ agencyData }) => {
           <ul>
             {agencyData.incidentids.map((incidentid) => (
               <li key={incidentid}>
-                <Incident key={incidentid} incidentid={incidentid}></Incident>
+                <AgencyIncident key={incidentid} incidentid={incidentid}></AgencyIncident>
               </li>
             ))}
           </ul>

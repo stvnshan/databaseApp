@@ -3,7 +3,7 @@ import axios from "axios";
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
-const Incident = ({incidentid}) => {
+const AgencyIncident = ({incidentid}) => {
   const [incidentData, setIncidentData] = useState({});
 
   useEffect(() => {
@@ -39,4 +39,4 @@ const Incident = ({incidentid}) => {
 
 };
 
-export default Incident;
+export default AgencyIncident;
