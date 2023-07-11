@@ -115,7 +115,7 @@ const Search = () => {
             </div>
           </div>
         ) : (
-          <h3></h3>
+          <h3>empty</h3>
         )}{" "}
       </div>
     </div>
