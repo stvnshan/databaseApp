@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Incident from './Incident';
@@ -151,7 +151,7 @@ const Search2 = () => {
             ))}
           </ul>
         ) : (
-          <h3></h3>
+          <h3>empty</h3>
         )}{" "}
       </div>
 
