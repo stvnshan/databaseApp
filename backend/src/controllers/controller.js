@@ -44,7 +44,7 @@ const getIncident = async (req, res) => {
       result.content = await incident.searchByCounty(county);
     }
     else if (state) {
-      result.content = await incident.searchByVictimName(state);
+      result.content = await incident.searchByState(state);
     }
     else if (agelow || agehigh) {
       if (agelow && isNaN(agelow) || agehigh && isNaN(agehigh)) throw new Error("Invalid age low, age high");
