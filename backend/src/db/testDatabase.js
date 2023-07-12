@@ -12,10 +12,8 @@ const pdb = (arg) => {
   console.log();
 }
 
-const testDatabase = async () => {
+const runSampleTests = async () => {
   try {
-    let res;
-
     // Incident
     console.log("Testing Incident schema...");
     res = await incident.findByID(3);
@@ -157,6 +155,63 @@ const testDatabase = async () => {
     pdb(res);
     res = await city.searchByState("");
     pdb(res);
+  } catch (error) {
+    console.error("Database SAMPLE unit testing error", error);
+  }
+}
+
+const runProductionTests = async () => {
+  try {
+    // Incident
+    res = await incident.findByID(720);
+    pdb(res);
+    res = await incident.searchByVictimName("Elliot");
+    pdb(res);
+    res = await victim.findByRangeAge(37, 37);
+    pdb(res);
+    res = await incident.searchByAgencyName("Abbeville County Sheriff's Office");
+    pdb(res);
+
+    // Victim
+    res = await victim.findByID(253);
+    pdb(res);
+    res = await victim.findByRangeID(1500, 1505);
+    pdb(res);
+    res = await victim.findByRangeAge(50, 50);
+    pdb(res);
+    res = await victim.searchByName("McCallum");
+    pdb(res);
+
+    // Agency
+    res = await agency.findByID(75);
+    pdb(res);
+    res = await agency.findByRangeTotalIncidents(12, 13);
+    pdb(res);
+    res = await agency.searchByName("Abbeville County Sheriff's Office");
+    pdb(res);
+
+    // City
+    res = await city.findByID(1);
+    pdb(res);
+    res = await city.searchByName("Seattle");
+    pdb(res);
+    res = await city.searchByCounty("Mason");
+    pdb(res);
+
+  } catch (error) {
+    console.error("Database PRODUCTION unit testing error", error);
+  }
+}
+
+const testDatabase = async () => {
+  try {
+    let res;
+
+    if (process.env.ENVIRONMENT == 'sample') {
+      await runSampleTests();
+    } else if (process.env.ENVIRONMENT == 'production') {
+      await runProductionTests();
+    }
 
     console.log("Database unit testing complete");
   } catch (error) {

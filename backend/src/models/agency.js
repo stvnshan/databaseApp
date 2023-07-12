@@ -157,7 +157,7 @@ const add = async (agencyID, agencyName, type, state, totalShootings, ORICodesLi
     }
 
   } catch (error) {
-    console.error('Error adding to Agency', error);
+    console.error(`Error adding ${JSON.stringify({agencyID, agencyName, type, state, totalShootings})} to Agency`, error);
   } finally {
     client.release();
   }

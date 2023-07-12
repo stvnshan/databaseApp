@@ -6,9 +6,6 @@ const city = require('../models/city.js');
 const fs = require('fs');
 const testDatabase = require('./testDatabase');
 
-// Sample data paths
-const incidentCsvPath = 'data/sample/fatal-police-shootings-data.csv';
-const agencyCsvPath = 'data/sample/fatal-police-shootings-agencies.csv';
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +80,7 @@ const createTables = async () => {
 // POPULATE TABLES
 
 // Populate tables using the Agency CSV
-const populateWithAgencyCSV = async () => {
+const populateWithAgencyCSV = async (agencyCsvPath) => {
   try {
     // Read in Agency CSV
     const csvData = fs.readFileSync(agencyCsvPath, 'utf8');
@@ -97,19 +94,20 @@ const populateWithAgencyCSV = async () => {
       agencyName: headerRow.indexOf('name'),
       type: headerRow.indexOf('type'),
       state: headerRow.indexOf('state'),
-      totalShootings: headerRow.indexOf('total_shootings'),
       ORICodes: headerRow.indexOf('oricodes'),
+      totalShootings: headerRow.indexOf('total_shootings'),
     };
 
     // Extract fields and add to the appropriate tables
-    for (let i = 1; i < rows.length - 2; i++) {
-      const rowData = rows[i].split(',');
+    for (let i = 1; i < rows.length - 1; i++) {
+      const rowData = rows[i].split('","');
 
       const agencyID = parseInt(rowData[columnNameIndices.agencyID].replace(/"/g, ''), 10);
       const agencyName = rowData[columnNameIndices.agencyName].replace(/"/g, '');
       const type = rowData[columnNameIndices.type].replace(/"/g, '');
       const state = rowData[columnNameIndices.state].replace(/"/g, '');
-      const totalShootings = parseInt(rowData[columnNameIndices.totalShootings].replace(/"/g, ''), 10);
+      const totalShootingsStr = rowData[columnNameIndices.totalShootings].replace(/"/g, '');
+      const totalShootings = !isNaN(totalShootingsStr) ? parseInt(totalShootingsStr, 10) : null;
       const ORICodes = rowData[columnNameIndices.ORICodes].replace(/"/g, '');
 
       const ORICodesList = ORICodes.split(';').map((ORICode) => ORICode.trim());
@@ -124,7 +122,7 @@ const populateWithAgencyCSV = async () => {
 };
 
 
-const populateWithIncidentCSV = async () => {
+const populateWithIncidentCSV = async (incidentCsvPath) => {
   try {
     // Read in Incident CSV
     const csvData = fs.readFileSync(incidentCsvPath, 'utf8');
@@ -160,7 +158,7 @@ const populateWithIncidentCSV = async () => {
     };
 
     // Extract fields and add to the appropriate tables
-    for (let i = 1; i < rows.length; i++) {
+    for (let i = 1; i < rows.length - 1; i++) {
       const rowData = rows[i].split(',');
 
       // City
@@ -168,11 +166,12 @@ const populateWithIncidentCSV = async () => {
       const county = rowData[columnNameIndices.county].replace(/"/g, '');
       const state = rowData[columnNameIndices.state].replace(/"/g, '');
       // CityID
-      const cityID = await city.add(cityName, county, state);
+      let cityID = await city.add(cityName, county, state);
 
       // Victim
       const name = rowData[columnNameIndices.name].replace(/"/g, '');
-      const age = parseInt(rowData[columnNameIndices.age].replace(/"/g, ''), 10);
+      const ageStr = rowData[columnNameIndices.age].replace(/"/g, '');
+      const age = !isNaN(ageStr) ? parseInt(ageStr, 10) : 0;
       const gender = rowData[columnNameIndices.gender].replace(/"/g, '');
       const race = rowData[columnNameIndices.race].replace(/"/g, '');
       const raceSource = rowData[columnNameIndices.raceSource].replace(/"/g, '');
@@ -187,8 +186,10 @@ const populateWithIncidentCSV = async () => {
       const armedWith = rowData[columnNameIndices.armedWith].replace(/"/g, '');
       const wasMentalIllnessRelated = rowData[columnNameIndices.wasMentalIllnessRelated].replace(/"/g, '') === 'true';
       const bodyCamera = rowData[columnNameIndices.bodyCamera].replace(/"/g, '') === 'true';
-      const latitude = parseFloat(rowData[columnNameIndices.latitude].replace(/"/g, ''));
-      const longitude = parseFloat(rowData[columnNameIndices.longitude].replace(/"/g, ''));
+      const latitudeStr = rowData[columnNameIndices.latitude].replace(/"/g, '');
+      const latitude = !isNaN(latitudeStr) ? parseFloat(latitudeStr) : null;
+      const longitudeStr = rowData[columnNameIndices.longitude].replace(/"/g, '');
+      const longitude = !isNaN(longitudeStr) ? parseFloat(longitudeStr) : null;
 
       // Agency IDs
       const agencyIDs = rowData[columnNameIndices.agencyIDs].replace(/"/g, '');
@@ -212,9 +213,25 @@ const main = async () => {
     // Create tables
     await createTables();
 
+    // Sample CSV paths
+    const sampleIncidentCsvPath = 'data/sample/fatal-police-shootings-data.csv';
+    const sampleAgencyCsvPath = 'data/sample/fatal-police-shootings-agencies.csv';
+    // Production CSV paths
+    const productionIncidentCsvPath = 'data/production/fatal-police-shootings-data.csv';
+    const productionAgencyCsvPath = 'data/production/fatal-police-shootings-agencies.csv';
+
+    let incidentCsvPath, agencyCsvPath;
+    if (process.env.ENVIRONMENT == 'production') {
+      incidentCsvPath = productionIncidentCsvPath;
+      agencyCsvPath = productionAgencyCsvPath;
+    } else if (process.env.ENVIRONMENT == 'sample') {
+      incidentCsvPath = sampleIncidentCsvPath;
+      agencyCsvPath = sampleAgencyCsvPath;
+    }
+
     // Populate tables
-    await populateWithAgencyCSV();
-    await populateWithIncidentCSV();
+    await populateWithAgencyCSV(agencyCsvPath);
+    await populateWithIncidentCSV(incidentCsvPath);
 
     // Run unit tests
     await testDatabase();
