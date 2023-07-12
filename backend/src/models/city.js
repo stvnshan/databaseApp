@@ -133,14 +133,22 @@ const add = async (cityName, county, state) => {
       RETURNING CityID
     `;
 
-    const result = await client.query(addQuery, [cityName, county, state]);
+    let result = await client.query(addQuery, [cityName, county, state]);
+    if (result.rows.length == 0) {
+      const retrieveQuery = `
+        SELECT * FROM City
+        WHERE City.CityName = $1
+          AND City.County = $2
+          AND City.State = $3
+      `;
+      result = await client.query(retrieveQuery, [cityName, county, state]);
+    }
 
-    // Return -1 if city already exists
-    const cityID = result.rows.length > 0 ? result.rows[0].cityid : -1;
+    const cityID = result.rows[0].cityid;
     return cityID;
 
   } catch (error) {
-    console.error('Error adding to City', error);
+    console.error(`Error adding ${JSON.stringify({cityName, county, state})} to City`, error);
   } finally {
     client.release();
   }

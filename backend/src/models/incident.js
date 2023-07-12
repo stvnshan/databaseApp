@@ -314,7 +314,7 @@ const add = async (
       wasMentalIllnessRelated, bodyCamera, latitude, longitude,
     ]);
 
-    if (agencyIDList.length > 0) {
+    if (agencyIDList.length > 0 && agencyIDList[0] !== null && !isNaN(agencyIDList[0])) {
       agencyIDListString = agencyIDList.toString();
       const addAgenciesInvolvedQuery = `
         INSERT INTO AgenciesInvolved (IncidentID, AgencyID)
@@ -325,7 +325,10 @@ const add = async (
     }
 
   } catch (error) {
-    console.error('Error adding to Incident', error);
+    console.error(`Error adding ${JSON.stringify({
+      incidentID, victimID, cityID, date, threatenType, fleeStatus, armedWith,
+      wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList})}
+      to Incident`, error);
   } finally {
     client.release();
   }

@@ -122,12 +122,13 @@ const add = async (name, age, gender, race, raceSource) => {
       RETURNING VictimID
     `;
 
+    if (isNaN(age)) age = null;
     const result = await client.query(addQuery, [name, age, gender, race, raceSource]);
     const victimID = result.rows[0].victimid;
     return victimID;
 
   } catch (error) {
-    console.error('Error adding to Victim', error);
+    console.error(`Error adding ${JSON.stringify({name, age, gender, race, raceSource})} to Victim`, error);
   } finally {
     client.release();
   }
