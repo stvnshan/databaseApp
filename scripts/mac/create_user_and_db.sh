@@ -6,8 +6,11 @@ cd "$(git rev-parse --show-toplevel)"
 set -o allexport
 source 'backend/.env' set +o allexport
 
+# Install PostgreSQL v14
+brew install postgresql@14
+
 # Start the postgresql server
-brew services start postgresql
+brew services start postgresql@14
 
 # Create the user and specify the target database explicitly
 psql postgres -tXAc "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'" | grep -q 1 || \

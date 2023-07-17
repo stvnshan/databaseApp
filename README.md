@@ -18,14 +18,12 @@ For now, the web UI should be run with the *sample dataset*. Frontend files are 
 ## Mac setup
 1. Install brew (https://brew.sh/).
 2. Install Node.js: `brew install node`.
-3. Install PostgreSQL: `brew install postgresql`.
-4. Start PostgreSQL: `brew services start postgresql`.
-5. Clone the repository and `cd` to it.
-6. Run `scripts/setup.sh`.
-7. In one terminal, `cd` to the `backend` folder and run `npm start`.
-8. In another terminal,`cd` to the `frontend` folder and run `npm start`.
+3. Clone the repository and `cd` to it.
+4. Run `scripts/setup.sh`.
+5. In one terminal, `cd` to the `backend` folder and run `npm start`.
+6. In another terminal,`cd` to the `frontend` folder and run `npm start`.
 ## Windows setup
-1. Download and install PostgreSQL server (https://www.postgresql.org/download/windows/).
+1. Download and install PostgreSQL server version 14.8 (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads).
 2. Install node (https://nodejs.org/en).
 3. Add the PostgreSQL bin directory path to the PATH environment variable.
 4. Login to the postgresql server: `psql -U postgres`.
