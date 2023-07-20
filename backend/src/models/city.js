@@ -1,113 +1,44 @@
 const pool = require('../db/pool');
 
 
-const findByID = async (cityID) => {
-  const client = await pool.connect();
+const paramsMap = new Map([
+  ['id', 'CityID = $1'],
+  ['idlow', 'CityID >= $1'],
+  ['idhigh', 'CityID <= $1'],
+  ['cityname', 'LOWER(CityName) LIKE $1'],
+  ['county', 'LOWER(County) LIKE $1'],
+  ['state', 'LOWER(State) LIKE $1'],
+]);
 
-  try {
-    const query = `
-      SELECT *
-      FROM City
-      WHERE CityID = $1 
-    `;
+const queryBuilder = (params) => {
+  const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
+    const predicate = paramsMap.get(param);
+    if (!predicate) return cur;
+    return `${cur}${predicate}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
+  }, '');
 
-    const result = await client.query(query, [cityID]);
+  const query = `
+    SELECT *
+    FROM City
+    ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY CityName
+  `;
 
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error finding from City by ID', error);
-  } finally {
-    client.release();
-  }
+  return query;
 };
 
 
-const findByRangeID = async (cityIDLow = 0, cityIDHigh = 2147483647) => {
+const find = async (params) => {
   const client = await pool.connect();
 
   try {
-    const query = `
-      SELECT *
-      FROM City
-      WHERE CityID >= $1 AND CityID <= $2
-    `;
+    const query = queryBuilder(params);
 
-    const result = await client.query(query, [cityIDLow, cityIDHigh]);
+    const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error('Error finding range from City by ID', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByName = async (cityNameQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM City
-      WHERE LOWER(CityName) LIKE $1
-    `;
-
-    const cityNameRegex = `%${cityNameQuery.toLowerCase()}%`;
-    const result = await client.query(query, [cityNameRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through City by CityName', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByCounty = async (cityCountyQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM City
-      WHERE LOWER(County) LIKE $1
-    `;
-
-    const cityCountyRegex = `%${cityCountyQuery.toLowerCase()}%`;
-    const result = await client.query(query, [cityCountyRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through City by County', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByState = async (cityStateQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM City
-      WHERE LOWER(State) LIKE $1
-    `;
-
-    const cityStateRegex = `%${cityStateQuery.toLowerCase()}%`;
-    const result = await client.query(query, [cityStateRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through City by State', error);
+    console.error(`Error finding in City with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }
@@ -156,10 +87,6 @@ const add = async (cityName, county, state) => {
 
 
 module.exports = {
-  findByID,
-  findByRangeID,
-  searchByName,
-  searchByCounty,
-  searchByState,
+  find,
   add,
 };
