@@ -2,17 +2,17 @@ const pool = require('../db/pool');
 
 
 const paramsMap = new Map([
-  ['id', 'I.IncidentID = $1'],
-  ['idlow', 'I.IncidentID >= $1'],
-  ['idhigh', 'I.IncidentID <= $1'],
-  ['victimname', 'LOWER(V.Name) LIKE $1'],
-  ['city', 'LOWER(C.CityName) LIKE $1'],
-  ['county', 'LOWER(C.County) LIKE $1'],
-  ['state', 'LOWER(S.State) LIKE $1'],
-  ['agelow', 'V.Age >= $1'],
-  ['agehigh', 'V.Age <= $1'],
-  ['agencyid', 'A.AgencyID = $1'],
-  ['agencyname', 'LOWER(A.AgencyName) LIKE $1'],
+  ['id', 'I.IncidentID = $ARG'],
+  ['idlow', 'I.IncidentID >= $ARG'],
+  ['idhigh', 'I.IncidentID <= $ARG'],
+  ['victimname', 'LOWER(V.Name) LIKE $ARG'],
+  ['city', 'LOWER(C.CityName) LIKE $ARG'],
+  ['county', 'LOWER(C.County) LIKE $ARG'],
+  ['state', 'LOWER(C.State) LIKE $ARG'],
+  ['agelow', 'V.Age >= $ARG'],
+  ['agehigh', 'V.Age <= $ARG'],
+  ['agencyid', 'A.AgencyID = $ARG'],
+  ['agencyname', 'LOWER(A.AgencyName) LIKE $ARG'],
 ]);
 
 const queryBuilder = (params) => {
@@ -22,11 +22,12 @@ const queryBuilder = (params) => {
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
+  let argIndex = 1;
   const query = `
   SELECT I.IncidentID, I.Date, I.ThreatenType, I.FleeStatus,
     I.ArmedWith, I.WasMentalIllnessRelated, I.BodyCamera, I.Latitude, I.Longitude,
     V.VictimID, V.Name, V.Age, V.Gender, V.Race, V.RaceSource,
-    JSONB_AGG(AI.AgencyID) AS AgencyIDs,
+    JSONB_AGG(DISTINCT AI.AgencyID) AS AgencyIDs,
     JSONB_AGG(A.AgencyName) AS AgencyNames,
     C.CityID, C.CityName, C.County, C.State
   FROM Incident I
@@ -34,9 +35,9 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID
   LEFT OUTER JOIN Agency A ON AI.AgencyID = A.AgencyID
   LEFT OUTER JOIN City C ON I.CityID = C.CityID
-  ${predicates}GROUP BY I.IncidentID, V.VictimID, C.CityID
+  ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY I.IncidentID, V.VictimID, C.CityID
   ORDER BY I.IncidentID
-  `;
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
 };
@@ -48,12 +49,16 @@ const find = async (params) => {
   try {
     const query = queryBuilder(params);
 
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `\%${params[p].toLowerCase()}\%`;
+    }
+
     const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error(`Error finding in Agency with params ${JSON.stringify(params)}, `, error);
+    console.error(`Error finding Incident with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }

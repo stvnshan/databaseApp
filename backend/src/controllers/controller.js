@@ -11,7 +11,7 @@ const parseIntParam = (field) => {
 }
 
 const parseStringParam = (field) => {
-  return `%${field.trim().toLowerCase()}%`;
+  return field.trim().toLowerCase();
 }
 
 
@@ -25,8 +25,8 @@ const getIncident = async (req, res) => {
       Object.entries({ id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
-        if (!isNaN(attr[1])) return [attr[0], parseIntParam(attr[1])];
-        if (typeof attr[1] === 'string') return [attr[0], parseStringParam(attr[1])];
+        if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
+        else return [attr[0], parseStringParam(attr[1])];
       })
     );
 
@@ -34,7 +34,7 @@ const getIncident = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error){
-    console.error('Error executing getIncident query', error);
+    console.error('Error handling GET Incident', error);
     res.status(500).json({error: 'Internal server error'});
   }
 };
@@ -55,8 +55,8 @@ const getVictim = async (req, res) => {
       Object.entries({ id, idlow, idhigh, name, agelow, agehigh, gender })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
-        if (!isNaN(attr[1])) return [attr[0], parseIntParam(attr[1])];
-        if (typeof attr[1] === 'string') return [attr[0], parseStringParam(attr[1])];
+        if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
+        else return [attr[0], parseStringParam(attr[1])];
       })
     );
 
@@ -64,7 +64,7 @@ const getVictim = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error){
-    console.error('Error executing getVictim query', error);
+    console.error('Error handling GET Victim', error);
     res.status(500).json({error: 'Internal server error'});
   }
 };
@@ -89,7 +89,7 @@ const getAgency = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error){
-    console.error('Error executing Agency GET', error);
+    console.error('Error handling GET Agency', error);
     res.status(500).json({error: 'Internal server error'});
   }
 };

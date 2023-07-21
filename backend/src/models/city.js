@@ -2,12 +2,12 @@ const pool = require('../db/pool');
 
 
 const paramsMap = new Map([
-  ['id', 'CityID = $1'],
-  ['idlow', 'CityID >= $1'],
-  ['idhigh', 'CityID <= $1'],
-  ['cityname', 'LOWER(CityName) LIKE $1'],
-  ['county', 'LOWER(County) LIKE $1'],
-  ['state', 'LOWER(State) LIKE $1'],
+  ['id', 'CityID = $ARG'],
+  ['idlow', 'CityID >= $ARG'],
+  ['idhigh', 'CityID <= $ARG'],
+  ['cityname', 'LOWER(CityName) LIKE $ARG'],
+  ['county', 'LOWER(County) LIKE $ARG'],
+  ['state', 'LOWER(State) LIKE $ARG'],
 ]);
 
 const queryBuilder = (params) => {
@@ -17,11 +17,12 @@ const queryBuilder = (params) => {
     return `${cur}${predicate}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
+  let argIndex = 1;
   const query = `
     SELECT *
     FROM City
     ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY CityName
-  `;
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
 };
@@ -33,12 +34,16 @@ const find = async (params) => {
   try {
     const query = queryBuilder(params);
 
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `%${params[p].toLowerCase()}%`;
+    }
+
     const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error(`Error finding in City with params ${JSON.stringify(params)}, `, error);
+    console.error(`Error finding City with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }

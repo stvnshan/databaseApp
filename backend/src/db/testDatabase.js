@@ -1,160 +1,70 @@
-const pool = require('./pool');
 const incident = require('../models/incident.js');
 const victim = require('../models/victim.js');
 const agency = require('../models/agency.js');
 const city = require('../models/city.js');
 
-let tc = 0;
+let tc = 1;
 
-const pdb = (arg) => {
+const testFind = async (relation, params) => {
+  res = await relation.find(params);
   console.log(`Test case #${tc++}:`);
-  console.log(JSON.stringify(arg));
+  console.log(JSON.stringify(res));
   console.log();
 }
 
 const runSampleTests = async () => {
   try {
     // Incident
-    console.log("Testing Incident schema...");
-    res = await incident.findByID(3);
-    pdb(res);
-    res = await incident.findByID(1);
-    pdb(res);
-    res = await incident.findByRangeID();
-    pdb(res);
-    res = await incident.findByRangeID(3, 5);
-    pdb(res);
-    res = await incident.findByAgencyID(73);
-    pdb(res);
-    res = await incident.findByAgencyID(1);
-    pdb(res);
-    res = await incident.findByRangeAge(10, 30);
-    pdb(res);
-    res = await incident.searchByVictimName("Elliot");
-    pdb(res);
-    res = await incident.searchByVictimName("Jones");
-    pdb(res);
-    res = await incident.searchByVictimName("");
-    pdb(res);
-    res = await incident.searchByCityName("Wichita");
-    pdb(res);
-    res = await incident.searchByCityName("");
-    pdb(res);
-    res = await incident.searchByCounty("Mason");
-    pdb(res);
-    res = await incident.searchByCounty("Honolulu");
-    pdb(res);
-    res = await incident.searchByCounty("");
-    pdb(res);
-    res = await incident.searchByState("CA");
-    pdb(res);
-    res = await incident.searchByState("NB");
-    pdb(res);
-    res = await incident.searchByState("");
-    pdb(res);
-    res = await incident.searchByAgencyName("Abbeville County Sheriff's Office");
-    pdb(res);
-    res = await incident.searchByAgencyName("Sheriff");
-    pdb(res);
-    res = await incident.searchByAgencyName("");
-    pdb(res);
+    console.log('Testing Incident schema...');
+    const incidentTCs = [
+      {id: 3}, {id: 1}, {idlow: 100}, {idhigh: 5}, {idlow: 3, idhigh: 5}, {agencyid: 73}, {agencyid: 1}, {agelow: 20, agehigh: 22},
+      {victimname: 'Elliot'}, {victimname: 'Jones'}, {city: 'Wichita'}, {county: 'Mason'}, {county: 'Honolulu'},
+      {state: 'CA'}, {state: 'NB'}, {agencyname: 'Abbeville County Sheriff\'s Office'},
+      {agencyname: 'Sheriff'}, {idlow: 10, state: 'WA', agencyname: 'Police'}, {agehigh: 40, idhigh: 50, victimname: 'Max'},
+      {county: 'St. Louis City', agencyname: 'Police', city: 'St. Louis'}
+    ];
+
+    for (let i = 0; i < incidentTCs.length; ++i) {
+      await testFind(incident, incidentTCs[i]);
+    }
 
     // Victim
     console.log("Testing Victim schema...");
-    res = await victim.findByID(3);
-    pdb(res);
-    res = await victim.findByID(1000);
-    pdb(res);
-    res = await victim.findByRangeID(0, 10);
-    pdb(res);
-    res = await victim.findByRangeID(1, 3);
-    pdb(res);
-    res = await victim.findByRangeID();
-    pdb(res);
-    res = await victim.findByRangeAge(0, 10);
-    pdb(res);
-    res = await victim.findByRangeAge(20, 30);
-    pdb(res);
-    res = await victim.findByRangeAge(30, 50);
-    pdb(res);
-    res = await victim.findByGender("male");
-    pdb(res);
-    res = await victim.findByGender("female");
-    pdb(res);
-    res = await victim.findByGender("");
-    pdb(res);
-    res = await victim.searchByName("Elliot");
-    pdb(res);
-    res = await victim.searchByName("Jeff");
-    pdb(res);
-    res = await victim.searchByName("");
-    pdb(res);
+    const victimTCs = [
+      {id: 3}, {id: 1000}, {idlow: 1, idhigh: 3}, {idlow: 1000}, {idhigh: 10}, {agelow: 20, agehigh: 25},
+      {agelow: 20, agehigh: 20}, {gender: 'male', agelow: 60}, {gender: 'female', idhigh: 10}, {name: 'Elliot'}, {name: 'Jeff'},
+      {agelow: 20, name: 'Jake', idhigh: 1000}, {idlow: 10, gender: 'male', agehigh: 30}
+    ];
+
+    for (let i = 0; i < victimTCs.length; ++i) {
+      await testFind(victim, victimTCs[i]);
+    }
 
     // Agency
     console.log("Testing Agency schema...");
-    res = await agency.findByID(73);
-    pdb(res);
-    res = await agency.findByID(340958);
-    pdb(res);
-    res = await agency.findByRangeTotalIncidents(0, 1);
-    pdb(res);
-    res = await agency.findByRangeTotalIncidents(0, 5);
-    pdb(res);
-    res = await agency.findByRangeTotalIncidents(0, 100);
-    pdb(res);
-    res = await agency.findByRangeTotalIncidents(100, 200);
-    pdb(res);
-    res = await agency.findByRangeID(0, 100);
-    pdb(res);
-    res = await agency.findByRangeID(1000, 2000);
-    pdb(res);
-    res = await agency.findByRangeID(3450934, 3984571);
-    pdb(res);
-    res = await agency.findByRangeID();
-    pdb(res);
-    res = await agency.searchByName("Abbeville County Sheriff's Office");
-    pdb(res);
-    res = await agency.searchByName("Sheriff");
-    pdb(res);
-    res = await agency.searchByName("NaN");
-    pdb(res);
-    res = await agency.searchByName("");
-    pdb(res);
-    res = await agency.searchByState("WA");
-    pdb(res);
-    res = await agency.searchByState("NB");
-    pdb(res);
+    const agencyTCs = [
+      {id: 73}, {id: 340958}, {idlow: 20, idhigh: 50}, {idlow: 400}, {idhigh: 40}, {shootlow: 4, shoothigh: 4},
+      {shootlow: 6}, {shoothigh: 1}, {shootlow: 10, shoothigh: 11}, {name: 'Abbeville County Sheriff\'s Office'},
+      {name: 'Sheriff'}, {name: 'NaN'}, {state: 'WA'}, {state: 'NB'},
+      {state: 'WA', name: 'Sheriff', idhigh: 100}, {shoothigh: 3, name: 'Police', idlow: 100},
+      {idlow: 100, shootlow: 9, state: 'KY'}
+    ];
+
+    for (let i = 0; i < agencyTCs.length; ++i) {
+      await testFind(agency, agencyTCs[i]);
+    }
 
     // City
     console.log("Testing City schema...");
-    res = await city.findByID(1);
-    pdb(res);
-    res = await city.findByID(100);
-    pdb(res);
-    res = await city.findByRangeID(1, 3);
-    pdb(res);
-    res = await city.findByRangeID(200, 201);
-    pdb(res);
-    res = await city.findByRangeID();
-    pdb(res);
-    res = await city.searchByName("Shelton");
-    pdb(res);
-    res = await city.searchByName("Seattle");
-    pdb(res);
-    res = await city.searchByName("");
-    pdb(res);
-    res = await city.searchByCounty("Mason");
-    pdb(res);
-    res = await city.searchByCounty("Aenami");
-    pdb(res);
-    res = await city.searchByCounty("");
-    pdb(res);
-    res = await city.searchByState("CA");
-    pdb(res);
-    res = await city.searchByState("NB");
-    pdb(res);
-    res = await city.searchByState("");
-    pdb(res);
+    const cityTCs = [
+      {id: 1}, {id: 100}, {idlow: 1, idhigh: 3}, {idlow: 40}, {idhigh: 5}, {cityname: 'Shelton'}, {cityname: 'Seattle'},
+      {county: 'Mason'}, {county: 'County'}, {state: 'CA'}, {state: 'NB'}, {cityname: 'Sh', state: 'WA'}, {idlow: 10, county: 'ea'}
+    ];
+
+    for (let i = 0; i < cityTCs.length; ++i) {
+      await testFind(city, cityTCs[i]);
+    }
+
   } catch (error) {
     console.error("Database SAMPLE unit testing error", error);
   }
@@ -163,40 +73,54 @@ const runSampleTests = async () => {
 const runProductionTests = async () => {
   try {
     // Incident
-    res = await incident.findByID(720);
-    pdb(res);
-    res = await incident.searchByVictimName("Elliot");
-    pdb(res);
-    res = await victim.findByRangeAge(37, 37);
-    pdb(res);
-    res = await incident.searchByAgencyName("Abbeville County Sheriff's Office");
-    pdb(res);
+    console.log('Testing Incident schema...');
+    const incidentTCs = [
+      {id: 720}, {id: 1}, {idlow: 4001, idhigh: 4003}, {victimname: 'Elliot'}, {agencyname: 'Abbeville County Sheriff\'s Office'},
+      {idhigh: 100, state: 'WA', agencyname: 'Police'}, {agehigh: 40, idlow: 5000, victimname: 'Cel'},
+      {county: 'Mason', agencyname: 'Sheriff', city: 'Greenfield'},
+      {idlow: 9000, state: 'WA', agencyname: 'Sheriff'}, {agehigh: 40, idhigh: 50, victimname: 'Max'},
+      {county: 'St. Louis City', city: 'St. Louis', state: 'MO', idlow: 2400}
+    ];
+
+    for (let i = 0; i < incidentTCs.length; ++i) {
+      await testFind(incident, incidentTCs[i]);
+    }
 
     // Victim
-    res = await victim.findByID(253);
-    pdb(res);
-    res = await victim.findByRangeID(1500, 1505);
-    pdb(res);
-    res = await victim.findByRangeAge(50, 50);
-    pdb(res);
-    res = await victim.searchByName("McCallum");
-    pdb(res);
+    console.log("Testing Victim schema...");
+    const victimTCs = [
+      {id: 253}, {idlow: 1505, idhigh: 1507}, {idhigh: 3}, {name: 'Elliot'},
+      {idlow: 5000, gender: 'male', agelow: 27, agehigh: 27}, {gender: 'female', idlow: 1000, name: 'Sam'},
+      {agelow: 50, name: 'Jake', idhigh: 1000}, {idhigh: 5, gender: 'male', agehigh: 30}
+    ];
+
+    for (let i = 0; i < victimTCs.length; ++i) {
+      await testFind(victim, victimTCs[i]);
+    }
 
     // Agency
-    res = await agency.findByID(75);
-    pdb(res);
-    res = await agency.findByRangeTotalIncidents(12, 13);
-    pdb(res);
-    res = await agency.searchByName("Abbeville County Sheriff's Office");
-    pdb(res);
+    console.log("Testing Agency schema...");
+    const agencyTCs = [
+      {id: 73}, {id: 340958}, {idlow: 500, idhigh: 510}, {idlow: 22000}, {idhigh: 3}, {shootlow: 100},
+      {name: 'Abbeville County Sheriff\'s Office'}, {shootlow: 5, state: 'CA', name: 'Sheriff'},
+      {state: 'WA', name: 'Sheriff', idhigh: 100}, {shootlow: 7, name: 'Police', idhigh: 100},
+      {idlow: 100, shootlow: 9, state: 'KY'}
+    ];
+
+    for (let i = 0; i < agencyTCs.length; ++i) {
+      await testFind(agency, agencyTCs[i]);
+    }
 
     // City
-    res = await city.findByID(1);
-    pdb(res);
-    res = await city.searchByName("Seattle");
-    pdb(res);
-    res = await city.searchByCounty("Mason");
-    pdb(res);
+    console.log("Testing City schema...");
+    const cityTCs = [
+      {id: 1}, {id: 100}, {idlow: 1, idhigh: 3}, {idhigh: 5}, {cityname: 'Shelton'}, {cityname: 'Seattle'},
+      {county: 'Mason'}, {county: 'County'}, {cityname: 'Sh', state: 'WA'}, {idlow: 10, county: 'ea'}
+    ];
+
+    for (let i = 0; i < cityTCs.length; ++i) {
+      await testFind(city, cityTCs[i]);
+    }
 
   } catch (error) {
     console.error("Database PRODUCTION unit testing error", error);
@@ -205,8 +129,6 @@ const runProductionTests = async () => {
 
 const testDatabase = async () => {
   try {
-    let res;
-
     if (process.env.ENVIRONMENT == 'sample') {
       await runSampleTests();
     } else if (process.env.ENVIRONMENT == 'production') {

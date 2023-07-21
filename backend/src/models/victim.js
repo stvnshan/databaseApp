@@ -2,13 +2,13 @@ const pool = require('../db/pool');
 
 
 const paramsMap = new Map([
-  ['id', 'VictimID = $1'],
-  ['idlow', 'VictimID >= $1'],
-  ['idhigh', 'VictimID <= $1'],
-  ['name', 'LOWER(Name) LIKE $1'],
-  ['agelow', 'Age >= $1'],
-  ['agehigh', 'Age <= $1'],
-  ['gender', 'LOWER(Gender) LIKE $1'],
+  ['id', 'VictimID = $ARG'],
+  ['idlow', 'VictimID >= $ARG'],
+  ['idhigh', 'VictimID <= $ARG'],
+  ['name', 'LOWER(Name) LIKE $ARG'],
+  ['agelow', 'Age >= $ARG'],
+  ['agehigh', 'Age <= $ARG'],
+  ['gender', 'LOWER(Gender) LIKE $ARG'],
 ]);
 
 const queryBuilder = (params) => {
@@ -18,11 +18,12 @@ const queryBuilder = (params) => {
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
+  let argIndex = 1;
   const query = `
   SELECT *
   FROM Victim
-  ${predicates}ORDER BY VictimID
-  `;
+  ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY VictimID
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
 };
@@ -34,12 +35,16 @@ const find = async (params) => {
   try {
     const query = queryBuilder(params);
 
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `%${params[p].toLowerCase()}%`;
+    }
+
     const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error(`Error finding in Agency with params ${JSON.stringify(params)}, `, error);
+    console.error(`Error finding Agency with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }
