@@ -1,111 +1,50 @@
 const pool = require('../db/pool');
 
 
-const findByID = async (victimID) => {
-  const client = await pool.connect();
+const paramsMap = new Map([
+  ['id', 'VictimID = $ARG'],
+  ['idlow', 'VictimID >= $ARG'],
+  ['idhigh', 'VictimID <= $ARG'],
+  ['name', 'LOWER(Name) LIKE $ARG'],
+  ['agelow', 'Age >= $ARG'],
+  ['agehigh', 'Age <= $ARG'],
+  ['gender', 'LOWER(Gender) LIKE $ARG'],
+]);
 
-  try {
-    const query = `
-      SELECT *
-      FROM Victim
-      WHERE VictimID = $1 
-    `;
+const queryBuilder = (params) => {
+  const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
+    const predicate = paramsMap.get(param);
+    if (!predicate) return cur;
+    return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
+  }, '');
 
-    const result = await client.query(query, [victimID]);
+  let argIndex = 1;
+  const query = `
+  SELECT *
+  FROM Victim
+  ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY VictimID
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error finding from Victim by ID', error);
-  } finally {
-    client.release();
-  }
+  return query;
 };
 
 
-const findByRangeID = async (victimIDLow = 0, victimIDHigh = 2147483647) => {
+const find = async (params) => {
   const client = await pool.connect();
 
   try {
-    const query = `
-      SELECT *
-      FROM Victim
-      WHERE VictimID >= $1 AND VictimID <= $2
-    `;
+    const query = queryBuilder(params);
 
-    const result = await client.query(query, [victimIDLow, victimIDHigh]);
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `%${params[p].toLowerCase()}%`;
+    }
+
+    const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error('Error finding range from Victim by ID', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByName = async (victimNameQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM Victim
-      WHERE LOWER(Name) LIKE $1
-    `;
-
-    const victimNameRegex = `%${victimNameQuery.toLowerCase()}%`;
-    const result = await client.query(query, [victimNameRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through Victim by Name', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const findByRangeAge = async (ageLow = 0, ageHigh = 214748364) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM Victim
-      WHERE Age >= $1 AND Age <= $2
-    `;
-
-    const result = await client.query(query, [ageLow, ageHigh]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error finding range from Victim by Age', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const findByGender = async (gender) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT *
-      FROM Victim
-      WHERE Gender = $1
-    `;
-
-    const result = await client.query(query, [gender]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error finding from Victim by Gender', error);
+    console.error(`Error finding Agency with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }
@@ -136,10 +75,6 @@ const add = async (name, age, gender, race, raceSource) => {
 
 
 module.exports = {
-  findByID,
-  findByRangeID,
-  searchByName,
-  findByRangeAge,
-  findByGender,
+  find,
   add,
 };

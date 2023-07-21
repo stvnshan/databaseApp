@@ -1,132 +1,54 @@
 const pool = require('../db/pool');
 
 
-const findByID = async (agencyID) => {
-  const client = await pool.connect();
+const paramsMap = new Map([
+  ['id', 'A.AgencyID = $ARG'],
+  ['idlow', 'A.AgencyID >= $ARG'],
+  ['idhigh', 'A.AgencyID <= $ARG'],
+  ['name', 'LOWER(A.AgencyName) LIKE $ARG'],
+  ['shootlow', 'A.TotalShootings >= $ARG'],
+  ['shoothigh', 'A.TotalShootings <= $ARG'],
+  ['state', 'LOWER(A.State) LIKE $ARG'],
+]);
 
-  try {
-    const query = `
-      SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
-        JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
-      FROM Agency A
-      LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-      LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
-      WHERE A.AgencyID = $1
-      GROUP BY A.AgencyID
-    `;
+const queryBuilder = (params) => {
+  const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
+    const predicate = paramsMap.get(param);
+    if (!predicate) return cur;
+    return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
+  }, '');
 
-    const result = await client.query(query, [agencyID]);
+  let argIndex = 1;
+  const query = `
+  SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
+    JSONB_AGG(DISTINCT AI.IncidentID) AS IncidentIDs, JSONB_AGG(DISTINCT O.ori) AS OriCodes
+  FROM Agency A
+  LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
+  LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
+  ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY A.AgencyID
+  ORDER BY A.AgencyName
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error finding from Agency by ID', error);
-  } finally {
-    client.release();
-  }
+  return query;
 };
 
 
-const findByRangeID = async (agencyIDLow = 0, agencyIDHigh = 2147483647) => {
+const find = async (params) => {
   const client = await pool.connect();
 
   try {
-    const query = `
-      SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
-        JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
-      FROM Agency A
-      LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-      LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
-      WHERE A.AgencyID >= $1 AND A.AgencyID <= $2
-      GROUP BY A.AgencyID
-    `;
+    const query = queryBuilder(params);
 
-    const result = await client.query(query, [agencyIDLow, agencyIDHigh]);
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `%${params[p].toLowerCase()}%`;
+    }
+
+    const result = await client.query(query, Object.values(params));
 
     return result.rows;
 
   } catch (error) {
-    console.error('Error fnding range from Agency by ID', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByName = async (agencyNameQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
-        JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
-      FROM Agency A
-      LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-      LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
-      WHERE LOWER(A.AgencyName) LIKE $1
-      GROUP BY A.AgencyID
-    `;
-
-    const agencyNameRegex = `%${agencyNameQuery.toLowerCase()}%`;
-    const result = await client.query(query, [agencyNameRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through Agency by Name', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const searchByState = async (agencyStateQuery) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
-        JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
-      FROM Agency A
-      LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-      LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
-      WHERE LOWER(A.State) LIKE $1
-      GROUP BY A.AgencyID
-    `;
-
-    const agencyStateRegex = `%${agencyStateQuery.toLowerCase()}%`;
-    const result = await client.query(query, [agencyStateRegex]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error searching through Agency by State', error);
-  } finally {
-    client.release();
-  }
-};
-
-
-const findByRangeTotalIncidents = async (totalIncidentsLow = 0, totalIncidentsHigh = 2147483647) => {
-  const client = await pool.connect();
-
-  try {
-    const query = `
-      SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
-        JSONB_AGG(AI.IncidentID) AS IncidentIDs, JSONB_AGG(O.ori) AS OriCodes
-      FROM Agency A
-      LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
-      LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
-      WHERE A.TotalShootings >= $1 AND A.TotalShootings <= $2
-      GROUP BY A.AgencyID
-    `;
-
-    const result = await client.query(query, [totalIncidentsLow, totalIncidentsHigh]);
-
-    return result.rows;
-
-  } catch (error) {
-    console.error('Error fnding range from Agency by Total Incidents', error);
+    console.error(`Error finding Agency with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }
@@ -165,10 +87,6 @@ const add = async (agencyID, agencyName, type, state, totalShootings, ORICodesLi
 
 
 module.exports = {
-  findByID,
-  findByRangeID,
-  searchByName,
-  searchByState,
-  findByRangeTotalIncidents,
+  find,
   add,
 }
