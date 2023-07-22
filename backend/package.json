@@ -7,8 +7,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "initdb": "node src/db/initialize.js",
-    "dropdb": "node src/db/dropAllTables.js",
-    "testdb": "node src/db/testWrapper.js",
+    "dropdb": "node ../scripts/dropAllTables.js",
+    "testdb": "node src/test/unitWrapper.js",
     "resetdb": "npm run dropdb; npm run initdb"
   },
   "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski, Arhum Waqar",

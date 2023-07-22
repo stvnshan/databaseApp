@@ -4,7 +4,7 @@ const victim = require('../models/victim.js');
 const agency = require('../models/agency.js');
 const city = require('../models/city.js');
 const fs = require('fs');
-const testDatabase = require('./testDatabase');
+const testDatabase = require('../test/unit');
 
 
 
@@ -166,7 +166,7 @@ const populateWithIncidentCSV = async (incidentCsvPath) => {
       const county = rowData[columnNameIndices.county].replace(/"/g, '');
       const state = rowData[columnNameIndices.state].replace(/"/g, '');
       // CityID
-      let cityID = await city.add(cityName, county, state);
+      const cityID = await city.add(cityName, county, state);
 
       // Victim
       const name = rowData[columnNameIndices.name].replace(/"/g, '');

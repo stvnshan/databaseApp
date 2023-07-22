@@ -1,7 +1,19 @@
 
-> cs348back@1.0.0 testdb
-> node src/db/testWrapper.js
+> cs348back@1.0.0 resetdb
+> npm run dropdb; npm run initdb
 
+
+> cs348back@1.0.0 dropdb
+> node ../scripts/dropAllTables.js
+
+Tables dropped successfully.
+
+> cs348back@1.0.0 initdb
+> node src/db/initialize.js
+
+Tables created successfully
+Populating with Agency CSV successful
+Populating with Incident CSV successful
 Testing Incident schema...
 Test case #1:
 [{"incidentid":3,"date":"2015-01-01T05:00:00.000Z","threatentype":"point","fleestatus":"not","armedwith":"gun","wasmentalillnessrelated":false,"bodycamera":false,"latitude":47.246826,"longitude":-123.121592,"victimid":1,"name":"Tim Elliot","age":53,"gender":"male","race":"A","racesource":"not_available","agencyids":[73],"agencynames":["Abbeville County Sheriff's Office"],"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
@@ -155,36 +167,36 @@ Test case #49:
 Test case #50:
 [{"agencyid":130,"agencyname":"Kentucky State Police","type":"state_police","state":"KY","totalshootings":46,"incidentids":[83],"oricodes":["KY001SP","KY002SP","KY003SP","KY004SP","KY005SP","KY006SP","KY007SP","KY008SP","KY009SP","KY010SP","KY011SP","KY012SP","KY013SP","KY014SP","KY015SP","KY016SP","KY017SP","KY018SP","KY019SP","KY020SP","KY021SP","KY022SP","KY023SP","KY024SP","KY025SP","KY026SP","KY027SP","KY028SP","KY029SP","KY030SP","KY031SP","KY032SP","KY033SP","KY034SP","KY035SP","KY036SP","KY03702","KY037SP","KY038SP","KY039SP","KY040SP","KY041SP","KY042SP","KY043SP","KY044SP","KY045SP","KY046SP","KY047SP","KY048SP","KY049SP","KY050SP","KY051SP","KY052SP","KY053SP","KY054SP","KY055SP","KY056SP","KY057SP","KY058SP","KY059SP","KY060SP","KY061SP","KY062SP","KY063SP","KY064SP","KY065SP","KY066SP","KY067SP","KY068SP","KY069SP","KY070SP","KY071SP","KY072SP","KY073SP","KY074SP","KY075SP","KY076SP","KY077SP","KY078SP","KY079SP","KY080SP","KY081SP","KY082SP","KY083SP","KY084SP","KY085SP","KY086SP","KY087SP","KY088SP","KY089SP","KY090SP","KY091SP","KY092SP","KY093SP","KY094SP","KY095SP","KY096SP","KY097SP","KY098SP","KY099SP","KY100SP","KY101SP","KY102SP","KY103SP","KY104SP","KY105SP","KY106SP","KY107SP","KY108SP","KY109SP","KY110SP","KY111SP","KY112SP","KY113SP","KY114SP","KY115SP","KY116SP","KY117SP","KY118SP","KY119SP","KY120SP","KYKSP00","KYKSP01","KYKSP02","KYKSP03","KYKSP04","KYKSP05","KYKSP06","KYKSP07","KYKSP08","KYKSP09","KYKSP10","KYKSP11","KYKSP12","KYKSP13","KYKSP14","KYKSP15","KYKSP16","KYKSP25","KYKSP32","KYKSP33","KYKSP35"]}]
 
-Testing City schema...
 Test case #51:
-[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+[{"agencyid":491,"agencyname":"Davis County Sheriff's Office"}]
 
 Test case #52:
-[]
+[{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office"},{"agencyid":491,"agencyname":"Davis County Sheriff's Office"},{"agencyid":278,"agencyname":"Franklin County Sheriff's Department"},{"agencyid":20,"agencyname":"Los Angeles County Sheriff's Department"},{"agencyid":267,"agencyname":"Riverside County Sheriff's Department"},{"agencyid":490,"agencyname":"Saline County Sheriff's Department"},{"agencyid":249,"agencyname":"Union County Sheriff's Department"},{"agencyid":70,"agencyname":"Washington County Sheriff's Office"},{"agencyid":254,"agencyname":"Yellowstone County Sheriff's Department"}]
 
 Test case #53:
-[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+[{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office"}]
 
 Test case #54:
-[{"cityid":48,"cityname":"Chapeno","county":"Starr","state":"TX"},{"cityid":42,"cityname":"Fort Worth","county":"Tarrant","state":"TX"},{"cityid":44,"cityname":"Gunlock","county":"Magoffin","state":"KY"},{"cityid":47,"cityname":"Hemet","county":"Riverside","state":"CA"},{"cityid":41,"cityname":"Los Angeles","county":"Los Angeles","state":"CA"},{"cityid":43,"cityname":"Maricopa","county":"Pinal","state":"AZ"},{"cityid":40,"cityname":"Muskogee","county":"Muskogee","state":"OK"},{"cityid":46,"cityname":"Scottsdale","county":"Maricopa","state":"AZ"},{"cityid":49,"cityname":"St. Louis","county":"St. Louis City","state":"MO"},{"cityid":45,"cityname":"Weymouth","county":"Norfolk","state":"MA"}]
+[{"agencyid":73,"agencyname":"Abbeville County Sheriff's Office"},{"agencyid":508,"agencyname":"Albuquerque Police Department"},{"agencyid":290,"agencyname":"Arcola Police Department"},{"agencyid":21,"agencyname":"Aurora Police Department"},{"agencyid":139,"agencyname":"Bloomington Police Department"},{"agencyid":287,"agencyname":"Burlington Police Department"},{"agencyid":195,"agencyname":"Chandler Police Department"},{"agencyid":1237,"agencyname":"Chesapeake Police Department"},{"agencyid":90,"agencyname":"Columbus Police Department"},{"agencyid":491,"agencyname":"Davis County Sheriff's Office"},{"agencyid":115,"agencyname":"Des Moines Police Department"},{"agencyid":228,"agencyname":"Draper Police Department"},{"agencyid":110,"agencyname":"El Paso Police Department"},{"agencyid":289,"agencyname":"England Police Department"},{"agencyid":473,"agencyname":"Evans Police Department"},{"agencyid":114,"agencyname":"Fairfield Police Department"},{"agencyid":116,"agencyname":"Fort Worth Police Department"},{"agencyid":278,"agencyname":"Franklin County Sheriff's Department"},{"agencyid":246,"agencyname":"Freeport Police Department"},{"agencyid":120,"agencyname":"Fremont Police Department"},{"agencyid":77,"agencyname":"Indianapolis Metropolitan Police Department"},{"agencyid":292,"agencyname":"Jourdanton Police Department"},{"agencyid":130,"agencyname":"Kentucky State Police"},{"agencyid":227,"agencyname":"Lake Jackson Police Department"},{"agencyid":20,"agencyname":"Los Angeles County Sheriff's Department"},{"agencyid":38,"agencyname":"Los Angeles Police Department"},{"agencyid":509,"agencyname":"Louisiana State Police"},{"agencyid":127,"agencyname":"Maricopa Police Department"},{"agencyid":125,"agencyname":"Muskogee Police Department"},{"agencyid":145,"agencyname":"New Orleans Police Department"},{"agencyid":493,"agencyname":"North Las Vegas Police Department"},{"agencyid":101,"agencyname":"Oklahoma Highway Patrol"},{"agencyid":293,"agencyname":"Old Bridge Police Department"},{"agencyid":267,"agencyname":"Riverside County Sheriff's Department"},{"agencyid":490,"agencyname":"Saline County Sheriff's Department"},{"agencyid":250,"agencyname":"Salt Lake City Police Department"},{"agencyid":196,"agencyname":"San Francisco Police Department"},{"agencyid":510,"agencyname":"Scottsdale Police Department"},{"agencyid":494,"agencyname":"South Gate Police Department"},{"agencyid":134,"agencyname":"St. Louis Police Department"},{"agencyid":63,"agencyname":"St. Paul Police Department"},{"agencyid":168,"agencyname":"Stockton Police Department"},{"agencyid":492,"agencyname":"Syracuse Police Department"},{"agencyid":2195,"agencyname":"U.S. Border Patrol"},{"agencyid":249,"agencyname":"Union County Sheriff's Department"},{"agencyid":70,"agencyname":"Washington County Sheriff's Office"},{"agencyid":229,"agencyname":"West Valley City Police Department"},{"agencyid":108,"agencyname":"Weymouth Police Department"},{"agencyid":238,"agencyname":"Wichita Police Department"},{"agencyid":254,"agencyname":"Yellowstone County Sheriff's Department"}]
 
+Testing City schema...
 Test case #55:
-[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":5,"cityname":"Evans","county":"Weld","state":"CO"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
 Test case #56:
-[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+[]
 
 Test case #57:
-[]
+[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
 Test case #58:
-[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+[{"cityid":48,"cityname":"Chapeno","county":"Starr","state":"TX"},{"cityid":42,"cityname":"Fort Worth","county":"Tarrant","state":"TX"},{"cityid":44,"cityname":"Gunlock","county":"Magoffin","state":"KY"},{"cityid":47,"cityname":"Hemet","county":"Riverside","state":"CA"},{"cityid":41,"cityname":"Los Angeles","county":"Los Angeles","state":"CA"},{"cityid":43,"cityname":"Maricopa","county":"Pinal","state":"AZ"},{"cityid":40,"cityname":"Muskogee","county":"Muskogee","state":"OK"},{"cityid":46,"cityname":"Scottsdale","county":"Maricopa","state":"AZ"},{"cityid":49,"cityname":"St. Louis","county":"St. Louis City","state":"MO"},{"cityid":45,"cityname":"Weymouth","county":"Norfolk","state":"MA"}]
 
 Test case #59:
-[]
+[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":5,"cityname":"Evans","county":"Weld","state":"CO"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
 Test case #60:
-[{"cityid":36,"cityname":"Fairfield","county":"Solano","state":"CA"},{"cityid":39,"cityname":"Fremont","county":"Alameda","state":"CA"},{"cityid":47,"cityname":"Hemet","county":"Riverside","state":"CA"},{"cityid":41,"cityname":"Los Angeles","county":"Los Angeles","state":"CA"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":23,"cityname":"South Gate","county":"Los Angeles","state":"CA"},{"cityid":11,"cityname":"Stockton","county":"San Joaquin","state":"CA"}]
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
 Test case #61:
 []
@@ -193,6 +205,19 @@ Test case #62:
 [{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
 Test case #63:
+[]
+
+Test case #64:
+[{"cityid":36,"cityname":"Fairfield","county":"Solano","state":"CA"},{"cityid":39,"cityname":"Fremont","county":"Alameda","state":"CA"},{"cityid":47,"cityname":"Hemet","county":"Riverside","state":"CA"},{"cityid":41,"cityname":"Los Angeles","county":"Los Angeles","state":"CA"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":23,"cityname":"South Gate","county":"Los Angeles","state":"CA"},{"cityid":11,"cityname":"Stockton","county":"San Joaquin","state":"CA"}]
+
+Test case #65:
+[]
+
+Test case #66:
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+
+Test case #67:
 [{"cityid":29,"cityname":"Chesapeake","county":"Chesapeake City","state":"VA"},{"cityid":15,"cityname":"New Orleans","county":"Orleans","state":"LA"}]
 
 Database unit testing complete
+Database initialization completed

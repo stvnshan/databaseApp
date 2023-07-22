@@ -1,6 +1,7 @@
 const pool = require('../db/pool');
 
 
+// Parameters predicates map
 const paramsMap = new Map([
   ['id', 'I.IncidentID = $ARG'],
   ['idlow', 'I.IncidentID >= $ARG'],
@@ -16,11 +17,16 @@ const paramsMap = new Map([
 ]);
 
 const queryBuilder = (params) => {
+  // Construct list of predicates
   const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
     const predicate = paramsMap.get(param);
     if (!predicate) return cur;
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
+
+  // Pagination
+  const pageSize = 50;
+  const offset = (params.page) ? params.page * pageSize : 0;
 
   let argIndex = 1;
   const query = `
@@ -37,6 +43,7 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN City C ON I.CityID = C.CityID
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY I.IncidentID, V.VictimID, C.CityID
   ORDER BY I.IncidentID
+  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
@@ -65,6 +72,48 @@ const find = async (params) => {
 };
 
 
+const findBrief = async () => {
+  const client = await pool.connect();
+
+  try {
+    const query = `
+    SELECT IncidentID, longitude, latitude
+    FROM Incident
+    `;
+
+    const result = await client.query(query, []);
+
+    return result.rows;
+
+  } catch (error) {
+    console.error(`Error finding Incident (brief), `, error);
+  } finally {
+    client.release();
+  }
+};
+
+
+const maxID = async () => {
+  const client = await pool.connect();
+
+  try {
+    const query = `
+    SELECT MAX(IncidentID)
+    FROM Incident
+    `;
+
+    const result = await client.query(query, []);
+
+    return result.rows[0].max;
+
+  } catch (error) {
+    console.error(`Error retrieving max IncidentID, `, error);
+  } finally {
+    client.release();
+  }
+};
+
+
 const add = async (
   incidentID, victimID, cityID, date, threatenType, fleeStatus, armedWith,
   wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList
@@ -85,7 +134,7 @@ const add = async (
       wasMentalIllnessRelated, bodyCamera, latitude, longitude,
     ]);
 
-    if (agencyIDList.length > 0 && agencyIDList[0] !== null && !isNaN(agencyIDList[0])) {
+    if (agencyIDList && agencyIDList.length > 0 && agencyIDList[0] !== null && !isNaN(agencyIDList[0])) {
       agencyIDListString = agencyIDList.toString();
       const addAgenciesInvolvedQuery = `
         INSERT INTO AgenciesInvolved (IncidentID, AgencyID)
@@ -95,10 +144,12 @@ const add = async (
       await client.query(addAgenciesInvolvedQuery, [incidentID]);
     }
 
+    return incidentID;
+
   } catch (error) {
-    console.error(`Error adding ${JSON.stringify({
+    console.error(`Error adding ${JSON.stringify([
       incidentID, victimID, cityID, date, threatenType, fleeStatus, armedWith,
-      wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList})}
+      wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList])}
       to Incident`, error);
   } finally {
     client.release();
@@ -108,5 +159,7 @@ const add = async (
 
 module.exports = {
   find,
+  findBrief,
+  maxID,
   add,
 };

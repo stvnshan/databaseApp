@@ -1,6 +1,6 @@
 
 > cs348back@1.0.0 testdb
-> node src/db/testWrapper.js
+> node src/test/unitWrapper.js
 
 Testing Incident schema...
 Test case #1:
@@ -95,35 +95,41 @@ Test case #29:
 Test case #30:
 [{"agencyid":130,"agencyname":"Kentucky State Police","type":"state_police","state":"KY","totalshootings":46,"incidentids":[83,447,468,828,839,946,966,1392,1550,1748,1774,1961,1985,2347,2632,2904,3516,3546,3699,4047,4203,4457,4542,4818,4925,4937,5421,5569,5695,5783,6078,6114,6116,6236,6322,7308,7471,7989,8190,8239,8575,8604,8816,8937,9073,9139],"oricodes":["KY001SP","KY002SP","KY003SP","KY004SP","KY005SP","KY006SP","KY007SP","KY008SP","KY009SP","KY010SP","KY011SP","KY012SP","KY013SP","KY014SP","KY015SP","KY016SP","KY017SP","KY018SP","KY019SP","KY020SP","KY021SP","KY022SP","KY023SP","KY024SP","KY025SP","KY026SP","KY027SP","KY028SP","KY029SP","KY030SP","KY031SP","KY032SP","KY033SP","KY034SP","KY035SP","KY036SP","KY03702","KY037SP","KY038SP","KY039SP","KY040SP","KY041SP","KY042SP","KY043SP","KY044SP","KY045SP","KY046SP","KY047SP","KY048SP","KY049SP","KY050SP","KY051SP","KY052SP","KY053SP","KY054SP","KY055SP","KY056SP","KY057SP","KY058SP","KY059SP","KY060SP","KY061SP","KY062SP","KY063SP","KY064SP","KY065SP","KY066SP","KY067SP","KY068SP","KY069SP","KY070SP","KY071SP","KY072SP","KY073SP","KY074SP","KY075SP","KY076SP","KY077SP","KY078SP","KY079SP","KY080SP","KY081SP","KY082SP","KY083SP","KY084SP","KY085SP","KY086SP","KY087SP","KY088SP","KY089SP","KY090SP","KY091SP","KY092SP","KY093SP","KY094SP","KY095SP","KY096SP","KY097SP","KY098SP","KY099SP","KY100SP","KY101SP","KY102SP","KY103SP","KY104SP","KY105SP","KY106SP","KY107SP","KY108SP","KY109SP","KY110SP","KY111SP","KY112SP","KY113SP","KY114SP","KY115SP","KY116SP","KY117SP","KY118SP","KY119SP","KY120SP","KYKSP00","KYKSP01","KYKSP02","KYKSP03","KYKSP04","KYKSP05","KYKSP06","KYKSP07","KYKSP08","KYKSP09","KYKSP10","KYKSP11","KYKSP12","KYKSP13","KYKSP14","KYKSP15","KYKSP16","KYKSP25","KYKSP32","KYKSP33","KYKSP35"]},{"agencyid":583,"agencyname":"Louisville Metro Police Department","type":"local_police","state":"KY","totalshootings":26,"incidentids":[548,703,1766,2323,3007,3374,3596,3642,3643,3826,4219,4248,4629,4941,5177,5418,5626,5630,5699,5842,6326,6897,7254,7853,9103,9293],"oricodes":["KY05680"]}]
 
-Testing City schema...
 Test case #31:
-[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+[{"agencyid":491,"agencyname":"Davis County Sheriff's Office"}]
 
 Test case #32:
-[{"cityid":100,"cityname":"Dadeville","county":"Tallapoosa","state":"AL"}]
+[{"agencyid":3145,"agencyname":"Abbeville County Sheriff's Office"}]
 
+Testing City schema...
 Test case #33:
-[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
 Test case #34:
-[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":5,"cityname":"Evans","county":"Weld","state":"CO"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
+[{"cityid":100,"cityname":"Dadeville","county":"Tallapoosa","state":"AL"}]
 
 Test case #35:
-[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3184,"cityname":"Shelton","county":"","state":"WA"}]
+[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
 Test case #36:
-[{"cityid":432,"cityname":"Seattle","county":"King","state":"WA"},{"cityid":1168,"cityname":"Seattle","county":"","state":"WA"}]
+[{"cityid":2,"cityname":"Aloha","county":"Washington","state":"OR"},{"cityid":5,"cityname":"Evans","county":"Weld","state":"CO"},{"cityid":4,"cityname":"San Francisco","county":"San Francisco","state":"CA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3,"cityname":"Wichita","county":"Sedgwick","state":"KS"}]
 
 Test case #37:
-[{"cityid":501,"cityname":"Grapeview","county":"Mason","state":"WA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
+[{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3184,"cityname":"Shelton","county":"","state":"WA"}]
 
 Test case #38:
-[]
+[{"cityid":432,"cityname":"Seattle","county":"King","state":"WA"},{"cityid":1168,"cityname":"Seattle","county":"","state":"WA"}]
 
 Test case #39:
-[{"cityid":1180,"cityname":"Muckleshoot Indian Reservation","county":"King","state":"WA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3184,"cityname":"Shelton","county":"","state":"WA"},{"cityid":3347,"cityname":"Shoreline","county":"","state":"WA"},{"cityid":327,"cityname":"Snohomish","county":"Snohomish","state":"WA"},{"cityid":2751,"cityname":"Toppenish","county":"","state":"WA"}]
+[{"cityid":501,"cityname":"Grapeview","county":"Mason","state":"WA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"}]
 
 Test case #40:
+[]
+
+Test case #41:
+[{"cityid":1180,"cityname":"Muckleshoot Indian Reservation","county":"King","state":"WA"},{"cityid":1,"cityname":"Shelton","county":"Mason","state":"WA"},{"cityid":3184,"cityname":"Shelton","county":"","state":"WA"},{"cityid":3347,"cityname":"Shoreline","county":"","state":"WA"},{"cityid":327,"cityname":"Snohomish","county":"Snohomish","state":"WA"},{"cityid":2751,"cityname":"Toppenish","county":"","state":"WA"}]
+
+Test case #42:
 [{"cityid":669,"cityname":"Arlington","county":"Early","state":"GA"},{"cityid":161,"cityname":"Baton Rouge","county":"East Baton Rouge","state":"LA"},{"cityid":764,"cityname":"Belle Glade","county":"Palm Beach","state":"FL"},{"cityid":1666,"cityname":"Brick","county":"Ocean","state":"NJ"},{"cityid":507,"cityname":"Brick Township","county":"Ocean","state":"NJ"},{"cityid":1877,"cityname":"Camp Wood","county":"Real","state":"TX"},{"cityid":1377,"cityname":"Cape Girardeau","county":"Cape Girardeau","state":"MO"},{"cityid":29,"cityname":"Chesapeake","county":"Chesapeake City","state":"VA"},{"cityid":1440,"cityname":"Cisco","county":"Eastland","state":"TX"},{"cityid":191,"cityname":"Clarendon","county":"Orleans","state":"NY"},{"cityid":1442,"cityname":"Delray Beach","county":"Palm Beach","state":"FL"},{"cityid":657,"cityname":"Dillon","county":"Beaverhead","state":"MT"},{"cityid":1415,"cityname":"East Baton Rouge","county":"East Baton Rouge","state":"LA"},{"cityid":116,"cityname":"Eaton Rapids Township","county":"Eaton","state":"MI"},{"cityid":889,"cityname":"Eau Claire","county":"Eau Claire","state":"WI"},{"cityid":4568,"cityname":"Edwards","county":"Eagle","state":"CO"},{"cityid":374,"cityname":"Hobbs","county":"Lea","state":"NM"},{"cityid":1176,"cityname":"Holiday","county":"Ocean","state":"FL"},{"cityid":245,"cityname":"Jonesboro","county":"Craighead","state":"AR"},{"cityid":1651,"cityname":"Junction City","county":"Geary","state":"KS"},{"cityid":1504,"cityname":"Jupiter","county":"Palm Beach","state":"FL"},{"cityid":1944,"cityname":"Lantana","county":"Palm Beach","state":"FL"},{"cityid":1604,"cityname":"Leavenworth","county":"Leavenworth","state":"KS"},{"cityid":670,"cityname":"Little Egg Harbor","county":"Ocean","state":"NJ"},{"cityid":1050,"cityname":"Little Egg Harbor Township","county":"Ocean","state":"NJ"},{"cityid":571,"cityname":"Lovington","county":"Lea","state":"NM"},{"cityid":1285,"cityname":"Loxahatchee","county":"Palm Beach","state":"FL"},{"cityid":796,"cityname":"Manchester","county":"Ocean","state":"NJ"},{"cityid":1284,"cityname":"Mankato","county":"Blue Earth","state":"MN"},{"cityid":15,"cityname":"New Orleans","county":"Orleans","state":"LA"},{"cityid":613,"cityname":"Palm Beach Gardens","county":"Palm Beach","state":"FL"},{"cityid":725,"cityname":"Pride","county":"East Baton Rouge","state":"LA"},{"cityid":739,"cityname":"Ragley","county":"Beauregard","state":"LA"},{"cityid":138,"cityname":"Roxand Township","county":"Eaton","state":"MI"},{"cityid":2061,"cityname":"Searcy County","county":"Searcy","state":"AR"},{"cityid":1137,"cityname":"St. Cloud","county":"Stearns","state":"MN"},{"cityid":1419,"cityname":"Toms River","county":"Ocean","state":"NJ"},{"cityid":529,"cityname":"Virginia Beach","county":"Virginia Beach City","state":"VA"},{"cityid":1003,"cityname":"Wellington","county":"Palm Beach","state":"FL"},{"cityid":588,"cityname":"West Palm Beach","county":"Palm Beach","state":"FL"}]
 
 Database unit testing complete
