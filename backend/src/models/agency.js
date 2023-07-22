@@ -33,6 +33,25 @@ const queryBuilder = (params) => {
 };
 
 
+const queryBuilderBrief = (params) => {
+  const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
+    const predicate = paramsMap.get(param);
+    if (!predicate) return cur;
+    return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
+  }, '');
+
+  let argIndex = 1;
+  const query = `
+  SELECT A.AgencyID, A.AgencyName
+  FROM Agency A
+  ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY A.AgencyID
+  ORDER BY A.AgencyName
+  `.replace(/\$ARG/g, () => `$${argIndex++}`);
+
+  return query;
+};
+
+
 const find = async (params) => {
   const client = await pool.connect();
 
@@ -49,6 +68,28 @@ const find = async (params) => {
 
   } catch (error) {
     console.error(`Error finding Agency with params ${JSON.stringify(params)}, `, error);
+  } finally {
+    client.release();
+  }
+};
+
+
+const findBrief = async (params) => {
+  const client = await pool.connect();
+
+  try {
+    const query = queryBuilderBrief(params);
+
+    for (const p in params) {
+      if (typeof params[p] === 'string') params[p] = `%${params[p].toLowerCase()}%`;
+    }
+
+    const result = await client.query(query, Object.values(params));
+
+    return result.rows;
+
+  } catch (error) {
+    console.error(`Error finding Agency (brief) with params ${JSON.stringify(params)}, `, error);
   } finally {
     client.release();
   }
@@ -88,5 +129,6 @@ const add = async (agencyID, agencyName, type, state, totalShootings, ORICodesLi
 
 module.exports = {
   find,
+  findBrief,
   add,
 }

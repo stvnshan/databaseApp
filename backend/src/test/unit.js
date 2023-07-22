@@ -12,6 +12,13 @@ const testFind = async (relation, params) => {
   console.log();
 }
 
+const testFindBrief = async (relation, params) => {
+  res = await relation.findBrief(params);
+  console.log(`Test case #${tc++}:`);
+  console.log(JSON.stringify(res));
+  console.log();
+}
+
 const runSampleTests = async () => {
   try {
     // Incident
@@ -52,6 +59,14 @@ const runSampleTests = async () => {
 
     for (let i = 0; i < agencyTCs.length; ++i) {
       await testFind(agency, agencyTCs[i]);
+    }
+
+    const agencyBriefTCs = [
+      {id: 491}, {name: 'Sheriff'}, {name: 'Abbeville County Sheriff\'s Office'}, {name: 'o'}
+    ];
+
+    for (let i = 0; i < agencyBriefTCs.length; ++i) {
+      await testFindBrief(agency, agencyBriefTCs[i]);
     }
 
     // City
@@ -109,6 +124,14 @@ const runProductionTests = async () => {
 
     for (let i = 0; i < agencyTCs.length; ++i) {
       await testFind(agency, agencyTCs[i]);
+    }
+
+    const agencyBriefTCs = [
+      {id: 491}, {name: 'Abbeville County Sheriff\'s Office'}
+    ];
+
+    for (let i = 0; i < agencyBriefTCs.length; ++i) {
+      await testFindBrief(agency, agencyBriefTCs[i]);
     }
 
     // City

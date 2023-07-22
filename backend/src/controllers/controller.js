@@ -15,14 +15,14 @@ const parseStringParam = (field) => {
 }
 
 
-// Get from Incident
+// Retrieve an entry from Incident
 // route: GET /api/incident:id,idlow,idhigh,victimname,city,county,state,agelow,agehigh,agencyid,agencyname
 const getIncident = async (req, res) => {
   try {
-    const { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname } = req.query;
+    const { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname, page } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname })
+      Object.entries({ id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname, page })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
@@ -45,14 +45,14 @@ const getIncident = async (req, res) => {
 // could just do a max query and add 1 lol
 
 
-// Get from Victim
+// Retrieve an entry from Victim
 // route: GET /api/victim/:id,idlow,idhigh,name,agelow,agehigh,gender
 const getVictim = async (req, res) => {
   try {
-    const { id, idlow, idhigh, name, agelow, agehigh, gender } = req.query;
+    const { id, idlow, idhigh, name, agelow, agehigh, gender, page } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, name, agelow, agehigh, gender })
+      Object.entries({ id, idlow, idhigh, name, agelow, agehigh, gender, page })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
@@ -70,14 +70,14 @@ const getVictim = async (req, res) => {
 };
 
 
-// Get from Agency
+// Retrieve an entry in Agency
 // route: GET /api/agency/:id,idlow,idhigh,name,shootlow,shoothigh,state
 const getAgency = async (req, res) => {
   try {
-    let { id, idlow, idhigh, name, shootlow, shoothigh, state } = req.query;
+    let { id, idlow, idhigh, name, shootlow, shoothigh, state, page } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, name, shootlow, shoothigh, state })
+      Object.entries({ id, idlow, idhigh, name, shootlow, shoothigh, state, page })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
@@ -94,8 +94,33 @@ const getAgency = async (req, res) => {
   }
 };
 
+// Retrieve ID and name from Agency
+// route: GET /api/agencybrief/:id,name
+const getAgencyBrief = async (req, res) => {
+  try {
+    let { id, name } = req.query;
+
+    const query = Object.fromEntries(
+      Object.entries({ id, name })
+      .filter((attr) => attr[1] !== undefined)
+      .map((attr) => {
+        if (!isNaN(attr[1]) && attr[1].length !== 0) return [attr[0], parseIntParam(attr[1])];
+        else return [attr[0], parseStringParam(attr[1])];
+      })
+    );
+
+    const result = await agency.findBrief(query);
+
+    res.status(200).json(result);
+  } catch (error){
+    console.error('Error handling GET Agency (brief)', error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+};
+
 module.exports = {
   getIncident,
   getVictim,
   getAgency,
+  getAgencyBrief,
 };

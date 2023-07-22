@@ -1,4 +1,4 @@
-const pool = require('./pool');
+const pool = require('../backend/src/db/pool');
 
 const dropAllTables = async () => {
   const createTableQuery = `
