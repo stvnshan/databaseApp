@@ -36,7 +36,7 @@ const runSampleTests = async () => {
     }
 
     // Victim
-    console.log("Testing Victim schema...");
+    console.log('Testing Victim schema...');
     const victimTCs = [
       {id: 3}, {id: 1000}, {idlow: 1, idhigh: 3}, {idlow: 1000}, {idhigh: 10}, {agelow: 20, agehigh: 25},
       {agelow: 20, agehigh: 20}, {gender: 'male', agelow: 60}, {gender: 'female', idhigh: 10}, {name: 'Elliot'}, {name: 'Jeff'},
@@ -48,7 +48,7 @@ const runSampleTests = async () => {
     }
 
     // Agency
-    console.log("Testing Agency schema...");
+    console.log('Testing Agency schema...');
     const agencyTCs = [
       {id: 73}, {id: 340958}, {idlow: 20, idhigh: 50}, {idlow: 400}, {idhigh: 40}, {shootlow: 4, shoothigh: 4},
       {shootlow: 6}, {shoothigh: 1}, {shootlow: 10, shoothigh: 11}, {name: 'Abbeville County Sheriff\'s Office'},
@@ -70,7 +70,7 @@ const runSampleTests = async () => {
     }
 
     // City
-    console.log("Testing City schema...");
+    console.log('Testing City schema...');
     const cityTCs = [
       {id: 1}, {id: 100}, {idlow: 1, idhigh: 3}, {idlow: 40}, {idhigh: 5}, {cityname: 'Shelton'}, {cityname: 'Seattle'},
       {county: 'Mason'}, {county: 'County'}, {state: 'CA'}, {state: 'NB'}, {cityname: 'Sh', state: 'WA'}, {idlow: 10, county: 'ea'}
@@ -81,7 +81,7 @@ const runSampleTests = async () => {
     }
 
   } catch (error) {
-    console.error("Database SAMPLE unit testing error", error);
+    console.error('Database SAMPLE unit testing error', error);
   }
 }
 
@@ -102,7 +102,7 @@ const runProductionTests = async () => {
     }
 
     // Victim
-    console.log("Testing Victim schema...");
+    console.log('Testing Victim schema...');
     const victimTCs = [
       {id: 253}, {idlow: 1505, idhigh: 1507}, {idhigh: 3}, {name: 'Elliot'},
       {idlow: 5000, gender: 'male', agelow: 27, agehigh: 27}, {gender: 'female', idlow: 1000, name: 'Sam'},
@@ -114,7 +114,7 @@ const runProductionTests = async () => {
     }
 
     // Agency
-    console.log("Testing Agency schema...");
+    console.log('Testing Agency schema...');
     const agencyTCs = [
       {id: 73}, {id: 340958}, {idlow: 500, idhigh: 510}, {idlow: 22000}, {idhigh: 3}, {shootlow: 100},
       {name: 'Abbeville County Sheriff\'s Office'}, {shootlow: 5, state: 'CA', name: 'Sheriff'},
@@ -135,7 +135,7 @@ const runProductionTests = async () => {
     }
 
     // City
-    console.log("Testing City schema...");
+    console.log('Testing City schema...');
     const cityTCs = [
       {id: 1}, {id: 100}, {idlow: 1, idhigh: 3}, {idhigh: 5}, {cityname: 'Shelton'}, {cityname: 'Seattle'},
       {county: 'Mason'}, {county: 'County'}, {cityname: 'Sh', state: 'WA'}, {idlow: 10, county: 'ea'}
@@ -146,7 +146,7 @@ const runProductionTests = async () => {
     }
 
   } catch (error) {
-    console.error("Database PRODUCTION unit testing error", error);
+    console.error('Database PRODUCTION unit testing error', error);
   }
 }
 
@@ -158,9 +158,9 @@ const testDatabase = async () => {
       await runProductionTests();
     }
 
-    console.log("Database unit testing complete");
+    console.log('Database unit testing complete');
   } catch (error) {
-    console.error("Database unit testing error", error);
+    console.error('Database unit testing error', error);
   }
 }
 

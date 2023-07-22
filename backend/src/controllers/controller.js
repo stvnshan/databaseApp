@@ -1,6 +1,7 @@
 const incident = require('../models/incident.js');
 const victim = require('../models/victim.js');
 const agency = require('../models/agency.js');
+const city = require('../models/city.js');
 
 
 const parseIntParam = (field) => {
@@ -8,6 +9,13 @@ const parseIntParam = (field) => {
     throw new Error(`invalid int: ${field}`);
   }
   return Math.floor(Number(field));
+}
+
+const parseFloatParam = (field) => {
+  if (isNaN(field)) {
+    throw new Error(`invalid float: ${field}`);
+  }
+  return Number(field);
 }
 
 const parseStringParam = (field) => {
@@ -30,6 +38,14 @@ const parseStateCodeParam = (field) => {
   return stateCode;
 }
 
+parseIntListParam = (field) => {
+  const intList = [];
+  for (let i = 0; i < field.length; ++i) {
+    intList.push(parseIntParam[i]);
+  }
+  return field;
+}
+
 const parseMap = new Map([
   ['id', parseIntParam],
   ['idlow', parseIntParam],
@@ -37,18 +53,29 @@ const parseMap = new Map([
   ['name', parseStringParam],
   ['victimname', parseStringParam],
   ['city', parseStringParam],
+  ['cityname', parseStringParam],
   ['county', parseStringParam],
   ['state', parseStateCodeParam],
+  ['age', parseIntParam],
   ['agelow', parseIntParam],
   ['agehigh', parseIntParam],
   ['gender', parseStringParam],
+  ['race', parseStringParam],
+  ['raceSource', parseStringParam],
+  ['date', parseStringParam],
+  ['threatenType', parseStringParam],
+  ['fleeStatus', parseStringParam],
+  ['armedWith', parseStringParam],
+  ['wasMentalIllnessInvolved', parseStringParam],
+  ['bodyCamera', parseStringParam],
+  ['latitude', parseFloatParam],
+  ['longitude', parseFloatParam],
   ['agencyid', parseIntParam],
   ['agencyname', parseStringParam],
   ['shootlow', parseIntParam],
   ['shoothigh', parseIntParam],
   ['page', parseIntParam],
 ]);
-
 
 // Retrieve an entry from Incident
 // route: GET /api/incident:id,idlow,idhigh,victimname,city,county,state,agelow,agehigh,agencyid,agencyname,page
@@ -75,9 +102,68 @@ const getIncident = async (req, res) => {
 };
 
 
-// Set incident
-// TODO -- need to consider how to handle ID creation
-// could just do a max query and add 1 lol
+// Retrieve ID and coordinates from Incident
+// route: GET /api/incidentbrief
+const getIncidentBrief = async (req, res) => {
+  try {
+    const result = await incident.findBrief();
+
+    res.status(200).json(result);
+  } catch (error){
+    console.error('Error handling GET Incident', error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+};
+
+
+// Create a new Incident
+// route: POST /api/incident:victimname,age,gender,race,raceSource,
+//            cityname,county,state,date,threatenType,fleeStatus,armedWith,
+//            wasMentalIllnessInvolved,bodyCamera,latitude,longitude,
+//            agencyid[]
+const setIncident = async (req, res) => {
+  try {
+    const {
+      victimname, age, gender, race, raceSource, cityname, county, state, date, 
+      threatenType, fleeStatus, armedWith, wasMentalIllnessInvolved, bodyCamera, 
+      latitude, longitude, agencyid
+    } = req.query;
+
+    const params = Object.fromEntries(
+      Object.entries({
+        victimname, age, gender, race, raceSource, cityname, county, state, date, 
+        threatenType, fleeStatus, armedWith, wasMentalIllnessInvolved, bodyCamera, 
+        latitude, longitude, agencyid
+      })
+      .map((attr) => {
+        if (attr[1] !== undefined) {
+          const parse = parseMap.get(attr[0]);
+          return [attr[0], parse(attr[1])];
+        }
+        return [attr[0], null];
+      })
+    );
+
+    const cityID = await city.add({cityName: params.city, county: params.county, state: params.state});
+    const victimID = await victim.add({
+      name: params.victimname, age: params.age, gender: params.gender, race: params.race, raceSource: params.raceSource
+    });
+    const incidentID = await incident.maxID() + 1;
+
+    const query = {
+      incidentID: incidentID, victimID: victimID, cityID: cityID, date: params.date, threatenType: params.threatenType,
+      fleeStatus: params.fleeStatus, armedWith: params.armedWith, wasMentalIllnessInvolved: params.wasMentalIllnessInvolved,
+      bodyCamera: params.bodyCamera, latitude: params.latitude, longitude: params.longitude, agencyIDList: params.agencyid
+    };
+
+    await incident.add(...Object.values(query));
+
+    res.status(200).json(`Successfully added ${JSON.stringify(query)}`);
+  } catch (error){
+    console.error('Error handling SET Incident', error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+}
 
 
 // Retrieve an entry from Victim
@@ -155,6 +241,8 @@ const getAgencyBrief = async (req, res) => {
 
 module.exports = {
   getIncident,
+  getIncidentBrief,
+  setIncident,
   getVictim,
   getAgency,
   getAgencyBrief,

@@ -72,6 +72,48 @@ const find = async (params) => {
 };
 
 
+const findBrief = async () => {
+  const client = await pool.connect();
+
+  try {
+    const query = `
+    SELECT IncidentID, longitude, latitude
+    FROM Incident
+    `;
+
+    const result = await client.query(query, []);
+
+    return result.rows;
+
+  } catch (error) {
+    console.error(`Error finding Incident (brief), `, error);
+  } finally {
+    client.release();
+  }
+};
+
+
+const maxID = async () => {
+  const client = await pool.connect();
+
+  try {
+    const query = `
+    SELECT MAX(IncidentID)
+    FROM Incident
+    `;
+
+    const result = await client.query(query, []);
+
+    return result.rows[0].max;
+
+  } catch (error) {
+    console.error(`Error retrieving max IncidentID, `, error);
+  } finally {
+    client.release();
+  }
+};
+
+
 const add = async (
   incidentID, victimID, cityID, date, threatenType, fleeStatus, armedWith,
   wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList
@@ -92,7 +134,7 @@ const add = async (
       wasMentalIllnessRelated, bodyCamera, latitude, longitude,
     ]);
 
-    if (agencyIDList.length > 0 && agencyIDList[0] !== null && !isNaN(agencyIDList[0])) {
+    if (agencyIDList && agencyIDList.length > 0 && agencyIDList[0] !== null && !isNaN(agencyIDList[0])) {
       agencyIDListString = agencyIDList.toString();
       const addAgenciesInvolvedQuery = `
         INSERT INTO AgenciesInvolved (IncidentID, AgencyID)
@@ -102,10 +144,12 @@ const add = async (
       await client.query(addAgenciesInvolvedQuery, [incidentID]);
     }
 
+    return incidentID;
+
   } catch (error) {
-    console.error(`Error adding ${JSON.stringify({
+    console.error(`Error adding ${JSON.stringify([
       incidentID, victimID, cityID, date, threatenType, fleeStatus, armedWith,
-      wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList})}
+      wasMentalIllnessRelated, bodyCamera, latitude, longitude, agencyIDList])}
       to Incident`, error);
   } finally {
     client.release();
@@ -115,5 +159,7 @@ const add = async (
 
 module.exports = {
   find,
+  findBrief,
+  maxID,
   add,
 };

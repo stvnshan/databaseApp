@@ -166,7 +166,7 @@ const populateWithIncidentCSV = async (incidentCsvPath) => {
       const county = rowData[columnNameIndices.county].replace(/"/g, '');
       const state = rowData[columnNameIndices.state].replace(/"/g, '');
       // CityID
-      let cityID = await city.add(cityName, county, state);
+      const cityID = await city.add(cityName, county, state);
 
       // Victim
       const name = rowData[columnNameIndices.name].replace(/"/g, '');
