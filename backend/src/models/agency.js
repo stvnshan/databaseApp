@@ -1,6 +1,7 @@
 const pool = require('../db/pool');
 
 
+// Parameters predicates map
 const paramsMap = new Map([
   ['id', 'A.AgencyID = $ARG'],
   ['idlow', 'A.AgencyID >= $ARG'],
@@ -12,11 +13,16 @@ const paramsMap = new Map([
 ]);
 
 const queryBuilder = (params) => {
+  // Construct list of predicates
   const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
     const predicate = paramsMap.get(param);
     if (!predicate) return cur;
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
+
+  // Pagination
+  const pageSize = 50;
+  const offset = (params.page) ? params.page * pageSize : 0;
 
   let argIndex = 1;
   const query = `
@@ -27,6 +33,7 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY A.AgencyID
   ORDER BY A.AgencyName
+  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;

@@ -1,6 +1,7 @@
 const pool = require('../db/pool');
 
 
+// Parameters predicates map
 const paramsMap = new Map([
   ['id', 'VictimID = $ARG'],
   ['idlow', 'VictimID >= $ARG'],
@@ -12,17 +13,23 @@ const paramsMap = new Map([
 ]);
 
 const queryBuilder = (params) => {
+  // Construct list of predicates
   const predicates = Object.keys(params).reduce((cur, param, i, arr) => {
     const predicate = paramsMap.get(param);
     if (!predicate) return cur;
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
+  // Pagination
+  const pageSize = 50;
+  const offset = (params.page) ? params.page * pageSize : 0;
+
   let argIndex = 1;
   const query = `
   SELECT *
   FROM Victim
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY VictimID
+  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
