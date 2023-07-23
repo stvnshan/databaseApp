@@ -8,18 +8,17 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZWRvYnJvd28iLCJhIjoiY2xqeWhhdHNrMDQyaTNkb2YyZ
 
 const initLng = -97;
 const initLat = 39;
-const initZoom = 3;
+const initZoom = 4;
 
 const Map = () => {
   const [incidents, setIncidents] = useState([]);
   const mapContainer = useRef(null);
   const map = useRef(null);
 
-  // Retrieve all incidents
   useEffect(() => {
     const retrieveIncidents = async() => {
       try {
-        const response = await axios.get(`${apiHost}/incident`);
+        const response = await axios.get(`${apiHost}/incidentbrief`);
         setIncidents(response.data);
       } catch (err) {
         console.error(err);
@@ -37,11 +36,13 @@ const Map = () => {
 
   useEffect(() => {
     if (!incidents.length || !map.current) return;
-    
-    incidents.map((incident) =>
-      new mapboxgl.Marker().setLngLat([incident.longitude, incident.latitude]).addTo(map.current)
-    );
-  }, [incidents]);
+
+    for (let i = 0; i < incidents.length && i < 500; ++i) {
+      const el = document.createElement('div');
+      el.className = 'marker';
+      new mapboxgl.Marker(el).setLngLat([incidents[i].longitude, incidents[i].latitude]).addTo(map.current);
+    }
+  });
 
   return (
     <div>
