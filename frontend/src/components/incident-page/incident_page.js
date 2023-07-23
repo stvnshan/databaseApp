@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Incident from './incident';
 import {SearchField} from '../shared/search';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 

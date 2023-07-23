@@ -1,47 +1,39 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const SearchField = ({title, placeholderText, setSearchQuery}) => {
   return (
-    <div className='card'>
-      <div className='input-group'>
-        <div className='input-group-prepend'>
-          <span className='input-group-text'>{title}:</span>
-        </div>
-        <input
-          className='form-control'
-          type='text'
+    <>
+      <InputGroup classname="mb-3">
+        <InputGroup.Text>{title}:</InputGroup.Text>
+        <Form.Control
           placeholder={placeholderText}
+          aria-label={placeholderText}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-      </div>
-    </div>
+      </InputGroup>
+    </>
   );
 };
 
 const SearchRangeField = ({title, low, high}) => {
   return (
-    <div className='card'>
-      <div className='input-group'>
-        <div className='input-group-prepend'>
-          <span className='input-group-text'>{title}:</span>
-        </div>
-        <input
-          className='form-control'
-          type='text'
+    <>
+      <InputGroup classname="mb-3">
+        <InputGroup.Text>{title}:</InputGroup.Text>
+        <Form.Control
           placeholder={low.placeholderText}
-          value={low.searchQuery}
+          aria-label={low.placeholderText}
           onChange={(e) => low.setSearchQuery(e.target.value)}
         />
-        <input
-          className='form-control'
-          type='text'
+        <Form.Control
           placeholder={high.placeholderText}
-          value={high.searchQuery}
+          aria-label={high.placeholderText}
           onChange={(e) => high.setSearchQuery(e.target.value)}
         />
-      </div>
-    </div>
+      </InputGroup>
+    </>
   );
 };
 
