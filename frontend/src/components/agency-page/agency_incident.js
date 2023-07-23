@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
-const Incident = ({incidentid}) => {
+const AgencyIncident = ({incidentid}) => {
   const [incidentData, setIncidentData] = useState({});
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const Incident = ({incidentid}) => {
           if (response.status !== 200) {
             throw new Error(`Failed to fetch incident ID ` + incidentid);
           }
+          // Should return an array with only one element
           result = response.data[0];
-          console.log(incidentURL);
         } else {
           result = {
             incidentid : null,
@@ -28,7 +28,6 @@ const Incident = ({incidentid}) => {
             race : null,
           }
         }
-        // Should return an array with only one element
         setIncidentData(result);
       } catch (error) {
         console.error(error.message);
@@ -36,8 +35,6 @@ const Incident = ({incidentid}) => {
     };
     fetchData();
   }, []);
-
-  console.log(incidentData);
 
   return (
     <div>
@@ -47,12 +44,9 @@ const Incident = ({incidentid}) => {
         <p>Age: {incidentData.age}</p>
         <p>Gender: {incidentData.gender}</p>
         <p>Race: {incidentData.race}</p>
-        <p>State: {incidentData.state}</p>
-        <p>County: {incidentData.county}</p>
-        <p>Agencies involved: {incidentData.agencynames}</p>
     </div>
   );
 
 };
 
-export default Incident;
+export default AgencyIncident;

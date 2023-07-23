@@ -9,14 +9,14 @@ const Home = () => {
         </div>
         
         <div>
-            <Link to="/question">Search for Agencies</Link>
+            <Link to='/agencies'>Search for Agencies</Link>
         </div> 
         <div>
-            <Link to="/question2">Search for Incidents</Link>
+            <Link to='/incidents'>Search for Incidents</Link>
         </div> 
         <div>
-            <Link to="/question3">Map of Incidents</Link>
-        </div>         
+            <Link to='/map'>Map of Incidents</Link>
+        </div>
        
     </div>
   );
