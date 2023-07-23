@@ -26,10 +26,11 @@ code {
 }
 
 .marker {
-  background-image: url('/marker-image.png');
+  background-image: url('/caret-down-fill.svg');
   background-size: cover;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 10px;
   border-radius: 50%;
   cursor: pointer;
 }

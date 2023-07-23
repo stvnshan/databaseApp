@@ -9,13 +9,13 @@ const MainNav = () => {
       <Container>
         <Navbar.Brand href="/">
           <img
-            alt="Red mark"
-            src="/logo.ico"
+            alt="CS 348"
+            src="/caret-down-fill.svg"
             width="30"
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          Redmark
+          CS 348
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -26,7 +26,7 @@ const MainNav = () => {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text style={{fontSize: "12px"}}>
-            <em>The Washington Post police shooting data project</em>
+            The <em>Washington Post</em> police shooting data project
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
