@@ -1,12 +1,12 @@
 import React from 'react';
 import MainNav from './shared/nav';
-import MapContainer from './incident_map';
+import Map from './incident_map';
 
 const Home = () => {
   return (
     <div>
         <MainNav/>
-        <MapContainer/>
+        <Map/>
     </div>
   );
 }

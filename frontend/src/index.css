@@ -1,3 +1,13 @@
+:root {
+  --white: rgba(255, 255, 255, 1);
+  --black: rgba(0, 0, 0, 1);
+  --map-dark-grey: rgba(27, 27, 29, 1);
+  --map-light-grey: rgba(52, 51, 50, 1);
+  --coord-bar-grey: rgba(53, 51, 50, 1);
+
+  --all-fonts: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,10 +27,10 @@ code {
 }
 
 .map-container-topbar {
-  background-color: rgba(53, 51, 50, 1);
+  background-color: var(--coord-bar-grey);
   color: #fff;
   padding: 6px 12px;
-  font-family: monospace;
+  font-family: var(--all-fonts);
   z-index: 1;
   top: 0;
   left: 0;
