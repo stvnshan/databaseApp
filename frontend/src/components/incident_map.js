@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import '../index.css';
 
@@ -57,24 +56,13 @@ const MapContainer = () => {
 
   return (
     <div>
+      <div ref={mapContainer} className='map-container' />
       <div className='map-container-topbar'>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapContainer} className='map-container' />
     </div>
   );
 };
 
 
-const IncidentMap = () => {
-  return (
-    <>
-    <div>
-      <Link to='/'>Home</Link>
-    </div>
-    <MapContainer/>
-    </>
-  );
-}
-
-export default IncidentMap;
+export default MapContainer;

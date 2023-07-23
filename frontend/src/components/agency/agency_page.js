@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Agency from './agency';
 import {SearchField, SearchRangeField} from '../shared/search';
+import MainNav from '../shared/nav';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -75,9 +75,7 @@ const AgencyPage = () => {
 
   return (
     <div>
-      <div>
-        <Link to='../'>Home</Link>
-      </div>
+      <MainNav/>
       <h1>Agencies database</h1>
       <AgencySearchForm setSearchResults={setSearchResults}/>
       <h2>Results</h2>

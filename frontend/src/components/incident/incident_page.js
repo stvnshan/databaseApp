@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Incident from './incident';
 import {SearchField} from '../shared/search';
+import MainNav from '../shared/nav';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -83,9 +83,7 @@ const IncidentPage = () => {
 
   return (
     <div>
-      <div>
-        <Link to='/'>Home</Link>
-      </div>
+      <MainNav/>
       <h1>Incidents search</h1>
       <IncidentSearchForm setSearchResults={setSearchResults}/>
       <h2>Results</h2>
