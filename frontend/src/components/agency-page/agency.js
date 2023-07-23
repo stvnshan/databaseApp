@@ -1,17 +1,6 @@
-import React from "react";
-import AgencyIncident from "./AgencyIncident";
+import React from 'react';
+import AgencyIncident from './agency_incident';
 
-/*
-interface agencyData {
-    agencyid: int;
-    agencyname: string;
-    incidentids: int[];
-    oricodes: string[];
-    state: string;
-    totalshootings: int;
-    type: string;
-}
-*/
 
 const Agency = ({ agencyData }) => {
   return (

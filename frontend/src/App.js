@@ -1,20 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from  "./web/home";
-import Search from "./web/search";
-import Search2 from './web/search2';
-import MapView from './web/mapview';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from  './components/home';
+import AgencyPage from './components/agency-page/agency_page';
+import IncidentPage from './components/incident-page/incident_page';
+import IncidentMap from './components/incident_map';
 
 
 function App() {
    return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/question/" element={<Search />} />
-          <Route path="/question2/" element={<Search2 />} />
-          <Route path="/question3/" element={<MapView />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/agencies/' element={<AgencyPage />} />
+          <Route path='/incidents/' element={<IncidentPage />} />
+          <Route path='/map/' element={<IncidentMap />} />
         </Routes>
       </BrowserRouter>
     </div>

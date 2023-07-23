@@ -57,24 +57,24 @@ const MapContainer = () => {
 
   return (
     <div>
-      <div className="map-container-topbar">
+      <div className='map-container-topbar'>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapContainer} className="map-container" />
+      <div ref={mapContainer} className='map-container' />
     </div>
   );
 };
 
 
-const MapView = () => {
+const IncidentMap = () => {
   return (
     <>
     <div>
-      <Link to="../">Home</Link>
+      <Link to='/'>Home</Link>
     </div>
     <MapContainer/>
     </>
   );
 }
 
-export default MapView;
+export default IncidentMap;
