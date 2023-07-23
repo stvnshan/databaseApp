@@ -1,3 +1,12 @@
+:root {
+  --white: rgba(253, 253, 255, 1);
+  --black: rgba(0, 0, 2, 1);
+  --map-dark-grey: rgba(27, 27, 29, 1);
+  --map-light-grey: rgba(52, 51, 50, 1);
+
+  --all-fonts: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,13 +25,11 @@ code {
   height: 600px;
 }
 
-.map-container-topbar {
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
-  padding: 6px 12px;
-  font-family: monospace;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  margin: 12px;
+.marker {
+  background-image: url('/marker-image.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
 }

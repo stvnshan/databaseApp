@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import '../index.css';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZWRvYnJvd28iLCJhIjoiY2xqeWhhdHNrMDQyaTNkb2YyZTdheHJtYSJ9.n1sAsb2dGV9ABpQhHP8qxQ';
 
+const initLng = -97;
+const initLat = 39;
+const initZoom = 3;
 
-const MapContainer = () => {
+const Map = () => {
   const [incidents, setIncidents] = useState([]);
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-97);
-  const [lat, setLat] = useState(39);
-  const [zoom, setZoom] = useState(3);
 
   // Retrieve all incidents
   useEffect(() => {
@@ -31,8 +30,8 @@ const MapContainer = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/dark-v10',
-      center: [lng, lat],
-      zoom: zoom
+      center: [initLng, initLat],
+      zoom: initZoom, 
     });
   }, []);
 
@@ -44,37 +43,11 @@ const MapContainer = () => {
     );
   }, [incidents]);
 
-
-  // Update top bar
-  useEffect(() => {
-    if (!map.current) return;
-    map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-    });
-  });
-
   return (
     <div>
-      <div className='map-container-topbar'>
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
       <div ref={mapContainer} className='map-container' />
     </div>
   );
 };
 
-
-const IncidentMap = () => {
-  return (
-    <>
-    <div>
-      <Link to='/'>Home</Link>
-    </div>
-    <MapContainer/>
-    </>
-  );
-}
-
-export default IncidentMap;
+export default Map;
