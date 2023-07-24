@@ -78,17 +78,16 @@ const parseMap = new Map([
   ['agencyname', parseStringParam],
   ['shootlow', parseIntParam],
   ['shoothigh', parseIntParam],
-  ['page', parseIntParam],
 ]);
 
 // Retrieve an entry from Incident
-// route: GET /api/incident:id,idlow,idhigh,victimname,city,county,state,agelow,agehigh,agencyid,agencyname,page
+// route: GET /api/incident:id,idlow,idhigh,victimname,city,county,state,agelow,agehigh,agencyid,agencyname
 const getIncident = async (req, res) => {
   try {
-    const { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname, page } = req.query;
+    const { id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname, page })
+      Object.entries({ id, idlow, idhigh, victimname, city, county, state, agelow, agehigh, agencyid, agencyname })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         const parse = parseMap.get(attr[0]);
@@ -182,13 +181,13 @@ const setIncident = async (req, res) => {
 
 
 // Retrieve an entry from Victim
-// route: GET /api/victim/:id,idlow,idhigh,name,agelow,agehigh,gender,page
+// route: GET /api/victim/:id,idlow,idhigh,name,agelow,agehigh,gender
 const getVictim = async (req, res) => {
   try {
-    const { id, idlow, idhigh, name, agelow, agehigh, gender, page } = req.query;
+    const { id, idlow, idhigh, name, agelow, agehigh, gender } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, name, agelow, agehigh, gender, page })
+      Object.entries({ id, idlow, idhigh, name, agelow, agehigh, gender })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         const parse = parseMap.get(attr[0]);
@@ -207,13 +206,13 @@ const getVictim = async (req, res) => {
 
 
 // Retrieve an entry in Agency
-// route: GET /api/agency/:id,idlow,idhigh,name,shootlow,shoothigh,state,page
+// route: GET /api/agency/:id,idlow,idhigh,name,shootlow,shoothigh,state
 const getAgency = async (req, res) => {
   try {
-    let { id, idlow, idhigh, name, shootlow, shoothigh, state, page } = req.query;
+    let { id, idlow, idhigh, name, shootlow, shoothigh, state } = req.query;
 
     const query = Object.fromEntries(
-      Object.entries({ id, idlow, idhigh, name, shootlow, shoothigh, state, page })
+      Object.entries({ id, idlow, idhigh, name, shootlow, shoothigh, state })
       .filter((attr) => attr[1] !== undefined)
       .map((attr) => {
         const parse = parseMap.get(attr[0]);

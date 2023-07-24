@@ -20,16 +20,11 @@ const queryBuilder = (params) => {
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
-  // Pagination
-  const pageSize = 50;
-  const offset = (params.page) ? params.page * pageSize : 0;
-
   let argIndex = 1;
   const query = `
   SELECT *
   FROM Victim
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}ORDER BY VictimID
-  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;

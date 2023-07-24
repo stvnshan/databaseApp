@@ -20,10 +20,6 @@ const queryBuilder = (params) => {
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
-  // Pagination
-  const pageSize = 50;
-  const offset = (params.page) ? params.page * pageSize : 0;
-
   let argIndex = 1;
   const query = `
   SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,
@@ -33,7 +29,6 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY A.AgencyID
   ORDER BY A.AgencyName
-  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
