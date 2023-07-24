@@ -24,10 +24,6 @@ const queryBuilder = (params) => {
     return `${cur}${paramsMap.get(param)}${(i < arr.length - 1) ? ' AND\n' : '\n'}`;
   }, '');
 
-  // Pagination
-  const pageSize = 50;
-  const offset = (params.page) ? params.page * pageSize : 0;
-
   let argIndex = 1;
   const query = `
   SELECT I.IncidentID, I.Date, I.ThreatenType, I.FleeStatus,
@@ -43,7 +39,6 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN City C ON I.CityID = C.CityID
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY I.IncidentID, V.VictimID, C.CityID
   ORDER BY I.IncidentID
-  LIMIT ${pageSize} OFFSET ${offset}
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
