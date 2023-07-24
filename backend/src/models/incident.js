@@ -77,8 +77,9 @@ const findBrief = async () => {
 
   try {
     const query = `
-    SELECT IncidentID, longitude, latitude
-    FROM Incident
+    SELECT IncidentID, V.Name, longitude, latitude
+    FROM Incident I
+    LEFT OUTER JOIN Victim V ON I.VictimID = V.VictimID
     `;
 
     const result = await client.query(query, []);

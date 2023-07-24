@@ -37,10 +37,13 @@ const Map = () => {
   useEffect(() => {
     if (!incidents.length || !map.current) return;
 
-    for (let i = 0; i < incidents.length && i < 500; ++i) {
+    console.log(incidents[0]);
+
+    for (let i = 0; i < incidents.length && i < 250; ++i) {
       const el = document.createElement('div');
       el.className = 'marker';
-      new mapboxgl.Marker(el).setLngLat([incidents[i].longitude, incidents[i].latitude]).addTo(map.current);
+      const popup = new mapboxgl.Popup({ offset: 10 }).setText(`${incidents[i].name}`);
+      new mapboxgl.Marker(el).setLngLat([incidents[i].longitude, incidents[i].latitude]).setPopup(popup).addTo(map.current);
     }
   });
 
