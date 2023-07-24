@@ -72,16 +72,20 @@ const find = async (params) => {
 };
 
 
-const findBrief = async () => {
+const findBrief = async (params) => {
   const client = await pool.connect();
 
   try {
     const query = `
-    SELECT IncidentID, longitude, latitude
-    FROM Incident
+    SELECT IncidentID, V.Name, date, longitude, latitude
+    FROM Incident I
+    LEFT OUTER JOIN Victim V ON I.VictimID = V.VictimID
+    WHERE longitude > $1 AND longitude < $2 AND
+          latitude > $3 AND latitude < $4
+    LIMIT 300
     `;
 
-    const result = await client.query(query, []);
+    const result = await client.query(query, [params.longlow, params.longhigh, params.latlow, params.lathigh]);
 
     return result.rows;
 

@@ -70,6 +70,10 @@ const parseMap = new Map([
   ['bodyCamera', parseStringParam],
   ['latitude', parseFloatParam],
   ['longitude', parseFloatParam],
+  ['longlow', parseFloatParam],
+  ['longhigh', parseFloatParam],
+  ['latlow', parseFloatParam],
+  ['lathigh', parseFloatParam],
   ['agencyid', parseIntParam],
   ['agencyname', parseStringParam],
   ['shootlow', parseIntParam],
@@ -102,11 +106,22 @@ const getIncident = async (req, res) => {
 };
 
 
-// Retrieve ID and coordinates from Incident
-// route: GET /api/incidentbrief
+// Retrieve ID, coordinates, and victim name from Incident
+// route: GET /api/incidentbrief:longlow,longhigh,latlow,lathigh
 const getIncidentBrief = async (req, res) => {
   try {
-    const result = await incident.findBrief();
+    const {longlow, longhigh, latlow, lathigh} = req.query;
+
+    const query = Object.fromEntries(
+      Object.entries({longlow, longhigh, latlow, lathigh})
+      .filter((attr) => attr[1] !== undefined)
+      .map((attr) => {
+        const parse = parseMap.get(attr[0]);
+        return [attr[0], parse(attr[1])];
+      })
+    );
+
+    const result = await incident.findBrief(query);
 
     res.status(200).json(result);
   } catch (error){
