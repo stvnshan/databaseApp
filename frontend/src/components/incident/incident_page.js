@@ -3,6 +3,7 @@ import axios from 'axios';
 import Incident from './incident';
 import {SearchField} from '../shared/search';
 import MainNav from '../shared/nav';
+import PaginationComponent from '../shared/pagination_comp';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -60,12 +61,23 @@ const IncidentSearchForm = ({setSearchResults}) => {
 };
 
 const IncidentsResultsList = ({searchResults}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
+  const firstItemIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const lastItemIndex = firstItemIndex + ITEMS_PER_PAGE;
+  const displayedIncidents = searchResults.slice(firstItemIndex, lastItemIndex);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
+
       <p>Total results: {searchResults.length}</p>
-      {searchResults.length > 0 ? (
+
+      {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
-          {searchResults.map((incident) => (
+          {displayedIncidents.map((incident) => (
             <li key={incident.incidentid} className='list-group-item'>
               <Incident key={incident.incidentid} incidentid={incident.incidentid}></Incident>
             </li>
@@ -74,6 +86,13 @@ const IncidentsResultsList = ({searchResults}) => {
       ) : (
         <h5>No matching incidents found.</h5>
       )}{' '}
+
+      <PaginationComponent
+        itemsPerPage={ITEMS_PER_PAGE}
+        totalItems={searchResults.length}
+        paginate={paginate}
+      />
+
     </div>
   );
 }

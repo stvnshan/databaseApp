@@ -3,6 +3,7 @@ import axios from 'axios';
 import Agency from './agency';
 import {SearchField, SearchRangeField} from '../shared/search';
 import MainNav from '../shared/nav';
+import PaginationComponent from '../shared/pagination_comp';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -48,6 +49,15 @@ const AgencySearchForm = ({setSearchResults}) => {
 };
 
 const AgencyResultsList = ({searchResults}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
+  const firstItemIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const lastItemIndex = firstItemIndex + ITEMS_PER_PAGE;
+  const displayedAgencies = searchResults.slice(firstItemIndex, lastItemIndex);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       {searchResults.length > 0 ? (
@@ -55,7 +65,7 @@ const AgencyResultsList = ({searchResults}) => {
           <p>Total results: {searchResults.length}</p>
           <div className='card' style={{ width: '100%' }}>
             <ul className='list-group list-group-flush'>
-              {searchResults.map((agency) => (
+              {displayedAgencies.map((agency) => (
                 <li key={agency.agencyid} className='list-group-item'>
                   <Agency key={agency.agencyid} agencyData={agency}></Agency>
                 </li>
@@ -66,6 +76,13 @@ const AgencyResultsList = ({searchResults}) => {
       ) : (
         <h5>No matching agencies found.</h5>
       )}{' '}
+
+      <PaginationComponent
+        itemsPerPage={ITEMS_PER_PAGE}
+        totalItems={searchResults.length}
+        paginate={paginate}
+      />
+
     </div>
   );
 };
