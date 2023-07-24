@@ -38,7 +38,7 @@ code {
 }
 
 .mapboxgl-popup {
-  max-width: 200px;
+  max-width: 400px;
 }
 
 .mapboxgl-popup-close-button {
