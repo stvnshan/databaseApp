@@ -1,11 +1,12 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import React from "react";
+import Form from "react-bootstrap/Form";
+import Dropdown from "react-bootstrap/Dropdown";
+import InputGroup from "react-bootstrap/InputGroup";
 
-const SearchField = ({title, placeholderText, setSearchQuery}) => {
+const SearchField = ({ title, placeholderText, setSearchQuery }) => {
   return (
     <>
-      <InputGroup classname="mb-3">
+      <InputGroup className="mb-3">
         <InputGroup.Text>{title}:</InputGroup.Text>
         <Form.Control
           placeholder={placeholderText}
@@ -17,10 +18,10 @@ const SearchField = ({title, placeholderText, setSearchQuery}) => {
   );
 };
 
-const SearchRangeField = ({title, low, high}) => {
+const SearchRangeField = ({ title, low, high }) => {
   return (
     <>
-      <InputGroup classname="mb-3">
+      <InputGroup className="mb-3">
         <InputGroup.Text>{title}:</InputGroup.Text>
         <Form.Control
           placeholder={low.placeholderText}
@@ -37,7 +38,44 @@ const SearchRangeField = ({title, low, high}) => {
   );
 };
 
-export {
-  SearchField,
-  SearchRangeField
+const SearchDateField = ({ selectedDate, handleDateChange }) => {
+  return (
+    <>
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Date:</InputGroup.Text>
+        <Form.Control
+          type="date"
+          value={selectedDate}
+          onChange={(e) => handleDateChange(e.target.value)}
+        />
+      </InputGroup>
+    </>
+  );
 };
+
+const SearchDropdownField = ({
+  title,
+  options,
+  selectedOption,
+  handleOptionChange,
+}) => {
+  return (
+    <>
+    <InputGroup className="mb-3">
+        <InputGroup.Text>{title}:</InputGroup.Text>
+        <Dropdown onSelect={handleOptionChange}>
+          <Dropdown.Toggle>
+            {selectedOption || 'Select an option'}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {options.map((option) => {
+              return <Dropdown.Item key={option} eventKey={option}>{option}</Dropdown.Item>
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+    </InputGroup>
+    </>
+  );
+};
+
+export { SearchField, SearchRangeField, SearchDateField, SearchDropdownField };
