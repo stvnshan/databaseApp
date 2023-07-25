@@ -142,7 +142,7 @@ const setIncident = async (req, res) => {
       victimname, age, gender, race, raceSource, cityname, county, state, date, 
       threatenType, fleeStatus, armedWith, wasMentalIllnessInvolved, bodyCamera, 
       latitude, longitude, agencyid
-    } = req.query;
+    } = req.body;
 
     const params = Object.fromEntries(
       Object.entries({
@@ -151,7 +151,7 @@ const setIncident = async (req, res) => {
         latitude, longitude, agencyid
       })
       .map((attr) => {
-        if (attr[1] !== undefined) {
+        if (attr[1]) {
           const parse = parseMap.get(attr[0]);
           return [attr[0], parse(attr[1])];
         }

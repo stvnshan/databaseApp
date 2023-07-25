@@ -53,6 +53,7 @@ const find = async (params) => {
 
     for (const p in params) {
       if (typeof params[p] === 'string') params[p] = `\%${params[p].toLowerCase()}\%`;
+      if (p === 'agencyid') params[p] = params[p][0];
     }
 
     const result = await client.query(query, Object.values(params));
