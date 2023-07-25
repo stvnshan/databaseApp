@@ -20,6 +20,8 @@ const IncidentForm = () => {
 
   let agencyExists = false;
   let agencyid = null;
+  const [invalidAgencyProvided, setInvalidAgencyProvided] = useState(false);
+  const [submittedPOST, setSubmittedPOST] = useState(false);
 
   const [victimName, setVictimName] = useState("");
   const [agencyName, setAgencyName] = useState("");
@@ -57,14 +59,19 @@ const IncidentForm = () => {
           break;
         }
       }
-      console.log('Agency exists:', agencyExists);
       if (!agencyExists) {
+        setInvalidAgencyProvided(true);
+        setSubmittedPOST(false);
         return;
       }
     } catch (err) {
       console.error(err);
+      setInvalidAgencyProvided(true);
+      setSubmittedPOST(false);
       return;
     }
+
+    setInvalidAgencyProvided(false);
 
     // Submit the incident via POST request
     try {
@@ -92,6 +99,7 @@ const IncidentForm = () => {
       const response = await axios.post(urlStr, postData);
       console.log(response);
       console.log('Submitted post request!')
+      setSubmittedPOST(true);
     } catch (err) {
       console.error(err);
     }
@@ -222,9 +230,13 @@ const IncidentForm = () => {
         setSearchQuery={setLongitude}
       />
 
+      {invalidAgencyProvided ? <p style={{color: 'red'}}>Error: Agency name provided does not exist.</p> : null}
+
       <button style={{ marginLeft: "2rem" }} onClick={SubmitFormIfValid}>
         Submit Incident
       </button>
+
+      {submittedPOST ? <p>Successfully submitted incident!</p> : null}
     </div>
   );
 };
