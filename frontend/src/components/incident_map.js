@@ -12,6 +12,7 @@ const initZoom = 3.5;
 
 let lastLatLow = 0;
 let lastLngLow = 0;
+let firstLoad = true;
 
 const markers = [];
 
@@ -55,6 +56,8 @@ const Map = () => {
 
   useEffect(() => {
     if (!map.current) return;
+    if (firstLoad && (incidents.length === 0)) return;
+    firstLoad = false;
 
     const width = Math.abs(lngHigh - lngLow);
     const height = Math.abs(latHigh - latLow);
