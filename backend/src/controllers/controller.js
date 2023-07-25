@@ -9,18 +9,18 @@ const parseIntParam = (field) => {
     throw new Error(`invalid int: ${field}`);
   }
   return Math.floor(Number(field));
-}
+};
 
 const parseFloatParam = (field) => {
   if (isNaN(field)) {
     throw new Error(`invalid float: ${field}`);
   }
   return Number(field);
-}
+};
 
 const parseStringParam = (field) => {
   return field.trim().toLowerCase();
-}
+};
 
 const parseStateCodeParam = (field) => {
   const states = [
@@ -36,15 +36,16 @@ const parseStateCodeParam = (field) => {
     throw new Error(`invalid state code: ${field}`);
   }
   return stateCode;
-}
+};
 
-parseIntListParam = (field) => {
+const parseIntListParam = (field) => {
+  const intStrings = [].concat(field);
   const intList = [];
-  for (let i = 0; i < field.length; ++i) {
-    intList.push(parseIntParam[i]);
+  for (let i = 0; i < intStrings.length; ++i) {
+    intList.push(parseIntParam(intStrings[i]));
   }
-  return field;
-}
+  return intList;
+};
 
 const parseMap = new Map([
   ['id', parseIntParam],
@@ -74,7 +75,7 @@ const parseMap = new Map([
   ['longhigh', parseFloatParam],
   ['latlow', parseFloatParam],
   ['lathigh', parseFloatParam],
-  ['agencyid', parseIntParam],
+  ['agencyid', parseIntListParam],
   ['agencyname', parseStringParam],
   ['shootlow', parseIntParam],
   ['shoothigh', parseIntParam],
