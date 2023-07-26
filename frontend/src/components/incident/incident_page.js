@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Incident from './incident';
-import {SearchField} from '../shared/search';
+import {SearchField, NumberField, SearchDropdownField, ResultTitle} from '../shared/search';
 import MainNav from '../shared/nav';
 import PaginationComponent from '../shared/pagination_comp';
+import BodySection from '../shared/body_section';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
+
+const states = [
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN',
+  'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV',
+  'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN',
+  'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'DC',
+];
 
 const IncidentSearchForm = ({setSearchResults}) => {
   const [nameSearchQuery, setNameSearchQuery] = useState('');
   const [stateSearchQuery, setStateSearchQuery] = useState('');
   const [countySearchQuery, setCountySearchQuery] = useState('');
+  const [agencyNameSearchQuery, setAgencyNameSearchQuery] = useState('');
   const [agencyidSearchQuery, setAgencyidSearchQuery] = useState('');
 
   const searchAgencies = async () => {
     try {
       const urlStr = apiHost.concat(
         '/incident?',
-        (nameSearchQuery.length > 0) ? `victimname=${encodeURIComponent(nameSearchQuery)}&` : '',
-        (stateSearchQuery.length > 0) ? `state=${encodeURIComponent(stateSearchQuery)}&` : '',
-        (countySearchQuery.length > 0) ? `county=${encodeURIComponent(countySearchQuery)}&` : '',
-        (agencyidSearchQuery.length > 0) ? `agencyid=${encodeURIComponent(agencyidSearchQuery)}&` : ''
+        (nameSearchQuery) ? `victimname=${encodeURIComponent(nameSearchQuery)}&` : '',
+        (stateSearchQuery) ? `state=${encodeURIComponent(stateSearchQuery)}&` : '',
+        (countySearchQuery) ? `county=${encodeURIComponent(countySearchQuery)}&` : '',
+        (agencyNameSearchQuery) ? `agencyname=${encodeURIComponent(agencyNameSearchQuery)}&` : '',
+        (agencyidSearchQuery && !isNaN(agencyidSearchQuery)) ? `agencyid=${encodeURIComponent(agencyidSearchQuery)}&` : ''
       );
       console.log(urlStr);
       const response = await axios.get(urlStr);
@@ -37,10 +47,11 @@ const IncidentSearchForm = ({setSearchResults}) => {
         placeholderText={'Name of victim'}
         setSearchQuery={setNameSearchQuery}
       />
-      <SearchField
-        title={'State code'}
-        placeholderText={'e.g., WA'}
-        setSearchQuery={setStateSearchQuery}
+      <SearchDropdownField
+        title={"State"} 
+        options={states}
+        selectedOption={stateSearchQuery}
+        handleOptionChange={setStateSearchQuery}
       />
       <SearchField
         title={'County'}
@@ -48,12 +59,17 @@ const IncidentSearchForm = ({setSearchResults}) => {
         setSearchQuery={setCountySearchQuery}
       />
       <SearchField
+        title={'Agency name'}
+        placeholderText={'Agency name'}
+        setSearchQuery={setAgencyNameSearchQuery}
+      />
+      <NumberField
         title={'Agency ID'}
         placeholderText={'ID of agency involved'}
         setSearchQuery={setAgencyidSearchQuery}
       />
 
-      <button style={{ 'marginLeft': '2rem' }} onClick={searchAgencies}>
+      <button onClick={searchAgencies}>
             Search incidents
       </button>
     </div>
@@ -72,9 +88,7 @@ const IncidentsResultsList = ({searchResults}) => {
 
   return (
     <div>
-
-      <p>Total results: {searchResults.length}</p>
-
+      <ResultTitle count={searchResults.length}/>
       {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
           {displayedIncidents.map((incident) => (
@@ -84,7 +98,7 @@ const IncidentsResultsList = ({searchResults}) => {
           ))}
         </ul>
       ) : (
-        <h5>No matching incidents found.</h5>
+        <p>No matching incidents found.</p>
       )}{' '}
 
       <PaginationComponent
@@ -103,10 +117,13 @@ const IncidentPage = () => {
   return (
     <div>
       <MainNav/>
-      <h1>Incidents search</h1>
-      <IncidentSearchForm setSearchResults={setSearchResults}/>
-      <h2>Results</h2>
-      <IncidentsResultsList searchResults={searchResults}/>
+      <BodySection>
+        <h1>Incidents search</h1>
+        <hr/>
+        <IncidentSearchForm setSearchResults={setSearchResults}/>
+        <hr/>
+        <IncidentsResultsList searchResults={searchResults}/>
+      </BodySection>
     </div>
   );
 };

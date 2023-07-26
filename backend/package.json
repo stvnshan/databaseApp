@@ -11,7 +11,7 @@
     "testdb": "node src/test/unitWrapper.js",
     "resetdb": "npm run dropdb; npm run initdb"
   },
-  "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski, Arhum Waqar",
+  "author": "Toluwalogo Jibodu, Steven Shan, Hani Ly, Ethan Dobrowolski",
   "license": "ISC",
   "dependencies": {
     "chart.js": "^4.3.1",

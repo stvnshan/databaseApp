@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import TimeLine from './timeline';
-import {SearchField} from '../shared/search';
+import {NumberField} from '../shared/search';
 import MainNav from '../shared/nav';
+import BodySection from '../shared/body_section';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -14,7 +15,7 @@ const AgeSearchForm = ({setSearchResults}) => {
     try {
       const urlStr = apiHost.concat(
         '/incidentAge?',
-        (ageSearchQuery.length > 0 && !isNaN(ageSearchQuery)) ? `age=${encodeURIComponent(ageSearchQuery)}&` : 'age=20',
+        (ageSearchQuery && !isNaN(ageSearchQuery)) ? `age=${encodeURIComponent(ageSearchQuery)}&` : 'age=20',
       );
       console.log(urlStr);
       const response = await axios.get(urlStr);
@@ -28,13 +29,13 @@ const AgeSearchForm = ({setSearchResults}) => {
 
   return (
     <div>
-      <SearchField
+      <NumberField
         title={'Age'}
         placeholderText={'20'}
         setSearchQuery={setAgeSearchQuery}
       />
 
-      <button style={{ 'marginLeft': '2rem' }} onClick={searchAges}>
+      <button onClick={searchAges}>
             Search incidents
       </button>
     </div>
@@ -51,15 +52,13 @@ const AgesResultsList = ({searchResults}) => {
 
   return (
     <div>
-
-      {/* <p>Total results: {searchResults.length}</p> */}
-
+      <h2>Results</h2>
       {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
           <TimeLine key = {displayedIncidents} mentalIllnessData = {displayedIncidents}></TimeLine>
         </ul>
       ) : (
-        <h5>No matching incidents found.</h5>
+        <p>No matching incidents found.</p>
       )}{' '}
     </div>
   );
@@ -71,10 +70,13 @@ const TimelinePage = () => {
   return (
     <div>
       <MainNav/>
-      <h1>Age search</h1>
-      <AgeSearchForm setSearchResults={setSearchResults}/>
-      <h2>Results</h2>
-      <AgesResultsList searchResults={searchResults}/>
+      <BodySection>
+        <h1>Timeline</h1>
+        <hr/>
+        <AgeSearchForm setSearchResults={setSearchResults}/>
+        <hr/>
+        <AgesResultsList searchResults={searchResults}/>
+      </BodySection>
     </div>
   );
 };
