@@ -4,7 +4,7 @@ import Home from  './components/home';
 import AgencyPage from './components/agency/agency_page';
 import IncidentPage from './components/incident/incident_page';
 import FormPage from './components/form/form_page';
-import TimelinePage from './components/timeline/timeline_page';
+import TimelinePage from './components/timeLine/timeLine_page';
 import BodyCamPage from './components/bodycam/bodycaminfo_page';
 
 function App() {

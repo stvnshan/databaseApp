@@ -9,7 +9,7 @@ const apiHost = String(process.env.REACT_APP_API_HOST);
 const BodyCamSearchForm = ({ setBodyCamPercentage }) => {
   const [agencyIdSearchQuery, setAgencyIdSearchQuery] = useState('');
   const [invalidAgencyProvided, setInvalidAgencyProvided] = useState(false);
-  const [submittedPOST, setSubmittedPOST] = useState(false);
+  const [, setSubmittedPOST] = useState(false);
 
   const validateAgencyID = async () => {
     // Check if Agency exists

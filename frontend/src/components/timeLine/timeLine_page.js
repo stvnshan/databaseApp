@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import TimeLine from './timeline';
+import TimeLine from './timeLine';
 import {NumberField} from '../shared/search';
 import MainNav from '../shared/nav';
 import BodySection from '../shared/body_section';
