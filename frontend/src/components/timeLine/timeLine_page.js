@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import TimeLine from './timeLine';
+import TimeLine from './timeline';
 import {SearchField} from '../shared/search';
 import MainNav from '../shared/nav';
-import PaginationComponent from '../shared/pagination_comp';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -44,15 +43,13 @@ const AgeSearchForm = ({setSearchResults}) => {
 };
 
 const AgesResultsList = ({searchResults}) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, ] = useState(1);
   const ITEMS_PER_PAGE = 10;
   
   const firstItemIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const lastItemIndex = firstItemIndex + ITEMS_PER_PAGE;
   const displayedIncidents = searchResults.slice(firstItemIndex, lastItemIndex);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
   return (
     <div>
 
@@ -65,18 +62,11 @@ const AgesResultsList = ({searchResults}) => {
       ) : (
         <h5>No matching incidents found.</h5>
       )}{' '}
-
-      <PaginationComponent
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={searchResults.length}
-        paginate={paginate}
-      />
-
     </div>
   );
 }
 
-const TimeLinePage = () => {
+const TimelinePage = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   return (
@@ -90,4 +80,4 @@ const TimeLinePage = () => {
   );
 };
 
-export default TimeLinePage;
+export default TimelinePage;

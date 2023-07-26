@@ -1,10 +1,11 @@
 :root {
   --white: rgba(253, 253, 255, 1);
   --black: rgba(0, 0, 2, 1);
-  --map-dark-grey: rgba(27, 27, 29, 1);
-  --map-light-grey: rgba(52, 51, 50, 1);
-  --map-light2-grey: rgba(112, 111, 110, 1);
-  --map-mid-grey: rgba(32, 31, 30, 1);
+  --dark-grey: rgba(27, 27, 29, 1);
+  --light-grey: rgba(52, 51, 50, 1);
+  --light2-grey: rgba(112, 111, 110, 1);
+  --light3-grey: rgba(212, 211, 210, 1);
+  --mid-grey: rgba(32, 31, 30, 1);
 
   --all-fonts: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif
 }
@@ -21,6 +22,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.nav-bar {
+  box-shadow: 0px 5px 5px var(--light3-grey);
 }
 
 .map-container {
@@ -48,9 +53,9 @@ code {
 .mapboxgl-popup-content {
   height: 25px;
   padding: 3px;
-  background-color: var(--map-mid-grey);
+  background-color: var(--mid-grey);
   font-family: var(--all-fonts);
-  color: var(--map-light2-grey);
+  color: var(--light2-grey);
 }
 
 .mapboxgl-popup-tip {

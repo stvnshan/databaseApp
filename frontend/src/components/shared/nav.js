@@ -22,9 +22,9 @@ const MainNav = () => {
           <Nav className="me-auto">
             <Nav.Link href="/incidents">Incidents</Nav.Link>
             <Nav.Link href="/agencies">Agencies</Nav.Link>
-            <Nav.Link href="/incident_form">Incident Form</Nav.Link>
-            <Nav.Link href="/timeLine">Time Line</Nav.Link>
-            <Nav.Link href="/BodyCam Info">Body Cam</Nav.Link>
+            <Nav.Link href="/timeline">Timeline</Nav.Link>
+            <Nav.Link href="/bodycam">Bodycams</Nav.Link>
+            <Nav.Link href="/report">Submit a Report</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">

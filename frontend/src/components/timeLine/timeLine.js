@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -22,9 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const apiHost = process.env.REACT_APP_API_HOST;
-
-const TimeLine = ({mentalIllnessData}) => {
+const Timeline = ({mentalIllnessData}) => {
   const tmp = {
     labels: [''],
     datasets: [
@@ -172,4 +169,4 @@ const TimeLine = ({mentalIllnessData}) => {
 
 };
 
-export default TimeLine;
+export default Timeline;
