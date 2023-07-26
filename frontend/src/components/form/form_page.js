@@ -5,7 +5,9 @@ import {
   SearchField,
   SearchDateField,
   SearchDropdownField,
+  NumberField,
 } from "../shared/search";
+import BodySection from "../shared/body_section";
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 
@@ -41,7 +43,7 @@ const IncidentForm = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  const SubmitFormIfValid = async () => {
+  const validateAgencyID = async () => {
     // Check if Agency name exists
     try {
       const urlStr = apiHost.concat(
@@ -62,15 +64,23 @@ const IncidentForm = () => {
       if (!agencyExists) {
         setInvalidAgencyProvided(true);
         setSubmittedPOST(false);
-        return;
+        return false;
       }
     } catch (err) {
       console.error(err);
       setInvalidAgencyProvided(true);
       setSubmittedPOST(false);
-      return;
+      return false;
     }
+    return true;
+  }
 
+  const SubmitFormIfValid = async () => {
+    if (agencyName) {
+      const validAgency = await validateAgencyID();
+      if (!validAgency) return;
+    }
+  
     setInvalidAgencyProvided(false);
 
     // Submit the incident via POST request
@@ -92,7 +102,7 @@ const IncidentForm = () => {
         bodyCamera: bodyCameraOn,
         latitude: latitude,
         longitude: longitude,
-        agencyid: [agencyid.toString()]
+        agencyid: (agencyName && !invalidAgencyProvided) ? [agencyid.toString()] : '',
       };
       const urlStr = apiHost.concat(`/incident?`);
       console.log('POST data:\n', postData);
@@ -122,7 +132,7 @@ const IncidentForm = () => {
         setSearchQuery={setAgencyName}
       />
 
-      <SearchField 
+      <NumberField 
         title={"Age"} 
         placeholderText={""} 
         setSearchQuery={setAge} 
@@ -218,13 +228,13 @@ const IncidentForm = () => {
         setSearchQuery={setArmedWith}
       />
 
-      <SearchField
+      <NumberField
         title={"Latitude"}
         placeholderText={""}
         setSearchQuery={setLatitude}
       />
 
-      <SearchField
+      <NumberField
         title={"Longitude"}
         placeholderText={""}
         setSearchQuery={setLongitude}
@@ -232,7 +242,7 @@ const IncidentForm = () => {
 
       {invalidAgencyProvided ? <p style={{color: 'red'}}>Error: Agency name provided does not exist.</p> : null}
 
-      <button style={{ marginLeft: "2rem" }} onClick={SubmitFormIfValid}>
+      <button onClick={SubmitFormIfValid}>
         Submit Incident
       </button>
 
@@ -245,8 +255,11 @@ const FormPage = () => {
   return (
     <div>
       <MainNav />
-      <h1>Incident Submission</h1>
-      <IncidentForm />
+      <BodySection>
+        <h1>Incident Submission</h1>
+        <hr/>
+        <IncidentForm />
+      </BodySection>
     </div>
   );
 };
