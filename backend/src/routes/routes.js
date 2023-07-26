@@ -4,6 +4,7 @@ const {
     getIncident,
     getIncidentBrief,
     setIncident,
+    getAge,
     getVictim,
     getAgency,
     getAgencyBrief,
@@ -15,5 +16,6 @@ router.route('/incidentbrief').get(getIncidentBrief);
 router.route('/victim').get(getVictim);
 router.route('/agency').get(getAgency);
 router.route('/agencybrief').get(getAgencyBrief);
+router.route('/incidentAge').get(getAge);
 
 module.exports = router;

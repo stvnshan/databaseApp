@@ -180,6 +180,31 @@ const setIncident = async (req, res) => {
   }
 }
 
+// Retrieve mental illness number and armed number from Incident
+// route: GET /api/selectAge: age
+const getAge = async (req, res) => {
+  try{
+    const { age } = req.query;
+
+    const query = Object.fromEntries(
+      Object.entries({ age })
+      .map((attr) =>{
+        const parse = parseMap.get(attr[0]);
+        return [attr[0], parse(attr[1])];
+      })
+    );
+
+    const result = await incident.selectAge(query);
+
+    res.status(200).json(result);
+
+  }catch(error){
+    console.error('Error handling GET getAge', error);
+    res.status(500).json({error: 'Internal server error'});
+  }
+
+};
+
 
 // Retrieve an entry from Victim
 // route: GET /api/victim/:id,idlow,idhigh,name,agelow,agehigh,gender
@@ -258,6 +283,7 @@ module.exports = {
   getIncident,
   getIncidentBrief,
   setIncident,
+  getAge,
   getVictim,
   getAgency,
   getAgencyBrief,

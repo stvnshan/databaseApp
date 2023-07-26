@@ -91,6 +91,35 @@ const findBrief = async (params) => {
   }
 };
 
+const selectAge = async (age) => {
+  const client = await pool.connect();
+
+  try{
+    const query = `
+    SELECT 
+    DATE_PART('YEAR', I.date),
+    COUNT(*) AS total_number,
+    COUNT(CASE WHEN I.WasMentalIllnessRelated = true THEN 1 END) AS mental_number,
+    COUNT(CASE WHEN I.ArmedWith = 'gun' THEN 1 END) AS gun,
+    COUNT(CASE WHEN I.ArmedWith = 'knife' THEN 1 END) AS knife,
+    COUNT(CASE WHEN I.ArmedWith = 'blunt_object' THEN 1 END) AS bo,
+    COUNT(CASE WHEN I.ArmedWith = 'replica' THEN 1 END) AS rep ,
+    COUNT(CASE WHEN I.ArmedWith = 'unarmed' THEN 1 END) AS una, 
+    COUNT(CASE WHEN I.ArmedWith = 'vehicle' THEN 1 END) AS veh 
+    FROM Incident I NATURAL JOIN Victim V   
+    WHERE V.age = $1
+    GROUP BY DATE_PART('YEAR', I.date) 
+    ORDER BY DATE_PART('YEAR', I.date) 
+    `;
+    const result = await client.query(query, [age.age]);
+    return result.rows;
+  }catch(error){
+    console.error(`Error finding Incident (selectage), `, error);
+  } finally{
+    client.release();
+  }
+};
+
 
 const maxID = async () => {
   const client = await pool.connect();
@@ -161,4 +190,5 @@ module.exports = {
   findBrief,
   maxID,
   add,
+  selectAge,
 };
