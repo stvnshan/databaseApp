@@ -159,10 +159,8 @@ const setIncident = async (req, res) => {
       })
     );
 
-    const cityID = await city.add({cityName: params.city, county: params.county, state: params.state});
-    const victimID = await victim.add({
-      name: params.victimname, age: params.age, gender: params.gender, race: params.race, raceSource: params.raceSource
-    });
+    const cityID = await city.add(params.city, params.county, params.state);
+    const victimID = await victim.add(params.victimname, params.age, params.gender, params.race, params.raceSource);
     const incidentID = await incident.maxID() + 1;
 
     const query = {
