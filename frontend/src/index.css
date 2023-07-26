@@ -45,6 +45,12 @@ code {
   cursor: pointer;
 }
 
+.marker:hover {
+  background-image: url('/caret-down-fill-hover.svg');
+  background-size: cover;
+  cursor: pointer;
+}
+
 .mapboxgl-popup {
   max-width: 400px;
 }
