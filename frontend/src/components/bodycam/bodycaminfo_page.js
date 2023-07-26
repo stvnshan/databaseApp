@@ -39,8 +39,6 @@ const BodyCamSearchForm = ({ setBodyCamPercentage }) => {
     console.log(validAgency);
     if (!validAgency) return;
 
-    console.log('hmmm')
-  
     setInvalidAgencyProvided(false);
 
     try {
