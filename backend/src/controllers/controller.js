@@ -186,6 +186,7 @@ const getAge = async (req, res) => {
 
     const query = Object.fromEntries(
       Object.entries({ age })
+      .filter((attr) => attr[1] !== undefined)
       .map((attr) =>{
         const parse = parseMap.get(attr[0]);
         return [attr[0], parse(attr[1])];

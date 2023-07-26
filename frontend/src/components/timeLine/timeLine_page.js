@@ -12,10 +12,9 @@ const AgeSearchForm = ({setSearchResults}) => {
 
   const searchAges = async () => {
     try {
-      
       const urlStr = apiHost.concat(
         '/incidentAge?',
-        (ageSearchQuery.length > 0) ? `age=${encodeURIComponent(ageSearchQuery)}&` : '',
+        (ageSearchQuery.length > 0 && !isNaN(ageSearchQuery)) ? `age=${encodeURIComponent(ageSearchQuery)}&` : 'age=20',
       );
       console.log(urlStr);
       const response = await axios.get(urlStr);

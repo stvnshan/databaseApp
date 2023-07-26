@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import '../index.css';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZWRvYnJvd28iLCJhIjoiY2xqeWhhdHNrMDQyaTNkb2YyZTdheHJtYSJ9.n1sAsb2dGV9ABpQhHP8qxQ';
@@ -15,6 +14,7 @@ let lastLngLow = 0;
 let firstLoad = true;
 
 const markers = [];
+const popups = [];
 
 const Map = () => {
   const [incidents, setIncidents] = useState([]);
@@ -52,6 +52,19 @@ const Map = () => {
       center: [initLng, initLat],
       zoom: initZoom,
     });
+
+    for (let i = 0; i < 300; ++i) {
+      const el = document.createElement('div');
+      el.className = 'marker';
+      const popup = new mapboxgl.Popup({ offset: 10 });
+      popups.push(popup)
+      const marker = new mapboxgl
+        .Marker(el)
+        .setLngLat([0, 0])
+        .setPopup(popup)
+        .addTo(map.current);
+      markers.push(marker);
+    }
   }, []);
 
   useEffect(() => {
@@ -61,10 +74,8 @@ const Map = () => {
 
     const width = Math.abs(lngHigh - lngLow);
     const height = Math.abs(latHigh - latLow);
-    const widthOld = Math.abs(lngHigh - lastLngLow);
-    const heightOld = Math.abs(latHigh - lastLatLow);
-    const lngOffset = (width > widthOld) ? width / 10 : width / 5;
-    const latOffset = (height > heightOld) ? height / 10 : height / 5;
+    const lngOffset = width / 30;
+    const latOffset = height / 30;
     if (Math.abs(lngLow - lastLngLow) < lngOffset && Math.abs(latLow - lastLatLow) < latOffset) {
       return;
     }
@@ -74,20 +85,11 @@ const Map = () => {
     lastLngLow = lngLow;
     lastLatLow = latLow;
 
-    for (let i = 0; i < markers.length; ++i) {
-      markers[i].remove();
-    }
-
     for (let i = 0; i < incidents.length; ++i) {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      const popup = new mapboxgl.Popup({ offset: 10 }).setText(`${incidents[i].name}, ${incidents[i].date.substring(0, 10)}`);
-      const marker = new mapboxgl
-        .Marker(el)
-        .setLngLat([incidents[i].longitude, incidents[i].latitude])
-        .setPopup(popup)
-        .addTo(map.current);
-      markers.push(marker);
+      const victimname = (incidents[i].name) ? incidents[i].name : 'Unknown';
+      popups[i].setText(`${victimname}, ${incidents[i].date.substring(0, 10)}`)
+      markers[i].setLngLat([incidents[i].longitude, incidents[i].latitude])
+      markers[i].addTo(map.current)
     }
   });
 
@@ -106,9 +108,7 @@ const Map = () => {
   })
 
   return (
-    <div>
-      <div ref={mapContainer} className='map-container' />
-    </div>
+    <div ref={mapContainer} className='map-container' />
   );
 };
 
