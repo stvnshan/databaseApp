@@ -184,8 +184,8 @@ const populateWithIncidentCSV = async (incidentCsvPath) => {
       const threatenType = rowData[columnNameIndices.threatenType].replace(/"/g, '');
       const fleeStatus = rowData[columnNameIndices.fleeStatus].replace(/"/g, '');
       const armedWith = rowData[columnNameIndices.armedWith].replace(/"/g, '');
-      const wasMentalIllnessRelated = rowData[columnNameIndices.wasMentalIllnessRelated].replace(/"/g, '') === 'true';
-      const bodyCamera = rowData[columnNameIndices.bodyCamera].replace(/"/g, '') === 'true';
+      const wasMentalIllnessRelated = rowData[columnNameIndices.wasMentalIllnessRelated].replace(/"/g, '') === 'True';
+      const bodyCamera = rowData[columnNameIndices.bodyCamera].replace(/"/g, '') === 'True';
       const latitudeStr = rowData[columnNameIndices.latitude].replace(/"/g, '');
       const latitude = !isNaN(latitudeStr) ? parseFloat(latitudeStr) : null;
       const longitudeStr = rowData[columnNameIndices.longitude].replace(/"/g, '');
