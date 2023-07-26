@@ -5,6 +5,7 @@ import AgencyPage from './components/agency/agency_page';
 import IncidentPage from './components/incident/incident_page';
 import FormPage from './components/form/form_page';
 import TimeLinePage from './components/timeLine/timeLine_page';
+import BodyCamPage from './components/bodycam/bodycaminfo_page';
 
 function App() {
    return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/incidents/' element={<IncidentPage />} />
           <Route path='/incident_form/' element={<FormPage />} />
           <Route path='/timeLine/' element={<TimeLinePage />} />
+          <Route path='/BodyCam Info/' element={<BodyCamPage />} />
 
         </Routes>
       </BrowserRouter>

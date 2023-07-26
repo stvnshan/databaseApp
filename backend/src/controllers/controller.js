@@ -277,6 +277,26 @@ const getAgencyBrief = async (req, res) => {
   }
 };
 
+// Retrieve body cam percentage for a given Agency
+// route: GET /api/bodycamPercentage/:id
+const getBodyCamPercentage = async (req, res) => {
+  try {
+      let agencyId = req.query.id;
+      console.log("Agency ID:", agencyId);
+      
+      if (!agencyId) {
+          return res.status(400).json({ error: 'Agency ID is required' });
+      }
+
+      const percentage = await incident.computeBodyCamPercentage(agencyId);
+      res.status(200).json({ bodyCamPercentage: percentage.toFixed(2) });
+
+  } catch (error) {
+      console.error('Error in retrieving body cam percentage:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   getIncident,
   getIncidentBrief,
@@ -285,4 +305,5 @@ module.exports = {
   getVictim,
   getAgency,
   getAgencyBrief,
+  getBodyCamPercentage,
 };
