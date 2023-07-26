@@ -56,7 +56,7 @@ const AgesResultsList = ({searchResults}) => {
   return (
     <div>
 
-      <p>Total results: {searchResults.length}</p>
+      {/* <p>Total results: {searchResults.length}</p> */}
 
       {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
