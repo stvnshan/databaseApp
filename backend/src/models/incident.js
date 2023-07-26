@@ -121,6 +121,42 @@ const selectAge = async (age) => {
   }
 };
 
+const computeBodyCamPercentage = async (agencyId) => {
+  const client = await pool.connect();
+
+  try {
+      const withBodyCamQuery = `
+          SELECT COUNT(*) as count FROM Incident I
+          JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID
+          WHERE AI.AgencyID = $1 AND I.BodyCamera = TRUE;
+      `;
+
+      const totalIncidentsQuery = `
+          SELECT COUNT(*) as count FROM Incident I
+          JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID
+          WHERE AI.AgencyID = $1;
+      `;
+
+      const { rows: withBodyCamRows } = await client.query(withBodyCamQuery, [agencyId]);
+      const { rows: totalIncidentsRows } = await client.query(totalIncidentsQuery, [agencyId]);
+
+      const withBodyCamCount = parseInt(withBodyCamRows[0].count, 10);
+      const totalIncidentsCount = parseInt(totalIncidentsRows[0].count, 10);
+
+      if (totalIncidentsCount === 0) {
+          return 0;
+      }
+
+      return (withBodyCamCount / totalIncidentsCount) * 100;
+  } catch (error) {
+      console.error('Error fetching body cam percentage:', error);
+      throw error;
+  } finally {
+      client.release();
+  }
+};
+
+
 
 const maxID = async () => {
   const client = await pool.connect();
@@ -192,4 +228,5 @@ module.exports = {
   maxID,
   add,
   selectAge,
+  computeBodyCamPercentage
 };
