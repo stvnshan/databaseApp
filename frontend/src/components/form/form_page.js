@@ -7,7 +7,7 @@ import {
   SearchDropdownField,
   NumberField,
 } from "../shared/search";
-import BodySection from "../shared/body_section";
+import BodySection from '../shared/body_section';
 
 const apiHost = String(process.env.REACT_APP_API_HOST);
 

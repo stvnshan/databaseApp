@@ -92,15 +92,9 @@ const AgencyResultsList = ({searchResults}) => {
       />
       {searchResults.length > 0 ? (
         <div>
-          <div className='card' style={{ width: '100%' }}>
-            <ul className='list-group list-group-flush'>
-              {displayedAgencies.map((agency) => (
-                <li key={agency.agencyid} className='list-group-item'>
-                  <Agency key={agency.agencyid} agencyData={agency}></Agency>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {displayedAgencies.map((agency) => (
+              <Agency key={agency.agencyid} agencyData={agency}></Agency>
+            ))}
         </div>
       ) : (
         <p>No matching agencies found.</p>
