@@ -43,7 +43,6 @@ const Timeline = ({mentalIllnessData}) => {
       try {
          
         let result;
-         console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
         if(typeof mentalIllnessData !== 'undefined'){
           
           let year = [];
@@ -156,8 +155,6 @@ const Timeline = ({mentalIllnessData}) => {
   }, [mentalIllnessData]);
   
   const options = {
-    // height:"1500px",
-    // width :"1500px",
     maintainAspectRatio: false,
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import TimeLine from './timeLine';
-import {NumberField} from '../shared/search';
+import { NumberField } from '../shared/search';
 import MainNav from '../shared/nav';
 import BodySection from '../shared/body_section';
 
@@ -53,6 +53,7 @@ const AgesResultsList = ({searchResults}) => {
   return (
     <div>
       <h2>Results</h2>
+      <hr/>
       {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
           <TimeLine key = {displayedIncidents} mentalIllnessData = {displayedIncidents}></TimeLine>
