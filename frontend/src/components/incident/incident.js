@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import { CardTitleSplit } from '../shared/card_parts';
 
 const apiHost = process.env.REACT_APP_API_HOST;
 
@@ -37,19 +39,19 @@ const Incident = ({incidentid}) => {
   }, []);
 
   return (
-    <div>
-        <p>Incident ID: {incidentData.incidentid}</p>
-        <p>Date: {incidentData.date}</p>
-        <p>Victim name: {incidentData.name}</p>
-        <p>Age: {incidentData.age}</p>
-        <p>Gender: {incidentData.gender}</p>
-        <p>Race: {incidentData.race}</p>
-        <p>State: {incidentData.state}</p>
-        <p>County: {incidentData.county}</p>
-        <p>Agencies involved: {incidentData.agencynames}</p>
-    </div>
+    <Card className='incident-card'>
+      <Card.Body>
+        <Card.Title><CardTitleSplit name={(incidentData.name) ? incidentData.name : 'Unknown'} id={incidentData.incidentid}/></Card.Title>
+        <Card.Text className='incident-card-body'>
+          <div><b>Age</b>: {incidentData.age}</div>
+          <div><b>Gender</b>: {incidentData.gender}</div>
+          <div><b>Race</b>: {incidentData.race}</div>
+          <div><b>Setting</b>: {`${incidentData.cityname}, ${incidentData.county}, ${incidentData.state}, ${(incidentData.date) ? incidentData.date.substring(0, 10) : incidentData.date}`}</div>
+          <div><b>Agencies</b>: {incidentData.agencynames}</div>
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
-
 };
 
 export default Incident;

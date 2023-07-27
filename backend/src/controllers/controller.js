@@ -283,8 +283,7 @@ const getAgencyBrief = async (req, res) => {
 const getBodyCamPercentage = async (req, res) => {
   try {
       let agencyId = req.query.id;
-      console.log("Agency ID:", agencyId);
-      
+
       if (!agencyId) {
           return res.status(400).json({ error: 'Agency ID is required' });
       }

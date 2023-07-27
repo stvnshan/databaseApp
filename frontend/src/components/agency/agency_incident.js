@@ -38,12 +38,7 @@ const AgencyIncident = ({incidentid}) => {
 
   return (
     <div>
-        <p>Incident ID: {incidentData.incidentid}</p>
-        <p>Date: {incidentData.date}</p>
-        <p>Victim name: {incidentData.name}</p>
-        <p>Age: {incidentData.age}</p>
-        <p>Gender: {incidentData.gender}</p>
-        <p>Race: {incidentData.race}</p>
+        <p>ID {incidentData.incidentid}, {(incidentData.name) ? incidentData.name : 'Unknown'}, {(incidentData.date) ? incidentData.date.substring(0, 10) : incidentData.date }</p>
     </div>
   );
 

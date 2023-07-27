@@ -96,13 +96,9 @@ const IncidentsResultsList = ({searchResults}) => {
         paginate={paginate}
       />
       {displayedIncidents.length > 0 ? (
-        <ul className='list-group list-group-flush'>
-          {displayedIncidents.map((incident) => (
-            <li key={incident.incidentid} className='list-group-item'>
+          displayedIncidents.map((incident) => (
               <Incident key={incident.incidentid} incidentid={incident.incidentid}></Incident>
-            </li>
-          ))}
-        </ul>
+          ))
       ) : (
         <p>No matching incidents found.</p>
       )}{' '}

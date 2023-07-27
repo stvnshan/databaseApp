@@ -28,7 +28,7 @@ const queryBuilder = (params) => {
   LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID
   LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID
   ${(predicates.length !== 0) ? 'WHERE ' : ''}${predicates}GROUP BY A.AgencyID
-  ORDER BY A.AgencyName
+  ORDER BY A.AgencyID
   `.replace(/\$ARG/g, () => `$${argIndex++}`);
 
   return query;
