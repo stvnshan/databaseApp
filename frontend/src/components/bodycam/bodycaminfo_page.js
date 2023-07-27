@@ -58,7 +58,7 @@ const BodyCamSearchForm = ({ setBodyCamPercentage }) => {
     <div>
       <NumberField
         title={'Agency ID'}
-        placeholderText={'70'}
+        placeholderText={'Enter an Agency ID'}
         setSearchQuery={setAgencyIdSearchQuery}
       />
 

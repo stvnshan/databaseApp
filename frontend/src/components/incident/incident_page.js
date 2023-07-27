@@ -89,6 +89,12 @@ const IncidentsResultsList = ({searchResults}) => {
   return (
     <div>
       <ResultTitle count={searchResults.length}/>
+      <hr/>
+      <PaginationComponent
+        itemsPerPage={ITEMS_PER_PAGE}
+        totalItems={searchResults.length}
+        paginate={paginate}
+      />
       {displayedIncidents.length > 0 ? (
         <ul className='list-group list-group-flush'>
           {displayedIncidents.map((incident) => (
@@ -100,13 +106,6 @@ const IncidentsResultsList = ({searchResults}) => {
       ) : (
         <p>No matching incidents found.</p>
       )}{' '}
-
-      <PaginationComponent
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={searchResults.length}
-        paginate={paginate}
-      />
-
     </div>
   );
 }

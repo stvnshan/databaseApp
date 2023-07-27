@@ -84,6 +84,12 @@ const AgencyResultsList = ({searchResults}) => {
   return (
     <div>
       <ResultTitle count={searchResults.length}/>
+      <hr/>
+      <PaginationComponent
+        itemsPerPage={ITEMS_PER_PAGE}
+        totalItems={searchResults.length}
+        paginate={paginate}
+      />
       {searchResults.length > 0 ? (
         <div>
           <div className='card' style={{ width: '100%' }}>
@@ -97,15 +103,8 @@ const AgencyResultsList = ({searchResults}) => {
           </div>
         </div>
       ) : (
-        <h5>No matching agencies found.</h5>
+        <p>No matching agencies found.</p>
       )}{' '}
-
-      <PaginationComponent
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={searchResults.length}
-        paginate={paginate}
-      />
-
     </div>
   );
 };
