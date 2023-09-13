@@ -11,9 +11,90 @@ To load and test the database with **production data**, in the file `backend/.en
 ## Feature support
 Requests are sent through the backend. HTTP requests are routed via `backend/src/routes/routes.js`, and handled in `backend/src/controllers/controller.js`. The controllers then call the according model functions in `backend/src/models` that then communicate with the database to retrieve the requested data.
 For now, the web UI should be run with the *sample dataset*. Frontend files are found in `frontend/src/web`.
-1. Feature 1 -- Agencies Webpage: a page that provides information on different agencies. The frontend is implemented in the `search.js`, `Agency.js`, and `AgencyIncident.js` files. Model functions are found in `backend/src/models/agency.js` and `backend/src/models/incident.js`.
-2. Feature 2 -- Map Visualizer: a map visualization of all incidents. The frontend is implemented in the `mapview.js` file. Model functions are found in `backend/src/models/incident.js` . 
-3. Feature 3 -- Incident Search: a page to search incidents according to various attributes. The frontend is implemented in the `search2.js` and `Incident.js` files. Model functions are found in `backend/src/models/incident.js`.
+
+Feature 1 – Agencies Page  
+There is an Agencies webpage which lists police agencies stored in the database. The user enters a form to query the database, which will then return information about all agencies that satisfy this query. 
+Query 
+SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, 
+	JSONB_AGG(DISTINCT AI.IncidentID) AS IncidentIDs, JSONB_AGG(DISTINCT O.ori) 	 AS OriCodes 
+FROM Agency A 
+LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID 
+LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID 
+LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID 
+LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID 
+WHERE LOWER(A.AgencyName) LIKE “{SEARCH_TERM}” 
+GROUP BY A.AgencyID 
+ORDER BY A.AgencyID 
+
+ 
+Feature 2 – Map Visualizer  
+The website will contain map visualization capabilities such as the ability for users to visually see where incidents occurred on a map. 
+Query 
+SELECT IncidentID, V.Name, date, longitude, latitude 
+FROM Incident I 
+LEFT OUTER JOIN Victim V ON I.VictimID = V.VictimID 
+WHERE longitude > ‘low_longitude’ AND longitude < ‘high_longitude’ AND 
+          latitude > ‘low_latitude AND latitude < ‘high_latitude’ 
+LIMIT 300; 
+ 
+ 
+Feature 3 – Incident Search  
+The website will have a general search feature where users can search and filter for incidents by criteria such as name, location, agencies involved, victim race and victim gender. For example, given a full name, a query will be performed that will look for incidents where the victim’s name matches the given full name. 
+Query 
+SELECT I.IncidentID, I.Date, I.ThreatenType, I.FleeStatus, 
+	I.ArmedWith, I.WasMentalIllnessRelated, I.BodyCamera, I.Latitude, 
+	I.Longitude, 
+	V.VictimID, V.Name, V.Age, V.Gender, V.Race, V.RaceSource, 
+	JSONB_AGG(DISTINCT AI.AgencyID) AS AgencyIDs, 
+	JSONB_AGG(A.AgencyName) AS AgencyNames, 
+	C.CityID, C.CityName, C.County, C.State 
+FROM Incident I 
+LEFT OUTER JOIN Victim V ON I.VictimID = V.VictimID 
+LEFT OUTER JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID 
+LEFT OUTER JOIN Agency A ON AI.AgencyID = A.AgencyID 
+LEFT OUTER JOIN City C ON I.CityID = C.CityID 
+ORDER BY I.IncidentID 
+ 
+ 
+Feature 4 – Report Submission  
+The website will contain a form which users can fill out to submit a report of a fatal police shooting incident. A query will then be performed which inserts this entry into the database. 
+Query 
+INSERT INTO Incident (IncidentID, Date, ThreatenType, FleeStatus, ArmedWith, 	WasMentalIllnessRelated, BodyCamera, Latitude, Longitude) 
+VALUES (1, '2023-05-30', 'point', 'not', 'Gun', TRUE, TRUE, 123.456, 		789.012); 
+INSERT INTO AgenciesInvolved (IncidentID, AgencyID) 
+VALUES (‘agencyIDs’, UNNEST(ARRAY[agencyIDListString])); 
+ 
+ 
+ 
+Feature 5 – Timeline Graph  
+The website will have a search feature where users can input an age number. A timeline graph will be shown which contains the number of incidents, percentage of those incidents which are related to mental illness and percentage of the victims who are armed with.  
+Query  
+SELECT  
+    DATE_PART('YEAR', I.date), 
+    COUNT(*) AS total_number, 
+    COUNT(CASE WHEN I.WasMentalIllnessRelated = true THEN 1 END) AS 
+    mental_number, 
+    COUNT(CASE WHEN I.ArmedWith = 'gun' THEN 1 END) AS gun, 
+    COUNT(CASE WHEN I.ArmedWith = 'knife' THEN 1 END) AS knife, 
+    COUNT(CASE WHEN I.ArmedWith = 'blunt_object' THEN 1 END) AS bo, 
+    COUNT(CASE WHEN I.ArmedWith = 'replica' THEN 1 END) AS rep , 
+    COUNT(CASE WHEN I.ArmedWith = 'unarmed' THEN 1 END) AS una,  
+    COUNT(CASE WHEN I.ArmedWith = 'vehicle' THEN 1 END) AS veh  
+    FROM Incident I NATURAL JOIN Victim V    
+    WHERE V.age = $1 
+    GROUP BY DATE_PART('YEAR', I.date) 
+    ORDER BY DATE_PART('YEAR', I.date) 
+  
+ 
+ 
+Feature 6 – Bodycam Usage Percentage  
+The website will have a search feature where users can input a police department ID. A query will output the percentage of police officers from the given police department who wear a body camera when they are involved with an incident. 
+Query 
+SELECT COUNT(*) as count FROM Incident I 
+JOIN AgenciesInvolved AI ON I.IncidentID = AI.IncidentID 
+WHERE AI.AgencyID = “input_ID” AND I.BodyCamera = TRUE; 
+
+
 
 ## Mac setup
 1. Install brew (https://brew.sh/).
