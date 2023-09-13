@@ -13,18 +13,18 @@ Requests are sent through the backend. HTTP requests are routed via `backend/src
 For now, the web UI should be run with the *sample dataset*. Frontend files are found in `frontend/src/web`.
 
 Feature 1 – Agencies Page  
-There is an Agencies webpage which lists police agencies stored in the database. The user enters a form to query the database, which will then return information about all agencies that satisfy this query. 
-Query 
-SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings, 
-	JSONB_AGG(DISTINCT AI.IncidentID) AS IncidentIDs, JSONB_AGG(DISTINCT O.ori) 	 AS OriCodes 
-FROM Agency A 
-LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID 
-LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID 
-LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID 
-LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID 
-WHERE LOWER(A.AgencyName) LIKE “{SEARCH_TERM}” 
-GROUP BY A.AgencyID 
-ORDER BY A.AgencyID 
+There is an Agencies webpage which lists police agencies stored in the database. The user enters a form to query the database, which will then return information about all agencies that satisfy this query. <br>
+Query <br>
+SELECT A.AgencyID, A.AgencyName, A.Type, A.State, A.TotalShootings,<br> 
+	JSONB_AGG(DISTINCT AI.IncidentID) AS IncidentIDs, JSONB_AGG(DISTINCT O.ori) 	 AS OriCodes <br>
+FROM Agency A <br>
+LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID <br>
+LEFT OUTER JOIN ORICode O ON A.AgencyID = O.AgencyID <br>
+LEFT OUTER JOIN AgenciesInvolved AI ON A.AgencyID = AI.AgencyID <br>
+LEFT OUTER JOIN HasORICodes O ON A.AgencyID = O.AgencyID <br>
+WHERE LOWER(A.AgencyName) LIKE “{SEARCH_TERM}” <br>
+GROUP BY A.AgencyID <br>
+ORDER BY A.AgencyID <br>
 
  
 Feature 2 – Map Visualizer  
