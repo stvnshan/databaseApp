@@ -1,4 +1,5 @@
 # CS 348 Group Project
+For more info, check final report.pdf
 ## Setup
 The latter sections of the README provide an explanation on how to set up the database application.
 ## Sample and Production datasets
